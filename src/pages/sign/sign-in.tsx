@@ -1,9 +1,8 @@
-import { Box, Button, Container, Flex, HStack, Input, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, HStack, Input, Link, Text, VStack } from "@chakra-ui/react";
 
 export function SignIn() {
   return (
-    <Box flex="1"
-    backgroundColor={"black"}>
+    <Box flex="1" backgroundColor={"black"}>
       <Container
         maxWidth="md"
         height="full"
@@ -16,20 +15,18 @@ export function SignIn() {
           <Input type="email" placeholder="E-mail" background="white" />
           <VStack width="full" spacing={0} alignItems="end">
             <Input type="password" placeholder="Senha" background="white" />
-            <Link  color="blue" href="">
+            <Link color="white" href="">
               Esqueceu a senha?
             </Link>
           </VStack>
-          <Button width="full" color="white" backgroundColor="blue" colorScheme="purple">
-            Entrar
-          </Button>
-            <Text color="white">
-              Novo no Castfy? {' '}
-              <Link color="blue" href="">
-                Create an account
-              </Link>
-          </Text>
-
+          <HStack display={"flex"} width="full">
+            <Button flex="1" color="white" backgroundColor="blue" colorScheme="blue">
+              Login
+            </Button>
+            <Button flex="1" color="white" backgroundColor="blue" colorScheme="blue">
+              Cadastre-se
+            </Button>
+          </HStack>
         </VStack>
       </Container>
     </Box>
