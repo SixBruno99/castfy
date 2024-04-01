@@ -25,7 +25,7 @@ interface IProps {
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [signed, setSigned] = useState<boolean>(false);
-  ("");
+  
   async function signIn(payload: ISignInPayload, rememberMe: boolean) {
     try {
       // envia o payload para o repositório fazer a requisição de signIn

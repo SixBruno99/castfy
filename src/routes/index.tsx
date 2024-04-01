@@ -8,8 +8,6 @@ export function Routes() {
 
   const { signed } = useAuth();
 
-  console.log("signed", signed);
-
   useEffect(() => {
     if (!signed) return setRouter(UnauthenticatedRouter);
 
