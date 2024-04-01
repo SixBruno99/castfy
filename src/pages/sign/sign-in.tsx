@@ -1,4 +1,5 @@
-import { Box, Button, Container, HStack, Input, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, HStack, Input, Text, VStack } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export function SignIn() {
   return (
@@ -15,16 +16,18 @@ export function SignIn() {
           <Input type="email" placeholder="E-mail" background="white" />
           <VStack width="full" spacing={0} alignItems="end">
             <Input type="password" placeholder="Senha" background="white" />
-            <Link color="white" href="">
-              Esqueceu a senha?
-            </Link>
+            <Text color={"white"}>
+              <Link to="/">
+                Esqueceu a senha?
+              </Link>
+            </Text>
           </VStack>
           <HStack display={"flex"} width="full">
             <Button flex="1" color="white" backgroundColor="blue" colorScheme="blue">
               Login
             </Button>
             <Button flex="1" color="white" backgroundColor="blue" colorScheme="blue">
-              Cadastre-se
+              <Link to="/signUp">Cadastre-se</Link>
             </Button>
           </HStack>
         </VStack>
