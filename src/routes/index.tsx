@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthenticatedRouter, UnauthenticatedRouter } from "./routers";
+import { useAuth } from "../contexts/auth";
 
 export function Routes() {
   const [router, setRouter] = useState(UnauthenticatedRouter);
 
-  const signed = false;
+  const { signed } = useAuth();
+
+  console.log("signed", signed);
 
   useEffect(() => {
     if (!signed) return setRouter(UnauthenticatedRouter);

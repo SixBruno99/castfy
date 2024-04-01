@@ -1,7 +1,18 @@
-import { Box, Button, Container, HStack, Input, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  HStack,
+  Input,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/auth";
 
 export function SignIn() {
+  const { signIn } = useAuth();
+
   return (
     <Box flex="1" backgroundColor={"black"}>
       <Container
@@ -17,16 +28,27 @@ export function SignIn() {
           <VStack width="full" spacing={0} alignItems="end">
             <Input type="password" placeholder="Senha" background="white" />
             <Text color={"white"}>
-              <Link to="/">
-                Esqueceu a senha?
-              </Link>
+              <Link to="/">Esqueceu a senha?</Link>
             </Text>
           </VStack>
           <HStack display={"flex"} width="full">
-            <Button flex="1" color="white" backgroundColor="blue" colorScheme="blue">
+            <Button
+              flex="1"
+              color="white"
+              backgroundColor="blue"
+              colorScheme="blue"
+              onClick={() => {
+                // usar função de signIn do contexto para efetuar o login
+              }}
+            >
               Login
             </Button>
-            <Button flex="1" color="white" backgroundColor="blue" colorScheme="blue">
+            <Button
+              flex="1"
+              color="white"
+              backgroundColor="blue"
+              colorScheme="blue"
+            >
               <Link to="/signUp">Cadastre-se</Link>
             </Button>
           </HStack>
