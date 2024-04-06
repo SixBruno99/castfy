@@ -1,8 +1,9 @@
-import { Container, Box, VStack, Input, Button } from "@chakra-ui/react";
+import { Container, Box, VStack, Input, Button, FormControl,
+  FormLabel, Image} from "@chakra-ui/react";
 
 export function SignUp() {
   return (
-    <Box flex="1">
+    <Box flex="1" backgroundColor={"black"}>
       <Container
         maxWidth="md"
         height="full"
@@ -11,16 +12,45 @@ export function SignUp() {
         alignItems="center"
         justifyContent="center"
       >
-        <VStack width="full" spacing={3}>
-          <Input type="email" placeholder="E-mail" />
-          <Input type="password" placeholder="Senha" />
+
+        <Image src="/Castfy_DarkMode.svg" width={300}/>
+
+        <VStack width="full" spacing={3} marginInline={10} overflowY={"auto"}>
+      
+          <FormControl>
+            <FormLabel color={"white"} fontSize={14}>Email</FormLabel>
+            <Input type="email" placeholder="E-mail" background={"white"} />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel color={"white"} fontSize={14}>Usuário</FormLabel>
+            <Input type="text" placeholder="Usuário" background={"white"}/>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel color={"white"} fontSize={14}>Data de Nascimento</FormLabel>
+            <Input type="date" placeholder="Data de Nascimento" background={"white"} />
+          </FormControl>
+
+          <FormControl >
+            <FormLabel color={"white"} fontSize={14}>Senha</FormLabel>
+            <Input type="password" placeholder="Senha" background={"white"} />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel color={"white"} fontSize={14}>Confirmar Senha</FormLabel>
+            <Input type="password" placeholder="Confirmar Senha" background={"white"} />
+          </FormControl>
+
           <Button
+          type="submit"
+            marginTop={5}
             width="full"
             color="white"
-            backgroundColor="#413C69"
-            colorScheme="purple"
+            backgroundColor="blue"
+            colorScheme="blue"
           >
-            Entrar
+            Cadastre-se
           </Button>
         </VStack>
       </Container>

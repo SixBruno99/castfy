@@ -4,7 +4,7 @@ import { Footer } from "./components/footer";
 
 export function SignLayout() {
   return (
-    <Box width="full">
+    <Box width="full" overflowY={"scroll"}>
       <Flex width="full" height="calc(100vh - 56px)">
         <Outlet />
       </Flex>

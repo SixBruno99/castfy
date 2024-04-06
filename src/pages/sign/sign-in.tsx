@@ -6,6 +6,7 @@ import {
   Input,
   Text,
   VStack,
+  Image
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
@@ -21,8 +22,11 @@ export function SignIn() {
         display="flex"
         flexDirection="column"
         alignItems="center"
-        justifyContent="center"
+        justifyContent="start"
+        overflowY={"auto"}
       >
+
+        <Image src="/Castfy_DarkMode.svg"/>
         <VStack width="full" spacing={5}>
           <Input type="email" placeholder="E-mail" background="white" />
           <VStack width="full" spacing={0} alignItems="end">
