@@ -8,7 +8,7 @@ export function MainLayout() {
   return (
     <Box>
       <Header />
-      <Flex width="full" minHeight="calc(100vh - 112px)">
+      <Flex width="full" height="100vh">
         <Outlet />
       </Flex>
       <Footer />

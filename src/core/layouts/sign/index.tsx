@@ -1,14 +1,12 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import { Footer } from "./components/footer";
 
 export function SignLayout() {
   return (
     <Box width="full" overflowY={"scroll"}>
-      <Flex width="full" height="calc(100vh - 56px)">
+      <Flex width="full" height="100vh">
         <Outlet />
       </Flex>
-      <Footer />
     </Box>
   );
 }
