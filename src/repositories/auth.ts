@@ -10,7 +10,7 @@ export const AuthRepository = {
   signIn: async (payload: ISignInPayload) => {
     try {
       const response = await http.post<ISignInPayload, ISignInResponse>(
-        "/sign-in",
+        "/auth/sign-in",
         payload
       );
 
@@ -23,7 +23,7 @@ export const AuthRepository = {
   signUp: async (payload: ISignUpPayload) => {
     try {
       const response = await http.post<ISignUpPayload, ISignUpResponse>(
-        "/sign-up",
+        "/auth/sign-up",
         payload
       );
       return response.data;

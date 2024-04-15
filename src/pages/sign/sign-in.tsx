@@ -24,16 +24,30 @@ export function SignIn() {
     if (!email || !password) {
       if (!email) {
         setErrorEmail("E-mail inválido.");
+        return;
       } else {
         setErrorEmail("");
       }
 
-      if(!password) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+      // Verifica se o email corresponde ao formato esperado
+      if (!emailRegex.test(email)) {
+        setErrorEmail("Formato de email inválido.");
+        return;
+      }
+
+      const passwordRegex = /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+      if(!password || password.length < 8 || !passwordRegex.test(password)) {
         setErrorPassword("Senha inválida.");
+        return;
       } else {
         setErrorPassword("");
       }
-
+  
+      // Retorna a variável de erro do email para o estado default
+      setErrorEmail("");
       return;
     }
 
@@ -57,7 +71,7 @@ export function SignIn() {
         overflowY={"auto"}
       >
 
-        <Image src="/Castfy_DarkMode.svg"/>
+        <Image src="/Castfy.svg"/>
         <VStack width="full" spacing={5}>
           <VStack width={"full"} spacing={1} alignItems="start">
             <Input type="email" placeholder="E-mail" background="white" value={email} onChange={(e) => setEmail(e.target.value)} />

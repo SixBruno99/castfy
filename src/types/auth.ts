@@ -37,7 +37,7 @@ export interface ISignUpResponse {
 export enum EGender {
   MALE = "MALE",
   FEMALE = "FEMALE ",
-  NON_BINARY = "NON-BINARY",
+  NON_BINARY = "NON_BINARY",
 }
 
 export type TGender = EGender.MALE | EGender.FEMALE | EGender.NON_BINARY;

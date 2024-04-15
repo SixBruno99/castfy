@@ -1,17 +1,15 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box,  HStack } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import { Footer } from "./components/footer";
-import { Header } from "./components/header";
+import { NavBar } from "./components/navBar";
 
 export function MainLayout() {
 
   return (
-    <Box>
-      <Header />
-      <Flex width="full" height="100vh">
-        <Outlet />
-      </Flex>
-      <Footer />
+    <Box width="full" height="100vh">
+        <HStack width="full" height="100vh" spacing={0}>
+          <NavBar selectedPage="Home"/>
+          <Outlet />
+        </HStack>
     </Box>
   );
 }
