@@ -6,7 +6,7 @@ import {
   Input,
   Text,
   VStack,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
@@ -30,22 +30,23 @@ export function SignIn() {
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
+
       // Verifica se o email corresponde ao formato esperado
       if (!emailRegex.test(email)) {
         setErrorEmail("Formato de email inválido.");
         return;
       }
 
-      const passwordRegex = /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      const passwordRegex =
+        /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
-      if(!password || password.length < 8 || !passwordRegex.test(password)) {
+      if (!password || password.length < 8 || !passwordRegex.test(password)) {
         setErrorPassword("Senha inválida.");
         return;
       } else {
         setErrorPassword("");
       }
-  
+
       // Retorna a variável de erro do email para o estado default
       setErrorEmail("");
       return;
@@ -56,7 +57,7 @@ export function SignIn() {
     setErrorPassword("");
 
     // Cria o payload com o email e o password
-    signIn({email: email, password: password}, true);
+    signIn({ email: email, password: password }, true);
   };
 
   return (
@@ -70,17 +71,36 @@ export function SignIn() {
         justifyContent="start"
         overflowY={"auto"}
       >
-
-        <Image src="/Castfy.svg"/>
+        <Image src="/Castfy.svg" />
         <VStack width="full" spacing={5}>
           <VStack width={"full"} spacing={1} alignItems="start">
-            <Input type="email" placeholder="E-mail" background="white" value={email} onChange={(e) => setEmail(e.target.value)} />
-            {errorEmail && <Text color="red" fontSize={12}>{errorEmail}</Text>}
+            <Input
+              type="email"
+              placeholder="E-mail"
+              background="white"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errorEmail && (
+              <Text color="red" fontSize={12}>
+                {errorEmail}
+              </Text>
+            )}
           </VStack>
           <VStack width={"full"} spacing={0} alignItems="end">
             <VStack width={"full"} spacing={1} alignItems="start">
-              <Input type="password" placeholder="Senha" background="white" value={password} onChange={(e) => setPassword(e.target.value)}/>
-              {errorPassword && <Text color="red" fontSize={12}>{errorPassword}</Text>}
+              <Input
+                type="password"
+                placeholder="Senha"
+                background="white"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {errorPassword && (
+                <Text color="red" fontSize={12}>
+                  {errorPassword}
+                </Text>
+              )}
             </VStack>
             <Text color={"white"}>
               <Link to="/">Esqueceu a senha?</Link>

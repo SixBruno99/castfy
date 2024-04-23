@@ -1,9 +1,9 @@
-import { 
-  Container, 
-  Box, 
-  VStack, 
-  Input, 
-  Button, 
+import {
+  Container,
+  Box,
+  VStack,
+  Input,
+  Button,
   FormControl,
   FormLabel,
   FormErrorMessage,
@@ -13,7 +13,6 @@ import { useAuth } from "../../contexts/auth";
 import { useState } from "react";
 import { EGender } from "../../types/auth";
 
-
 export function SignUp() {
   const { signUp } = useAuth();
 
@@ -22,17 +21,29 @@ export function SignUp() {
   const [dataNascimento, setDataNascimento] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState({error: false, textoError: ""});
-  const [errorNome, setErrorNome] = useState({error: false, textoError: ""});
-  const [errorDataNascimento, setErrorDataNascimento] = useState({error: false, textoError: ""});
-  const [errorPassword, setErrorPassword] = useState({error: false, textoError: ""});
-  const [errorConfirmPassword, setErrorConfirmPassword] = useState({error: false, textoError: ""});
+  const [errorEmail, setErrorEmail] = useState({
+    error: false,
+    textoError: "",
+  });
+  const [errorNome, setErrorNome] = useState({ error: false, textoError: "" });
+  const [errorDataNascimento, setErrorDataNascimento] = useState({
+    error: false,
+    textoError: "",
+  });
+  const [errorPassword, setErrorPassword] = useState({
+    error: false,
+    textoError: "",
+  });
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState({
+    error: false,
+    textoError: "",
+  });
 
   // Função de validação do email
   const validateEmail = () => {
     // Verifica se o email está vazio
     if (!email) {
-      setErrorEmail(({error: true, textoError: "Email inválido."}));
+      setErrorEmail({ error: true, textoError: "Email inválido." });
       return false;
     }
 
@@ -41,11 +52,11 @@ export function SignUp() {
     // Verifica se o email corresponde ao formato esperado
     if (!emailRegex.test(email)) {
       setErrorEmail({ error: true, textoError: "Formato de email inválido." });
-    return false;
-  }
+      return false;
+    }
 
     // Retorna a variável de erro do email para o estado default
-    setErrorEmail(({error: false, textoError: ""}));
+    setErrorEmail({ error: false, textoError: "" });
     return true;
   };
 
@@ -53,7 +64,7 @@ export function SignUp() {
   const validateNome = () => {
     // Verifica se o nome está vazio
     if (!nome) {
-      setErrorNome({error: true, textoError: "Nome inválido."});
+      setErrorNome({ error: true, textoError: "Nome inválido." });
       return false;
     }
 
@@ -62,12 +73,15 @@ export function SignUp() {
 
     // Verifica se o nome contém apenas letras e espaços
     if (!nomeRegex.test(nome)) {
-      setErrorNome({ error: true, textoError: "Nome inválido. Use apenas letras e espaços." });
+      setErrorNome({
+        error: true,
+        textoError: "Nome inválido. Use apenas letras e espaços.",
+      });
       return false;
     }
 
     // Retorna a variável de erro do nome para o estado default
-    setErrorNome(({error: false, textoError: ""}));
+    setErrorNome({ error: false, textoError: "" });
     return true;
   };
 
@@ -75,12 +89,12 @@ export function SignUp() {
   const validateDataNascimento = () => {
     // Verifica se a data de nascimento está vazia
     if (!dataNascimento) {
-      setErrorDataNascimento({error: true, textoError: "Data inválida."});
+      setErrorDataNascimento({ error: true, textoError: "Data inválida." });
       return false;
     }
 
     // Retorna a variável de erro da data de nascimento para o estado default
-    setErrorDataNascimento(({error: false, textoError: ""}));
+    setErrorDataNascimento({ error: false, textoError: "" });
     return true;
   };
 
@@ -88,35 +102,40 @@ export function SignUp() {
   const validatePassword = () => {
     // Verifica se a senha está vazia
     if (!password) {
-      setErrorPassword({error: true, textoError: "Senha inválida."});
+      setErrorPassword({ error: true, textoError: "Senha inválida." });
       return false;
     }
-    
+
     if (password.length < 8) {
-      setErrorPassword({ error: true, textoError: "Senha deve conter no mínimo 8 caracteres." });
+      setErrorPassword({
+        error: true,
+        textoError: "Senha deve conter no mínimo 8 caracteres.",
+      });
       return false;
     }
-  
+
     // Expressão regular para verificar a presença de pelo menos um caractere especial, uma letra maiúscula e um número
-    const passwordRegex = /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-  
+    const passwordRegex =
+      /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
     // Verifica se a senha atende aos critérios de segurança
     if (!passwordRegex.test(password)) {
       setErrorPassword({
         error: true,
-        textoError: "Senha inválida. Deve conter pelo menos um caractere especial, uma letra maiúscula e um número."
+        textoError:
+          "Senha inválida. Deve conter pelo menos um caractere especial, uma letra maiúscula e um número.",
       });
       return false;
     }
 
     // Verifica se a "senha" é igual a "confirmar senha"
     if (password !== confirmPassword) {
-      setErrorPassword({error: true, textoError: "As senhas não coincidem."});
+      setErrorPassword({ error: true, textoError: "As senhas não coincidem." });
       return false;
     }
 
     // Retorna a variável de erro da senha para o estado default
-    setErrorPassword(({error: false, textoError: ""}));
+    setErrorPassword({ error: false, textoError: "" });
     return true;
   };
 
@@ -124,28 +143,31 @@ export function SignUp() {
   const validateConfirmPassword = () => {
     // Verifica se a confirmação de senha está vazia
     if (!confirmPassword) {
-      setErrorConfirmPassword({error: true, textoError: "Senha inválida."});
+      setErrorConfirmPassword({ error: true, textoError: "Senha inválida." });
       return false;
     }
 
     // Verifica se a "senha" é igual a "confirmar senha"
     if (password !== confirmPassword) {
-      setErrorConfirmPassword({error: true, textoError: "As senhas não coincidem."});
+      setErrorConfirmPassword({
+        error: true,
+        textoError: "As senhas não coincidem.",
+      });
       return false;
     }
 
     // Retorna a variável de erro da "confirmar senha" para o estado default
-    setErrorConfirmPassword(({error: false, textoError: ""}));
+    setErrorConfirmPassword({ error: false, textoError: "" });
     return true;
   };
 
   // Função de validação de SignUp
   const handleSignUp = () => {
-      const validacaoEmail = validateEmail();
-      const validacaoNome = validateNome();
-      const validacaoDataNascimento = validateDataNascimento();
-      const validacaoPassword =  validatePassword();
-      const validacaoConfirmPassword =  validateConfirmPassword();
+    const validacaoEmail = validateEmail();
+    const validacaoNome = validateNome();
+    const validacaoDataNascimento = validateDataNascimento();
+    const validacaoPassword = validatePassword();
+    const validacaoConfirmPassword = validateConfirmPassword();
 
     if (
       validacaoEmail &&
@@ -159,7 +181,7 @@ export function SignUp() {
         email: email,
         password: password,
         gender: EGender.NON_BINARY,
-        birthDate: new Date(dataNascimento)
+        birthDate: new Date(dataNascimento),
       });
     }
   };
@@ -188,7 +210,9 @@ export function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <FormErrorMessage color="red" fontSize={12}>{errorEmail.textoError}</FormErrorMessage>
+            <FormErrorMessage color="red" fontSize={12}>
+              {errorEmail.textoError}
+            </FormErrorMessage>
           </FormControl>
 
           <FormControl isInvalid={errorNome.error}>
@@ -202,7 +226,9 @@ export function SignUp() {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
             />
-            <FormErrorMessage color="red" fontSize={12}>{errorNome.textoError}</FormErrorMessage>
+            <FormErrorMessage color="red" fontSize={12}>
+              {errorNome.textoError}
+            </FormErrorMessage>
           </FormControl>
 
           <FormControl isInvalid={errorDataNascimento.error}>
@@ -216,7 +242,9 @@ export function SignUp() {
               value={dataNascimento}
               onChange={(e) => setDataNascimento(e.target.value)}
             />
-            <FormErrorMessage color="red" fontSize={12}>{errorDataNascimento.textoError}</FormErrorMessage>
+            <FormErrorMessage color="red" fontSize={12}>
+              {errorDataNascimento.textoError}
+            </FormErrorMessage>
           </FormControl>
 
           <FormControl isInvalid={errorPassword.error}>
@@ -230,7 +258,9 @@ export function SignUp() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormErrorMessage color="red" fontSize={12}>{errorPassword.textoError}</FormErrorMessage>
+            <FormErrorMessage color="red" fontSize={12}>
+              {errorPassword.textoError}
+            </FormErrorMessage>
           </FormControl>
 
           <FormControl isInvalid={errorConfirmPassword.error}>
@@ -244,9 +274,10 @@ export function SignUp() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <FormErrorMessage color="red" fontSize={12}>{errorConfirmPassword.textoError}</FormErrorMessage>
+            <FormErrorMessage color="red" fontSize={12}>
+              {errorConfirmPassword.textoError}
+            </FormErrorMessage>
           </FormControl>
-          
 
           <Button
             type="submit"
@@ -257,7 +288,6 @@ export function SignUp() {
             backgroundColor="#004aad"
             colorScheme="#004aad"
             onClick={handleSignUp}
-            
           >
             Cadastre-se
           </Button>
