@@ -23,12 +23,12 @@ export const PODCAST_FOR_YOU: IPodcast[] = [
 
 export const PODCAST_RECENTLY_LISTENED: IPodcast[] = [
     {
-        id: "1",
+        id: "4",
         name: "FLOW GAMES",
         image: flow,
     },
     {
-        id: "2",
+        id: "5",
         name: "INTELIGÊNCIA LTDA",
         image: mano,
     },
@@ -36,12 +36,12 @@ export const PODCAST_RECENTLY_LISTENED: IPodcast[] = [
 
 export const PODCAST_MOST_LISTENED: IPodcast[] = [
     {
-        id: "1",
+        id: "6",
         name: "CIÊNCIA SEM FIM",
         image: flow,
     },
     {
-        id: "2",
+        id: "7",
         name: "CIÊNCIA SEM FIM",
         image: mano,
     },
