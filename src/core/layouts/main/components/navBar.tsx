@@ -1,5 +1,6 @@
 import { Box, VStack, Image, Button, Icon, Text } from "@chakra-ui/react";
 import { MdAccountCircle, MdSearch, MdOutlineFolder } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {
   selectedPage: string;
@@ -7,6 +8,11 @@ interface NavBarProps {
 
 export function NavBar(props: NavBarProps) {
   const { selectedPage } = props;
+  const navigate = useNavigate();
+
+  const handleListenClick = () => {
+    navigate(`/`);
+  };
 
   return (
     <Box
@@ -26,6 +32,7 @@ export function NavBar(props: NavBarProps) {
             height={"45px"}
             bg={selectedPage === "Home" ? "#ffffff" : "transparent"}
             color={selectedPage === "Home" ? "black" : "white"}
+            onClick={handleListenClick}
           >
             <Icon
               as={MdAccountCircle}

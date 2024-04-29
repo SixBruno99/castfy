@@ -6,10 +6,10 @@ export function Home() {
   const { episodes } = useEpisode();
 
   return (
-    <Box backgroundColor="#1f1f1f" width={"calc(100vw - 150px)"} padding={50}>
+    <Box backgroundColor="#1f1f1f" width={"100vw"} padding={50} minH={{ base: 'calc(100vh - 100px)', md: '100vh' }}>
       <VStack display={"initial"}>
         <Box minHeight={150}>
-          <VStack display={"initial"}>
+          <VStack display={"initial"} >
             <Text fontSize="35px" fontWeight="bold" color={"white"}>
               Para você:
             </Text>
@@ -27,7 +27,7 @@ export function Home() {
           </VStack>
         </Box>
 
-        <Box minHeight={150}>
+        {/* <Box minHeight={150}>
           <VStack display={"initial"} spacing={0}>
             <Text fontSize="35px" fontWeight="bold" color={"white"}>
               Recentemente Ouvidos:
@@ -63,7 +63,7 @@ export function Home() {
               ))}
             </Flex>
           </VStack>
-        </Box>
+        </Box> */}
       </VStack>
     </Box>
   );
