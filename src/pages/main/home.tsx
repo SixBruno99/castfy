@@ -8,7 +8,7 @@ import {
 
 export function Home() {
   return (
-    <Box backgroundColor="#1f1f1f" width={"calc(100vw - 150px)"} padding={50}>
+    <Box backgroundColor="#1f1f1f" width={"100vw"} padding={50} height={{ base: '90vh', md: 'auto' }}>
       <VStack display={"initial"}>
         <Box minHeight={150}>
           <VStack display={"initial"}>
