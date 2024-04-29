@@ -6,12 +6,20 @@ export const http = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
 });
 
-axios.interceptors.request.use(
+http.interceptors.request.use(
   function (request) {
-    const token = localStorage.getItem("@auth:token");
-    if (!token) return request;
+    const sessionToken = sessionStorage.getItem("@auth:token");
+    const localToken = localStorage.getItem("@auth:token");
+    console.log("token", sessionToken);
 
-    request.headers["Authorization"] = `Bearer ${token}`;
+    if (sessionToken) {
+      request.headers["Authorization"] = `Bearer ${sessionToken}`;
+      return request;
+    }
+
+    if (localToken) {
+      request.headers["Authorization"] = `Bearer ${localToken}`;
+    }
 
     return request;
   },
@@ -29,3 +37,4 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+``;

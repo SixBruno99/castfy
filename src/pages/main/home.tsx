@@ -1,12 +1,10 @@
 import { Text, Box, VStack, Divider, Flex } from "@chakra-ui/react";
-import { Podcast } from "../../core/layouts/main/components/podcast";
-import {
-  PODCAST_FOR_YOU,
-  PODCAST_MOST_LISTENED,
-  PODCAST_RECENTLY_LISTENED,
-} from "../../mocks/podcasts";
+import { Episode } from "../../core/layouts/main/components/episode";
+import { useEpisode } from "../../contexts/episode";
 
 export function Home() {
+  const { episodes } = useEpisode();
+
   return (
     <Box backgroundColor="#1f1f1f" width={"calc(100vw - 150px)"} padding={50}>
       <VStack display={"initial"}>
@@ -17,12 +15,12 @@ export function Home() {
             </Text>
             <Divider orientation="horizontal" />
             <Flex flexDirection="column" marginY={4} gap={4}>
-              {PODCAST_FOR_YOU.map((podcast, idx) => (
-                <Podcast
+              {episodes?.map((episode, idx) => (
+                <Episode
                   key={idx}
-                  id={podcast.id}
-                  name={podcast.name}
-                  image={podcast.image}
+                  id={episode.id}
+                  title={episode.title}
+                  image={episode.image}
                 />
               ))}
             </Flex>
@@ -36,12 +34,12 @@ export function Home() {
             </Text>
             <Divider orientation="horizontal" />
             <Flex flexDirection="column" marginY={4} gap={4}>
-              {PODCAST_RECENTLY_LISTENED.map((podcast, idx) => (
-                <Podcast
+              {episodes?.map((episode, idx) => (
+                <Episode
                   key={idx}
-                  id={podcast.id}
-                  name={podcast.name}
-                  image={podcast.image}
+                  id={episode.id}
+                  title={episode.title}
+                  image={episode.image}
                 />
               ))}
             </Flex>
@@ -55,12 +53,12 @@ export function Home() {
             </Text>
             <Divider orientation="horizontal" />
             <Flex flexDirection="column" marginY={4} gap={4}>
-              {PODCAST_MOST_LISTENED.map((podcast, idx) => (
-                <Podcast
+              {episodes?.map((episode, idx) => (
+                <Episode
                   key={idx}
-                  id={podcast.id}
-                  name={podcast.name}
-                  image={podcast.image}
+                  id={episode.id}
+                  title={episode.title}
+                  image={episode.image}
                 />
               ))}
             </Flex>

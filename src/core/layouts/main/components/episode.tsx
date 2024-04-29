@@ -1,20 +1,19 @@
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
-import { IPodcast } from "../../../../types/podcast";
+import { IEpisodes } from "../../../../types/episode";
 import { useNavigate } from "react-router-dom";
 
-export function Podcast({ id, name, image }: IPodcast) {
+export function Episode({ id, title, image }: IEpisodes) {
   const navigate = useNavigate();
 
-  const handleListenClick = () => { 
-    const encodedImage = encodeURIComponent(image);
-    navigate(`/listener/${id}/${name}/${encodedImage}`);
+  const handleListenClick = () => {
+    navigate(`/episode/${id}`);
   };
 
   return (
     <Flex alignItems="center" gap={4}>
-      <Image src={image} alt={id} height="64px" width="64px" />
+      <Image src={image.url} height="64px" width="64px" />
       <Text color="white" fontWeight="bold">
-        {name}
+        {title}
       </Text>
       <Button variant="link" onClick={handleListenClick}>
         Escutar

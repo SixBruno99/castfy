@@ -1,5 +1,15 @@
 export interface IPodcast {
+  id: string;
+  description: string;
+  title: string;
+  podcast: {
     id: string;
-    name: string;
-    image: string
-  }
+    description: string;
+    image: {
+      url: string;
+    };
+  };
+  image: {
+    url: string;
+  };
+}
