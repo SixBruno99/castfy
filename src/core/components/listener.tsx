@@ -15,8 +15,9 @@ export function Listener() {
   return (
     <Flex
       width="full"
-      justifyContent="center"
+      minHeight={{ base: 'calc(100vh - 100px)', md: '100vh' }}
       alignItems="center"
+      justifyContent="center"
       backgroundColor="#1F1F1F"
     >
       <Flex flexDirection="column" width="324px" gap={4}>
