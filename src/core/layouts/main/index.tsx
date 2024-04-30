@@ -5,16 +5,17 @@ import { Footer } from "./components/footer";
 
 export function MainLayout() {
   return (
-    <>
-      <Flex minHeight='100vh' width="full" direction={{ base: 'column', md: 'row' }}>
-        <Box display={{ base: 'none', md: 'flex' }}>
-          <NavBar selectedPage="Home" />
-        </Box>
-          <Outlet />
-        <Box display={{ base: 'flex', md: 'none' }}>
-          <Footer selectedPage="Home"/>
-        </Box>
-      </Flex>
-    </>
+    <Flex
+      minHeight="100vh"
+      direction={{ base: "column", md: "row" }}
+    >
+      <Box display={{ base: "none", md: "flex" }}>
+        <NavBar selectedPage="Home" />
+      </Box>
+      <Outlet />
+      <Box display={{ base: "flex", md: "none" }}>
+        <Footer selectedPage="Home" />
+      </Box>
+    </Flex>
   );
 }

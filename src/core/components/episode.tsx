@@ -1,5 +1,5 @@
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
-import { IEpisodes } from "../../../../types/episode";
+import { IEpisodes } from "../../types/episode";
 import { useNavigate } from "react-router-dom";
 
 export function Episode({ id, title, image }: IEpisodes) {

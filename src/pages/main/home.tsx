@@ -1,5 +1,5 @@
 import { Text, Box, VStack, Divider, Flex } from "@chakra-ui/react";
-import { Episode } from "../../core/layouts/main/components/episode";
+import { Episode } from "../../core/components/episode";
 import { useEpisode } from "../../contexts/episode";
 
 export function Home() {
@@ -9,7 +9,7 @@ export function Home() {
     <Box backgroundColor="#1f1f1f" width={"100vw"} padding={50} minH={{ base: 'calc(100vh - 100px)', md: '100vh' }}>
       <VStack display={"initial"}>
         <Box minHeight={150}>
-          <VStack display={"initial"} >
+          <VStack display={"initial"}>
             <Text fontSize="35px" fontWeight="bold" color={"white"}>
               Para você:
             </Text>

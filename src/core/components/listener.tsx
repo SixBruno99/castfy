@@ -1,8 +1,8 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
-import { FaPlay, FaStepBackward, FaStepForward } from "react-icons/fa";
+import { useEpisode } from "../../contexts/episode";
 import { useParams } from "react-router-dom";
-import { useEpisode } from "../../../../contexts/episode";
 import { useEffect } from "react";
+// import { FaPlay, FaStepBackward, FaStepForward } from "react-icons/fa";
 
 export function Listener() {
   const { id } = useParams();
@@ -11,7 +11,7 @@ export function Listener() {
   useEffect(() => {
     findOne(id as string);
   }, []);
-  
+
   return (
     <Flex
       width="full"
@@ -24,27 +24,11 @@ export function Listener() {
         <Text color="white" fontWeight="bold" textAlign="center">
           {episode?.title}
         </Text>
+
         <Flex justifyContent="center" alignItems="center" gap={4} color="white">
-          <FaStepBackward
-            onClick={() => {
-              // Lógica para retroceder
-            }}
-          />
-          <FaPlay
-            onClick={() => {
-              // Lógica para pausar/despausar
-            }}
-          />
-          {/* <FaPause
-            onClick={() => {
-              // Lógica para pausar/despausar
-            }}
-          /> */}
-          <FaStepForward
-            onClick={() => {
-              // Lógica para avançar
-            }}
-          />
+          <audio controls>
+            <source src={episode?.audioUrl} type="audio/mp3" />
+          </audio>
         </Flex>
       </Flex>
     </Flex>

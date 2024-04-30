@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "../../core/layouts/main";
 
 import { Home } from "../../pages/main/home";
-import { Listener } from "../../core/layouts/main/components/listener";
+import { Listener } from "../../core/components/listener";
 
 // roviders
 import { EpisodeProvider } from "../../contexts/episode";
