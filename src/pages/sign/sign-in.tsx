@@ -103,7 +103,7 @@ export function SignIn() {
               )}
             </VStack>
             <Text color={"white"}>
-              <Link to="/">Esqueceu a senha?</Link>
+              <Link to="/forgotPassword">Esqueceu a senha?</Link>
             </Text>
           </VStack>
           <HStack display={"flex"} width="full">
