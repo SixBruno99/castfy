@@ -8,7 +8,7 @@ export const EpisodeRepository = {
 
       return response.data;
     } catch (error) {
-      console.log(`unable to login due to error: ${error}`);
+      console.log(`unable to findAll due to error: ${error}`);
     }
   },
 
@@ -18,7 +18,7 @@ export const EpisodeRepository = {
 
       return response.data;
     } catch (error) {
-      console.log(`unable to register due to error: ${error}`);
+      console.log(`unable to findOne due to error: ${error}`);
     }
   },
 };

@@ -6,7 +6,12 @@ export function Home() {
   const { episodes } = useEpisode();
 
   return (
-    <Box backgroundColor="#1f1f1f" width={"100vw"} padding={50} minHeight={{ base: 'calc(100vh - 100px)', md: '100vh' }}>
+    <Box
+      backgroundColor="#1f1f1f"
+      width={"100vw"}
+      padding={50}
+      minHeight={{ base: "calc(100vh - 100px)", md: "100vh" }}
+    >
       <VStack display={"initial"}>
         <Box minHeight={150}>
           <VStack display={"initial"}>
@@ -21,6 +26,7 @@ export function Home() {
                   id={episode.id}
                   title={episode.title}
                   image={episode.image}
+                  favorite={false}
                 />
               ))}
             </Flex>

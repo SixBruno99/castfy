@@ -1,6 +1,7 @@
 import {
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -25,37 +26,30 @@ export function EpisodeProvider({ children }: IProps) {
   const [episodes, setEpisodes] = useState<IEpisodes[] | undefined>(undefined);
   const [episode, setEpisode] = useState<IEpisode | undefined>(undefined);
 
-  async function findAll() {
+  const findAll = useCallback(async () => {
     try {
       const data = await EpisodeRepository.findAll();
-
       if (!data) return false;
-
       setEpisodes(data);
-
       return true;
     } catch (error) {
       console.error(`unable to login due to error: ${error}`);
     }
-
     return false;
-  }
+  }, []);
 
-  async function findOne(id: string) {
+  const findOne = useCallback(async (id: string) => {
     try {
       const data = await EpisodeRepository.findOne(id);
-
       if (!data) return false;
-
       setEpisode(data);
-
       return true;
     } catch (error) {
       console.error(`unable to login due to error: ${error}`);
     }
-
     return false;
-  }
+  }, []);
+
 
   useEffect(() => {
     findAll();

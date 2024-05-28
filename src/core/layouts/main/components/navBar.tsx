@@ -4,14 +4,27 @@ import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {
   selectedPage: string;
+  onNavigate: (page: string) => void;
 }
 
 export function NavBar(props: NavBarProps) {
-  const { selectedPage } = props;
+  const { selectedPage, onNavigate } = props;
   const navigate = useNavigate();
 
   const handleListenClick = () => {
+    onNavigate("Home");
     navigate(`/`);
+  };
+
+  const handleSearchClick = () => {
+    onNavigate("Search");
+    navigate(`/`);
+    // navigate(`/search`);
+  };
+
+  const handleLibraryClick = () => {
+    onNavigate("Library");
+    navigate(`/library`);
   };
 
   return (
@@ -52,6 +65,7 @@ export function NavBar(props: NavBarProps) {
             height={"45px"}
             bg={selectedPage === "Search" ? "#ffffff" : "transparent"}
             color={selectedPage === "Search" ? "black" : "white"}
+            onClick={handleSearchClick}
           >
             <Icon
               as={MdSearch}
@@ -71,6 +85,7 @@ export function NavBar(props: NavBarProps) {
             height={"45px"}
             bg={selectedPage === "Library" ? "#ffffff" : "transparent"}
             color={selectedPage === "Library" ? "black" : "white"}
+            onClick={handleLibraryClick}
           >
             <Icon
               as={MdOutlineFolder}

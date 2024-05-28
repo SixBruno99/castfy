@@ -10,7 +10,7 @@ http.interceptors.request.use(
   function (request) {
     const sessionToken = sessionStorage.getItem("@auth:token");
     const localToken = localStorage.getItem("@auth:token");
-    console.log("token", sessionToken);
+    console.log("token", localToken);
 
     if (sessionToken) {
       request.headers["Authorization"] = `Bearer ${sessionToken}`;

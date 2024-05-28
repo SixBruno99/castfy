@@ -3,6 +3,16 @@ import { IEpisodes } from "../types/episode";
 import mano from "../assets/images/mano-a-mano.jpg";
 import flow from "../assets/images/flow.jpg";
 
+export const FAVORITES: IEpisodes[] = [
+  {
+    id: "1",
+    title: "MANO A MANO",
+    image: {
+      url: mano,
+    },
+  },
+];
+
 export const PODCAST_FOR_YOU: IEpisodes[] = [
   {
     id: "1",
