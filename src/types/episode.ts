@@ -12,7 +12,7 @@ export interface IEpisodes {
   image: {
     url: string;
   };
-  favorite: boolean;
+  favorite?: boolean;
 }
 
 export interface IEpisode {

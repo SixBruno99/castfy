@@ -10,6 +10,7 @@ export const FAVORITES: IEpisodes[] = [
     image: {
       url: mano,
     },
+    favorite: true
   },
 ];
 
