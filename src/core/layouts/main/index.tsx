@@ -21,6 +21,9 @@ export function MainLayout() {
       case "/library":
         setSelectedPage("Library");
         break;
+      case "/profile":
+        setSelectedPage("Profile");
+        break;
       default:
         setSelectedPage("Home");
     }

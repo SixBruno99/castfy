@@ -9,13 +9,13 @@ export function Library() {
     <Box
       backgroundColor="#1f1f1f"
       width={"100vw"}
-      padding={50}
-      minHeight={{ base: "calc(100vh - 100px)", md: "100vh" }}
+      padding={{ base: "12px", md: "24px" }}
+      height={{ base: "calc(100vh - 100px)", md: "100vh" }}
     >
       <VStack display={"initial"}>
         <Box minHeight={150}>
           <VStack display={"initial"}>
-            <Text fontSize="35px" fontWeight="bold" color={"white"}>
+            <Text fontSize={{ base: "20px", md: "36px" }} fontWeight="bold" color={"white"}>
               Episódios favoritos:
             </Text>
             <Divider orientation="horizontal" />

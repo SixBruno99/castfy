@@ -14,11 +14,16 @@ export interface ISignInPayload {
 
 export interface ISignInResponse {
   data: {
+    id: string;
+    email: string;
+    name: string;
     token: string;
-    user: IUser;
   };
+  // data: {
+  //   token: string;
+  //   user: IUser;
+  // };
 }
-
 export interface ISignUpPayload {
   name: string;
   email: string;

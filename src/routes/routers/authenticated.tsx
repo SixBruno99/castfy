@@ -1,12 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "../../core/layouts/main";
 
-import { Home } from "../../pages/main/home";
-import { Listener } from "../../core/components/listener";
-import { Library } from "../../pages/main/library";
-
 // Providers
 import { EpisodeProvider } from "../../contexts/episode";
+
+import { Home } from "../../pages/main/home";
+import { Library } from "../../pages/main/library";
+import { Profile } from "../../pages/main/profile";
+import { Listener } from "../../core/components/listener";
 
 export function AuthenticatedRouter() {
   return (
@@ -14,8 +15,9 @@ export function AuthenticatedRouter() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/episode/:id" element={<Listener />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/episode/:id" element={<Listener />} />
         </Route>
       </Routes>
     </EpisodeProvider>

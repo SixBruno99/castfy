@@ -12,9 +12,11 @@ import {
 import { useAuth } from "../../contexts/auth";
 import { useState } from "react";
 import { EGender } from "../../types/auth";
+import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
   const { signUp } = useAuth();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
@@ -183,6 +185,7 @@ export function SignUp() {
         gender: EGender.NON_BINARY,
         birthDate: new Date(dataNascimento),
       });
+      navigate("/")
     }
   };
 

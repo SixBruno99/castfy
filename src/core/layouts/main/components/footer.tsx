@@ -7,7 +7,12 @@ import {
   Flex,
   HStack,
 } from "@chakra-ui/react";
-import { MdAccountCircle, MdSearch, MdOutlineFolder } from "react-icons/md";
+import {
+  MdHomeFilled,
+  MdAccountCircle,
+  MdSearch,
+  MdOutlineFolder,
+} from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {
@@ -35,6 +40,11 @@ export function Footer(props: NavBarProps) {
     navigate(`/library`);
   };
 
+  const handleProfileClick = () => {
+    onNavigate("Profile");
+    navigate(`/profile`);
+  };
+
   return (
     <Box
       width="full"
@@ -44,19 +54,19 @@ export function Footer(props: NavBarProps) {
       padding={15}
     >
       <Flex alignItems="center" justifyContent="center">
-        <HStack>
-          <VStack spacing={0}>
+        <HStack gap={4}>
+          <VStack>
             <Button
               borderRadius={"24px"}
               colorScheme="gray"
-              width={"100px"}
-              height={"45px"}
+              width={"64px"}
+              height={"40px"}
               bg={selectedPage === "Home" ? "#ffffff" : "transparent"}
               color={selectedPage === "Home" ? "black" : "white"}
               onClick={handleListenClick}
             >
               <Icon
-                as={MdAccountCircle}
+                as={MdHomeFilled}
                 h={6}
                 w={6}
                 color={selectedPage === "Home" ? "black" : "white"}
@@ -65,12 +75,12 @@ export function Footer(props: NavBarProps) {
             <Text color={"white"}>Início</Text>
           </VStack>
 
-          <VStack spacing={0}>
+          <VStack>
             <Button
               borderRadius={"24px"}
               colorScheme="gray"
-              width={"100px"}
-              height={"45px"}
+              width={"76px"}
+              height={"40px"}
               bg={selectedPage === "Search" ? "#ffffff" : "transparent"}
               color={selectedPage === "Search" ? "black" : "white"}
               onClick={handleSearchClick}
@@ -85,12 +95,12 @@ export function Footer(props: NavBarProps) {
             <Text color={"white"}>Pesquisar</Text>
           </VStack>
 
-          <VStack spacing={0}>
+          <VStack>
             <Button
               borderRadius={"24px"}
               colorScheme="gray"
-              width={"100px"}
-              height={"45px"}
+              width={"76px"}
+              height={"40px"}
               bg={selectedPage === "Library" ? "#ffffff" : "transparent"}
               color={selectedPage === "Library" ? "black" : "white"}
               onClick={handleLibraryClick}
@@ -103,6 +113,26 @@ export function Footer(props: NavBarProps) {
               ></Icon>
             </Button>
             <Text color={"white"}>Biblioteca</Text>
+          </VStack>
+
+          <VStack>
+            <Button
+              borderRadius={"24px"}
+              colorScheme="gray"
+              width={"76px"}
+              height={"40px"}
+              bg={selectedPage === "Profile" ? "#ffffff" : "transparent"}
+              color={selectedPage === "Profile" ? "black" : "white"}
+              onClick={handleProfileClick}
+            >
+              <Icon
+                as={MdAccountCircle}
+                h={6}
+                w={6}
+                color={selectedPage === "Profile" ? "black" : "white"}
+              ></Icon>
+            </Button>
+            <Text color={"white"}>Perfil</Text>
           </VStack>
         </HStack>
       </Flex>

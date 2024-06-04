@@ -13,6 +13,7 @@ export interface IEpisodes {
     url: string;
   };
   favorite?: boolean;
+  showFavorite?: boolean;
 }
 
 export interface IEpisode {

@@ -1,5 +1,10 @@
 import { Box, VStack, Image, Button, Icon, Text } from "@chakra-ui/react";
-import { MdAccountCircle, MdSearch, MdOutlineFolder } from "react-icons/md";
+import {
+  MdHomeFilled,
+  MdAccountCircle,
+  MdSearch,
+  MdOutlineFolder,
+} from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {
@@ -27,17 +32,25 @@ export function NavBar(props: NavBarProps) {
     navigate(`/library`);
   };
 
+  const handleProfileClick = () => {
+    onNavigate("Profile");
+    navigate(`/profile`);
+  };
+
   return (
     <Box
       width="150px"
+      display="flex"
+      flexDirection="column"
       alignItems="center"
-      justifyContent="center"
-      backgroundColor={"black"}
+      justifyContent="space-between"
+      backgroundColor="black"
       borderRight="1px solid #383838"
     >
-      <VStack spacing={5}>
-        <VStack spacing={0}>
-          <Image src="/Castfy.svg" width={150} />
+      <VStack>
+        <Image src="/Castfy.svg" width={150} />
+
+        <VStack marginTop={4}>
           <Button
             borderRadius={"24px"}
             colorScheme="gray"
@@ -48,16 +61,14 @@ export function NavBar(props: NavBarProps) {
             onClick={handleListenClick}
           >
             <Icon
-              as={MdAccountCircle}
+              as={MdHomeFilled}
               h={6}
               w={6}
               color={selectedPage === "Home" ? "black" : "white"}
             />
           </Button>
           <Text color={"white"}>Início</Text>
-        </VStack>
 
-        <VStack spacing={0}>
           <Button
             borderRadius={"24px"}
             colorScheme="gray"
@@ -72,12 +83,9 @@ export function NavBar(props: NavBarProps) {
               h={6}
               w={6}
               color={selectedPage === "Search" ? "black" : "white"}
-            ></Icon>
+            />
           </Button>
           <Text color={"white"}>Pesquisar</Text>
-        </VStack>
-
-        <VStack spacing={0}>
           <Button
             borderRadius={"24px"}
             colorScheme="gray"
@@ -92,10 +100,30 @@ export function NavBar(props: NavBarProps) {
               h={6}
               w={6}
               color={selectedPage === "Library" ? "black" : "white"}
-            ></Icon>
+            />
           </Button>
           <Text color={"white"}>Biblioteca</Text>
         </VStack>
+      </VStack>
+
+      <VStack marginBottom={4}>
+        <Button
+          borderRadius={"24px"}
+          colorScheme="gray"
+          width={"100px"}
+          height={"45px"}
+          bg={selectedPage === "Profile" ? "#ffffff" : "transparent"}
+          color={selectedPage === "Profile" ? "black" : "white"}
+          onClick={handleProfileClick}
+        >
+          <Icon
+            as={MdAccountCircle}
+            h={6}
+            w={6}
+            color={selectedPage === "Profile" ? "black" : "white"}
+          />
+        </Button>
+        <Text color={"white"}>Perfil</Text>
       </VStack>
     </Box>
   );

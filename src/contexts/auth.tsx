@@ -48,6 +48,8 @@ export function AuthProvider({ children }: IProps) {
       // que armazena o token de autenticação do usuário
       storage.setItem("@auth:token", data.token);
 
+      storage.setItem("@user:name", data.name);
+
       // define o usuário a partir da resposta da requisição
       // setUser()
 
@@ -72,6 +74,8 @@ export function AuthProvider({ children }: IProps) {
 
       // salva o token no sessionStorage
       sessionStorage.setItem("@auth:token", data.token);
+
+      sessionStorage.setItem("@user:name", data.token);
 
       // define o usuário a partir da resposta da requisição
       // setUser()

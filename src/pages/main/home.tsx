@@ -9,13 +9,13 @@ export function Home() {
     <Box
       backgroundColor="#1f1f1f"
       width={"100vw"}
-      padding={50}
+      padding={{ base: "12px", md: "24px" }}
       minHeight={{ base: "calc(100vh - 100px)", md: "100vh" }}
     >
       <VStack display={"initial"}>
         <Box minHeight={150}>
           <VStack display={"initial"}>
-            <Text fontSize="35px" fontWeight="bold" color={"white"}>
+            <Text fontSize={{ base: "20px", md: "36px" }} fontWeight="bold" color={"white"}>
               Para você:
             </Text>
             <Divider orientation="horizontal" />
@@ -33,25 +33,28 @@ export function Home() {
           </VStack>
         </Box>
 
-        {/* <Box minHeight={150}>
+        <Box minHeight={150}>
           <VStack display={"initial"} spacing={0}>
-            <Text fontSize="35px" fontWeight="bold" color={"white"}>
+            <Text fontSize={{ base: "20px", md: "36px" }} fontWeight="bold" color={"white"}>
               Recentemente Ouvidos:
             </Text>
             <Divider orientation="horizontal" />
             <Flex flexDirection="column" marginY={4} gap={4}>
-              {episodes?.map((episode, idx) => (
-                <Episode
-                  key={idx}
-                  id={episode.id}
-                  title={episode.title}
-                  image={episode.image}
-                />
-              ))}
+              {episodes
+                ?.map((episode, idx) => (
+                  <Episode
+                    key={idx}
+                    id={episode.id}
+                    title={episode.title}
+                    image={episode.image}
+                  />
+                ))
+                .reverse()}
             </Flex>
           </VStack>
         </Box>
-
+        
+        {/* 
         <Box minHeight={150}>
           <VStack display={"initial"} spacing={0}>
             <Text fontSize="35px" fontWeight="bold" color={"white"}>
