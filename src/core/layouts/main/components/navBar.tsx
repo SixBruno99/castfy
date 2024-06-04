@@ -5,7 +5,9 @@ import {
   MdSearch,
   MdOutlineFolder,
 } from "react-icons/md";
+import { PiSignOutBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../contexts/auth";
 
 interface NavBarProps {
   selectedPage: string;
@@ -13,6 +15,7 @@ interface NavBarProps {
 }
 
 export function NavBar(props: NavBarProps) {
+  const { signOut } = useAuth();
   const { selectedPage, onNavigate } = props;
   const navigate = useNavigate();
 
@@ -28,13 +31,18 @@ export function NavBar(props: NavBarProps) {
   };
 
   const handleLibraryClick = () => {
-    onNavigate("Library");
-    navigate(`/library`);
+    onNavigate("Home");
+    navigate(`/`);
   };
 
   const handleProfileClick = () => {
     onNavigate("Profile");
     navigate(`/profile`);
+  };
+
+  const handleSignOut = () => {
+    signOut()
+    navigate(`/`);
   };
 
   return (
@@ -107,6 +115,21 @@ export function NavBar(props: NavBarProps) {
       </VStack>
 
       <VStack marginBottom={4}>
+        <Button
+          borderRadius={"24px"}
+          colorScheme="gray"
+          width={"100px"}
+          height={"45px"}
+          bg={"transparent"}
+          color={"white"}
+          onClick={handleSignOut}
+        >
+          <Icon
+            as={PiSignOutBold}
+            h={6}
+            w={6}
+          />
+        </Button>
         <Button
           borderRadius={"24px"}
           colorScheme="gray"

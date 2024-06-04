@@ -90,7 +90,7 @@ export function Footer(props: NavBarProps) {
                 h={6}
                 w={6}
                 color={selectedPage === "Search" ? "black" : "white"}
-              ></Icon>
+              />
             </Button>
             <Text color={"white"}>Pesquisar</Text>
           </VStack>
@@ -110,7 +110,7 @@ export function Footer(props: NavBarProps) {
                 h={6}
                 w={6}
                 color={selectedPage === "Library" ? "black" : "white"}
-              ></Icon>
+              />
             </Button>
             <Text color={"white"}>Biblioteca</Text>
           </VStack>
@@ -130,7 +130,7 @@ export function Footer(props: NavBarProps) {
                 h={6}
                 w={6}
                 color={selectedPage === "Profile" ? "black" : "white"}
-              ></Icon>
+              />
             </Button>
             <Text color={"white"}>Perfil</Text>
           </VStack>
