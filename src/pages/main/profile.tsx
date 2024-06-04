@@ -42,6 +42,7 @@ export function Profile() {
         justifyContent="center"
       >
         <Button
+         display={{ base: "grid", md: "none" }}
           alignSelf="end"
           borderRadius={"24px"}
           colorScheme="gray"
