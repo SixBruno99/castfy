@@ -56,7 +56,7 @@ const validatePassword = () => {
 
     // Verifica se a "senha" é igual a "confirmar senha"
     if (password !== confirmPassword) {
-      setErrorPassword({ error: true, textoError: "As senhas não coincidem." });
+      setErrorConfirmPassword({ error: true, textoError: "As senhas não coincidem." });
       return false;
     }
 
