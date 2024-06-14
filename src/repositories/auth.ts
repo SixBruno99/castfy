@@ -31,4 +31,34 @@ export const AuthRepository = {
       console.log(`unable to register due to error: ${error}`);
     }
   },
+
+  sendEmail: async (email: string) => {
+    try {
+      const response = await http.post("/auth/", email);
+
+      return response.data;
+    } catch (error) {
+      console.log(`unable to send email due to error: ${error}`);
+    }
+  },
+
+  sendCode: async (code: string) => {
+    try {
+      const response = await http.post("/auth/", code);
+
+      return response.data;
+    } catch (error) {
+      console.log(`unable to send code due to error: ${error}`);
+    }
+  },
+
+  sendPassword: async (password: string) => {
+    try {
+      const response = await http.post("/auth/", password);
+
+      return response.data;
+    } catch (error) {
+      console.log(`unable to send password due to error: ${error}`);
+    }
+  },
 };

@@ -3,11 +3,8 @@ import { Episode } from "../../core/components/episode";
 import { useEpisode } from "../../contexts/episode";
 
 export function Library() {
-  const { favEpisodes, episodes } = useEpisode();
-
-  console.log("episodes", episodes);
-  console.log("favEpisodes", favEpisodes);
-
+  const { favEpisodes } = useEpisode();
+  
   return (
     <Box
       backgroundColor="#1f1f1f"
@@ -32,8 +29,7 @@ export function Library() {
                   key={idx}
                   id={episode.id}
                   title={episode.title}
-                  image={episode.imageId}
-                  // image={episode.image}
+                  image={episode.image}
                   favorite={true}
                 />
               ))}

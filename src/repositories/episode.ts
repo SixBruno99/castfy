@@ -32,13 +32,28 @@ export const EpisodeRepository = {
     }
   },
 
-  setFovorite: async (id: string) => {
+  addFovorite: async (id: string) => {
     try {
       const response = await http.post<IEpisode>(`/episode/favorite/${id}`);
 
+      console.log("addFovorite", response);
+      
+
       return response.data;
     } catch (error) {
-      console.log(`unable to findOne due to error: ${error}`);
+      console.log(`unable to add fovorite due to error: ${error}`);
+    }
+  },
+
+  removeFovorite: async (id: string) => {
+    try {
+      const response = await http.delete<IEpisode>(`/episode/favorite/${id}`);
+
+      console.log("removeFovorite", response);
+
+      return response.data;
+    } catch (error) {
+      console.log(`unable to remove fovorite due to error: ${error}`);
     }
   },
 };

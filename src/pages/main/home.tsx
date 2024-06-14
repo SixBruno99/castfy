@@ -27,6 +27,7 @@ export function Home() {
                   title={episode.title}
                   image={episode.image}
                   favorite={false}
+                  showFavorite={false}
                 />
               ))}
             </Flex>
@@ -47,6 +48,7 @@ export function Home() {
                     id={episode.id}
                     title={episode.title}
                     image={episode.image}
+                    showFavorite={false}
                   />
                 ))
                 .reverse()}

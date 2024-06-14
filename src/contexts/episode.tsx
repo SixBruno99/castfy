@@ -15,6 +15,8 @@ interface IValues {
   favEpisodes: IEpisodes[] | undefined;
   findAll: () => Promise<boolean>;
   findOne: (id: string) => Promise<boolean>;
+  addFovorite: (id: string) => Promise<boolean>;
+  removeFovorite: (id: string) => Promise<boolean>;
 }
 
 export const EpisodeContext = createContext<IValues>({} as IValues);
@@ -31,17 +33,29 @@ export function EpisodeProvider({ children }: IProps) {
   const findAll = useCallback(async () => {
     try {
       const data = await EpisodeRepository.findAll();
-      const favData = await EpisodeRepository.findAllFav();
-      
+
       if (!data) return false;
-      if (!favData) return false;
 
       setEpisodes(data);
-      setFavEpisodes(favData.lastEpisodes);
 
       return true;
     } catch (error) {
-      console.error(`unable to login due to error: ${error}`);
+      console.error(`unable to find all due to error: ${error}`);
+    }
+    return false;
+  }, []);
+
+  const findFavorites = useCallback(async () => {
+    try {
+      const favData = await EpisodeRepository.findAllFav();
+
+      if (!favData) return false;
+
+      setFavEpisodes(favData.favorites);
+
+      return true;
+    } catch (error) {
+      console.error(`unable to find favorites due to error: ${error}`);
     }
     return false;
   }, []);
@@ -53,13 +67,41 @@ export function EpisodeProvider({ children }: IProps) {
       setEpisode(data);
       return true;
     } catch (error) {
-      console.error(`unable to login due to error: ${error}`);
+      console.error(`unable to find one due to error: ${error}`);
     }
     return false;
   }, []);
 
+  const addFovorite = async (id: string) => {
+    try {
+      await EpisodeRepository.addFovorite(id);
+      findFavorites();
+
+      return true;
+    } catch (error) {
+      console.error(`unable to add fovorite due to error: ${error}`);
+    }
+    return false;
+  };
+
+  const removeFovorite = async (id: string) => {
+    try {
+      await EpisodeRepository.removeFovorite(id);
+
+      setFavEpisodes((prevFavEpisodes) =>
+        prevFavEpisodes?.filter((episode) => episode.id !== id)
+      );
+
+      return true;
+    } catch (error) {
+      console.error(`unable to remove fovorite due to error: ${error}`);
+    }
+    return false;
+  };
+
   useEffect(() => {
     findAll();
+    findFavorites();
   }, []);
 
   return (
@@ -70,6 +112,8 @@ export function EpisodeProvider({ children }: IProps) {
         favEpisodes,
         findAll,
         findOne,
+        addFovorite,
+        removeFovorite,
       }}
     >
       {children}

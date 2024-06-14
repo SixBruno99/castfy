@@ -9,8 +9,8 @@ import { PiSignOutBold } from "react-icons/pi";
 export function Profile() {
   const { signOut } = useAuth();
   const { episodes } = useEpisode();
-  const navigate = useNavigate();
   const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     signOut();

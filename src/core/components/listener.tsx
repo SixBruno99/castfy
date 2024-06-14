@@ -8,6 +8,7 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
+  useToast,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useEpisode } from "../../contexts/episode";
@@ -17,11 +18,13 @@ import { TbRewindBackward10, TbRewindForward10 } from "react-icons/tb";
 
 export function Listener() {
   const { id } = useParams();
-  const { episode, findOne } = useEpisode();
+  const { episode, favEpisodes, findOne, addFovorite, removeFovorite } = useEpisode();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const toast = useToast();
 
   useEffect(() => {
     findOne(id as string);
@@ -51,6 +54,10 @@ export function Listener() {
       setIsPlaying(false);
     }
   }, [episode]);
+
+  useEffect(() => {
+    setIsFavorite(favEpisodes?.some((fav) => fav.id === id) ?? false);
+  }, [favEpisodes, id]);
 
   const updateTime = () => {
     if (audioRef.current) {
@@ -87,6 +94,31 @@ export function Listener() {
       } else {
         audioRef.current.currentTime = 0;
       }
+    }
+  };
+
+  const handleFavorite = async () => {
+    if (id) {
+      if (isFavorite) {
+        await removeFovorite(id);
+        toast({
+          title: "Episódio removido dos favoritos",
+          status: "warning",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      } else {
+        await addFovorite(id);
+        toast({
+          title: "Episódio adicionado aos favoritos",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+      setIsFavorite(!isFavorite);
     }
   };
 
@@ -165,11 +197,13 @@ export function Listener() {
             />
             <IconButton
               icon={<FaStar />}
+              onClick={handleFavorite}
               aria-label="Favorite"
               variant="ghost"
-              color="white"
+              color={isFavorite ? "#015BC4" : "white"}
               _hover={{ backgroundColor: "#181818" }}
             />
+
           </Flex>
           <Flex
             justifyContent="space-between"

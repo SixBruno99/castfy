@@ -1,4 +1,4 @@
-import { Box, VStack, Divider, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, VStack, Flex, Input, Text } from "@chakra-ui/react";
 import { Episode } from "../../core/components/episode";
 import { useEpisode } from "../../contexts/episode";
 import { useState } from "react";
@@ -27,7 +27,6 @@ export function Search() {
       <VStack display={"initial"}>
         <Box minHeight={150}>
           <VStack display={"initial"}>
-            <Divider orientation="horizontal" />
             {filteredEpisodes?.length ? (
               <Flex marginTop={20} flexDirection="column" gap={4}>
                 {filteredEpisodes?.map((episode, idx) => (
