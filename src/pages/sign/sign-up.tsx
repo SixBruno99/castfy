@@ -8,6 +8,7 @@ import {
   FormLabel,
   FormErrorMessage,
   Image,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/auth";
 import { useState } from "react";
@@ -40,6 +41,7 @@ export function SignUp() {
     error: false,
     textoError: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   // Função de validação do email
   const validateEmail = () => {
@@ -164,7 +166,7 @@ export function SignUp() {
   };
 
   // Função de validação de SignUp
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     const validacaoEmail = validateEmail();
     const validacaoNome = validateNome();
     const validacaoDataNascimento = validateDataNascimento();
@@ -178,14 +180,21 @@ export function SignUp() {
       validacaoPassword &&
       validacaoConfirmPassword
     ) {
-      signUp({
-        name: nome,
-        email: email,
-        password: password,
-        gender: EGender.NON_BINARY,
-        birthDate: new Date(dataNascimento),
-      });
-      navigate("/")
+      setIsLoading(true);
+      try {
+        await signUp({
+          name: nome,
+          email: email,
+          password: password,
+          gender: EGender.MALE,
+          birthDate: new Date(dataNascimento),
+        });
+        navigate("/");
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -199,7 +208,7 @@ export function SignUp() {
         alignItems="center"
         justifyContent="center"
       >
-        <Image src="/Castfy.svg" width={250} />
+        <Image src="/Castfy.svg" width={200} />
 
         <VStack width="full" spacing={3} paddingInline={25} overflowY="auto">
           <FormControl isInvalid={errorEmail.error}>
@@ -291,8 +300,13 @@ export function SignUp() {
             backgroundColor="#004aad"
             colorScheme="#004aad"
             onClick={handleSignUp}
+            disabled={isLoading}
           >
-            Cadastre-se
+            {isLoading ? (
+              <CircularProgress isIndeterminate color="white" size="24px" />
+            ) : (
+              "Cadastre-se"
+            )}
           </Button>
         </VStack>
       </Container>

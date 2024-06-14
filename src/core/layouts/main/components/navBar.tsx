@@ -26,13 +26,12 @@ export function NavBar(props: NavBarProps) {
 
   const handleSearchClick = () => {
     onNavigate("Search");
-    navigate(`/`);
-    // navigate(`/search`);
+    navigate(`/search`);
   };
 
   const handleLibraryClick = () => {
-    onNavigate("Home");
-    navigate(`/`);
+    onNavigate("Library");
+    navigate(`/library`);
   };
 
   const handleProfileClick = () => {
@@ -41,7 +40,7 @@ export function NavBar(props: NavBarProps) {
   };
 
   const handleSignOut = () => {
-    signOut()
+    signOut();
     navigate(`/`);
   };
 
@@ -124,11 +123,7 @@ export function NavBar(props: NavBarProps) {
           color={"white"}
           onClick={handleSignOut}
         >
-          <Icon
-            as={PiSignOutBold}
-            h={6}
-            w={6}
-          />
+          <Icon as={PiSignOutBold} h={6} w={6} />
         </Button>
         <Button
           borderRadius={"24px"}

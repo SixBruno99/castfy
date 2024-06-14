@@ -21,4 +21,24 @@ export const EpisodeRepository = {
       console.log(`unable to findOne due to error: ${error}`);
     }
   },
+
+  findAllFav: async () => {
+    try {
+      const response = await http.get(`/episode/list`);
+      console.log({ response });
+      return response.data;
+    } catch (error) {
+      console.log(`unable to findOne due to error: ${error}`);
+    }
+  },
+
+  setFovorite: async (id: string) => {
+    try {
+      const response = await http.post<IEpisode>(`/episode/favorite/${id}`);
+
+      return response.data;
+    } catch (error) {
+      console.log(`unable to findOne due to error: ${error}`);
+    }
+  },
 };

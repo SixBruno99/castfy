@@ -54,25 +54,6 @@ export function Home() {
           </VStack>
         </Box>
         
-        {/* 
-        <Box minHeight={150}>
-          <VStack display={"initial"} spacing={0}>
-            <Text fontSize="35px" fontWeight="bold" color={"white"}>
-              Mais Escutados no Dia:
-            </Text>
-            <Divider orientation="horizontal" />
-            <Flex flexDirection="column" marginY={4} gap={4}>
-              {episodes?.map((episode, idx) => (
-                <Episode
-                  key={idx}
-                  id={episode.id}
-                  title={episode.title}
-                  image={episode.image}
-                />
-              ))}
-            </Flex>
-          </VStack>
-        </Box> */}
       </VStack>
     </Box>
   );

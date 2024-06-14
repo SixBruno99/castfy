@@ -31,8 +31,7 @@ export function Footer(props: NavBarProps) {
 
   const handleSearchClick = () => {
     onNavigate("Search");
-    navigate(`/`);
-    // navigate(`/search`);
+    navigate(`/search`);
   };
 
   const handleLibraryClick = () => {

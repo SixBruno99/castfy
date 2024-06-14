@@ -30,7 +30,6 @@ export function AuthProvider({ children }: IProps) {
     try {
       // envia o payload para o repositório fazer a requisição de signIn
       const data = await AuthRepository.signIn(payload);
-      console.log("data", data);
 
       // retorna caso ocorra algum erro
       if (!data) return false;

@@ -1,12 +1,13 @@
 import {
   Box,
-  Button,
   Container,
-  HStack,
+  Image,
+  VStack,
   Input,
   Text,
-  VStack,
-  Image,
+  HStack,
+  Button,
+  CircularProgress
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
@@ -18,8 +19,9 @@ export function SignIn() {
   const [password, setPassword] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     // Validate email and password
     if (!email || !password) {
       if (!email) {
@@ -56,8 +58,19 @@ export function SignIn() {
     setErrorEmail("");
     setErrorPassword("");
 
-    // Cria o payload com o email e o password
-    signIn({ email: email, password: password }, true);
+    // Define o estado de carregamento como verdadeiro
+    setIsLoading(true);
+
+    try {
+      // Cria o payload com o email e o password e chama a função signIn
+      await signIn({ email, password }, true);
+    } catch (error) {
+      // Handle sign-in error here
+      console.error(error);
+    } finally {
+      // Define o estado de carregamento como falso após a tentativa de login
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -113,8 +126,9 @@ export function SignIn() {
               backgroundColor="#004aad"
               colorScheme="#004aad"
               onClick={handleSignIn}
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? <CircularProgress isIndeterminate size="24px" /> : "Login"}
             </Button>
             <Button
               flex="1"

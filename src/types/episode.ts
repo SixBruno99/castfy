@@ -1,7 +1,7 @@
 export interface IEpisodes {
   id: string;
   description?: string;
-  title?: string;
+  title: string;
   podcast?: {
     id: string;
     description: string;

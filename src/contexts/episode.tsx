@@ -10,8 +10,9 @@ import { EpisodeRepository } from "../repositories/episode";
 import { IEpisodes, IEpisode } from "../types/episode";
 
 interface IValues {
-  episodes: IEpisodes[] | undefined;
   episode: IEpisode | undefined;
+  episodes: IEpisodes[] | undefined;
+  favEpisodes: IEpisodes[] | undefined;
   findAll: () => Promise<boolean>;
   findOne: (id: string) => Promise<boolean>;
 }
@@ -23,14 +24,21 @@ interface IProps {
 }
 
 export function EpisodeProvider({ children }: IProps) {
-  const [episodes, setEpisodes] = useState<IEpisodes[] | undefined>(undefined);
-  const [episode, setEpisode] = useState<IEpisode | undefined>(undefined);
+  const [favEpisodes, setFavEpisodes] = useState<IEpisodes[] | undefined>();
+  const [episodes, setEpisodes] = useState<IEpisodes[] | undefined>();
+  const [episode, setEpisode] = useState<IEpisode | undefined>();
 
   const findAll = useCallback(async () => {
     try {
       const data = await EpisodeRepository.findAll();
+      const favData = await EpisodeRepository.findAllFav();
+      
       if (!data) return false;
+      if (!favData) return false;
+
       setEpisodes(data);
+      setFavEpisodes(favData.lastEpisodes);
+
       return true;
     } catch (error) {
       console.error(`unable to login due to error: ${error}`);
@@ -50,7 +58,6 @@ export function EpisodeProvider({ children }: IProps) {
     return false;
   }, []);
 
-
   useEffect(() => {
     findAll();
   }, []);
@@ -58,8 +65,9 @@ export function EpisodeProvider({ children }: IProps) {
   return (
     <EpisodeContext.Provider
       value={{
-        episodes,
         episode,
+        episodes,
+        favEpisodes,
         findAll,
         findOne,
       }}
