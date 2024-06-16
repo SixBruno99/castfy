@@ -34,7 +34,7 @@ export const AuthRepository = {
 
   sendEmail: async (email: string) => {
     try {
-      const response = await http.post("/auth/", email);
+      const response = await http.post("/auth/forgot-password", { email });
 
       return response.data;
     } catch (error) {
@@ -42,10 +42,11 @@ export const AuthRepository = {
     }
   },
 
-  sendCode: async (code: string) => {
+  sendCode: async (userId: string, code: string) => {
     try {
-      const response = await http.post("/auth/", code);
-
+      const response = await http.post(`/auth/verify-code/${userId}/${code}`, {code});
+      console.log("sendcone", response);
+      
       return response.data;
     } catch (error) {
       console.log(`unable to send code due to error: ${error}`);
@@ -54,7 +55,7 @@ export const AuthRepository = {
 
   sendPassword: async (password: string) => {
     try {
-      const response = await http.post("/auth/", password);
+      const response = await http.post("/auth/reset-password", password);
 
       return response.data;
     } catch (error) {

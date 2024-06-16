@@ -13,6 +13,8 @@ interface IValues {
   user: IUser | undefined;
   signIn: (payload: ISignInPayload, rememberMe: boolean) => Promise<boolean>;
   signUp: (payload: ISignUpPayload) => Promise<boolean>;
+  sendEmail: (payload: string) => Promise<boolean>;
+  sendCode: (payload: string) => Promise<boolean>;
   signOut: () => Promise<void>;
 }
 
@@ -23,6 +25,7 @@ interface IProps {
 }
 
 export function AuthProvider({ children }: IProps) {
+  const [userId, setUserId] = useState<string>("");
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [signed, setSigned] = useState<boolean>(false);
 
@@ -90,6 +93,32 @@ export function AuthProvider({ children }: IProps) {
     return false;
   }
 
+  async function sendEmail(payload: string) {
+    try {
+      const data = await AuthRepository.sendEmail(payload);
+      console.log("email data", data);
+      setUserId(data.id);
+      
+      return data;
+    } catch (error) {
+      console.error(`unable to send email due to error: ${error}`);
+    }
+
+    return false;
+  }
+
+  async function sendCode(payload: string) {
+    try {
+      const data = await AuthRepository.sendCode(userId, payload);
+      
+      return data;
+    } catch (error) {
+      console.error(`unable to send code due to error: ${error}`);
+    }
+
+    return false;
+  }
+
   async function signOut() {
     // limpa os dados do usuário
     setUser(undefined);
@@ -133,11 +162,13 @@ export function AuthProvider({ children }: IProps) {
   return (
     <AuthContext.Provider
       value={{
+        user,
         signed,
         signIn,
         signOut,
         signUp,
-        user,
+        sendEmail,
+        sendCode,
       }}
     >
       {children}
