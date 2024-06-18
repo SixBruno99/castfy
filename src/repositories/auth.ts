@@ -42,20 +42,35 @@ export const AuthRepository = {
     }
   },
 
-  sendCode: async (userId: string, code: string) => {
+  sendCode: async (id: string, code: string) => {
     try {
-      const response = await http.post(`/auth/verify-code/${userId}/${code}`, {code});
+      const response = await http.post(`/auth/verify-code/${id}/${code}`, {
+        code,
+      });
       console.log("sendcone", response);
-      
+
       return response.data;
     } catch (error) {
       console.log(`unable to send code due to error: ${error}`);
     }
   },
 
-  sendPassword: async (password: string) => {
+  sendPassword: async (authToken: string, password: string) => {
+    console.log("authToken", authToken);
+    console.log("password", password);
+    
     try {
-      const response = await http.post("/auth/reset-password", password);
+      const response = await http.post(
+        "/auth/reset-password",
+        { password },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log("sendPassword response", response);
 
       return response.data;
     } catch (error) {

@@ -15,6 +15,7 @@ interface IValues {
   signUp: (payload: ISignUpPayload) => Promise<boolean>;
   sendEmail: (payload: string) => Promise<boolean>;
   sendCode: (payload: string) => Promise<boolean>;
+  sendPassword: (payload: string) => Promise<boolean>;
   signOut: () => Promise<void>;
 }
 
@@ -25,7 +26,8 @@ interface IProps {
 }
 
 export function AuthProvider({ children }: IProps) {
-  const [userId, setUserId] = useState<string>("");
+  const [id, setId] = useState<string>("");
+  const [authToken, setAuthToken] = useState<string>("");
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [signed, setSigned] = useState<boolean>(false);
 
@@ -52,9 +54,6 @@ export function AuthProvider({ children }: IProps) {
 
       storage.setItem("@user:name", data.name);
 
-      // define o usuário a partir da resposta da requisição
-      // setUser()
-
       // redireciona o usuário para as telas autenticadas
       setSigned(true);
 
@@ -77,11 +76,8 @@ export function AuthProvider({ children }: IProps) {
       // salva o token no sessionStorage
       sessionStorage.setItem("@auth:token", data.token);
 
-      sessionStorage.setItem("@user:name", data.token);
-
-      // define o usuário a partir da resposta da requisição
-      // setUser()
-
+      console.log("sign-up data", data);
+      
       // redireciona o usuário para as telas autenticadas
       setSigned(true);
 
@@ -96,8 +92,11 @@ export function AuthProvider({ children }: IProps) {
   async function sendEmail(payload: string) {
     try {
       const data = await AuthRepository.sendEmail(payload);
-      console.log("email data", data);
-      setUserId(data.id);
+
+      console.log("data.id",data.id);
+      
+      
+      setId(data.id);
       
       return data;
     } catch (error) {
@@ -109,7 +108,27 @@ export function AuthProvider({ children }: IProps) {
 
   async function sendCode(payload: string) {
     try {
-      const data = await AuthRepository.sendCode(userId, payload);
+      const data = await AuthRepository.sendCode(id, payload);
+
+      console.log("code token", data.token);
+
+      setAuthToken(data.token);
+      
+      return data;
+    } catch (error) {
+      console.error(`unable to send code due to error: ${error}`);
+    }
+
+    return false;
+  }
+
+  async function sendPassword(payload: string) {
+    try {
+      const data = await AuthRepository.sendPassword(authToken, payload);
+
+      sessionStorage.setItem("@auth:token", data.token);
+
+      loadCredentials()
       
       return data;
     } catch (error) {
@@ -169,6 +188,7 @@ export function AuthProvider({ children }: IProps) {
         signUp,
         sendEmail,
         sendCode,
+        sendPassword,
       }}
     >
       {children}

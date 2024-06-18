@@ -24,9 +24,6 @@ export function CodeValidate() {
     try {
       const response = await sendCode(code);
 
-      console.log("handlesend", response);
-      
-
       if (response) {
         navigate("/recoverPassword");
       } else {
@@ -45,8 +42,6 @@ export function CodeValidate() {
   };
 
   const handleChangeCode = (value: string) => {
-    console.log();
-    
     setCode(value);
   };
 

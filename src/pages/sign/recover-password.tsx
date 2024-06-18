@@ -1,31 +1,36 @@
-import { useState } from "react";
 import {
-    Box,
-    Button,
-    Container,
-    HStack,
-    Input,
-    VStack,
-    Image,
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-  } from "@chakra-ui/react";
+  Box,
+  Button,
+  Container,
+  HStack,
+  Input,
+  VStack,
+  Image,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  useToast,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useAuth } from "../../contexts/auth";
+import { useNavigate } from "react-router-dom";
 
 export function RecoverPassword() {
-
-const [password, setPassword] = useState("");
-const [confirmPassword, setConfirmPassword] = useState("");
-const [errorPassword, setErrorPassword] = useState({
+  const { sendPassword } = useAuth();
+  const navigate = useNavigate();
+  const toast = useToast();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState({
     error: false,
     textoError: "",
   });
-const [errorConfirmPassword, setErrorConfirmPassword] = useState({
-  error: false,
-  textoError: "",
-});
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState({
+    error: false,
+    textoError: "",
+  });
 
-const validatePassword = () => {
+  const validatePassword = async () => {
     // Verifica se a senha está vazia
     if (!password) {
       setErrorPassword({ error: true, textoError: "Senha inválida." });
@@ -56,16 +61,47 @@ const validatePassword = () => {
 
     // Verifica se a "senha" é igual a "confirmar senha"
     if (password !== confirmPassword) {
-      setErrorConfirmPassword({ error: true, textoError: "As senhas não coincidem." });
+      setErrorConfirmPassword({
+        error: true,
+        textoError: "As senhas não coincidem.",
+      });
       return false;
     }
 
     // Retorna a variável de erro da senha para o estado default
     setErrorPassword({ error: false, textoError: "" });
+
+    try {
+      const response = await sendPassword(password);
+
+      if (response) {
+        toast({
+          title: "Sucesso ao alterrar senha!",
+          description: `Senha alterada com sucesso`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "top-right",
+        });
+        navigate("/");
+      } else {
+        throw new Error("Failed to send email");
+      }
+    } catch (error) {
+      toast({
+        title: "Erro ao alterrar senha!",
+        description: `Ocorreu um erro ao tentar alterar senha`,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+
     return true;
   };
 
-return (
+  return (
     <Box flex="1" backgroundColor={"black"}>
       <Container
         maxWidth="md"
@@ -79,37 +115,37 @@ return (
         <Image src="/Castfy.svg" />
         <VStack width="full" spacing={5}>
           <VStack width={"full"} spacing={5} alignItems="start">
-          <FormControl isInvalid={errorPassword.error}>
-            <FormLabel color="white" fontSize={14}>
-              Senha
-            </FormLabel>
-            <Input
-              type="password"
-              placeholder="Senha"
-              background="white"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <FormErrorMessage color="red" fontSize={12}>
-              {errorPassword.textoError}
-            </FormErrorMessage>
-          </FormControl>
+            <FormControl isInvalid={errorPassword.error}>
+              <FormLabel color="white" fontSize={14}>
+                Senha
+              </FormLabel>
+              <Input
+                type="password"
+                placeholder="Senha"
+                background="white"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <FormErrorMessage color="red" fontSize={12}>
+                {errorPassword.textoError}
+              </FormErrorMessage>
+            </FormControl>
 
-          <FormControl isInvalid={errorConfirmPassword.error}>
-            <FormLabel color="white" fontSize={14}>
-              Confirmar Senha
-            </FormLabel>
-            <Input
-              type="password"
-              placeholder="Confirmar Senha"
-              background="white"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <FormErrorMessage color="red" fontSize={12}>
-              {errorConfirmPassword.textoError}
-            </FormErrorMessage>
-          </FormControl>
+            <FormControl isInvalid={errorConfirmPassword.error}>
+              <FormLabel color="white" fontSize={14}>
+                Confirmar Senha
+              </FormLabel>
+              <Input
+                type="password"
+                placeholder="Confirmar Senha"
+                background="white"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <FormErrorMessage color="red" fontSize={12}>
+                {errorConfirmPassword.textoError}
+              </FormErrorMessage>
+            </FormControl>
           </VStack>
           <HStack display={"flex"} width="full">
             <Button
@@ -119,12 +155,11 @@ return (
               colorScheme="#004aad"
               onClick={validatePassword}
             >
-                Redefinir Senha
+              Redefinir Senha
             </Button>
           </HStack>
-    
         </VStack>
       </Container>
     </Box>
-    );
+  );
 }
