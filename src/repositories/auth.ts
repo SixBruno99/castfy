@@ -47,8 +47,6 @@ export const AuthRepository = {
       const response = await http.post(`/auth/verify-code/${id}/${code}`, {
         code,
       });
-      console.log("sendcone", response);
-
       return response.data;
     } catch (error) {
       console.log(`unable to send code due to error: ${error}`);
@@ -56,8 +54,6 @@ export const AuthRepository = {
   },
 
   sendPassword: async (authToken: string, password: string) => {
-    console.log("authToken", authToken);
-    console.log("password", password);
     
     try {
       const response = await http.post(
@@ -69,8 +65,6 @@ export const AuthRepository = {
           },
         }
       );
-
-      console.log("sendPassword response", response);
 
       return response.data;
     } catch (error) {
