@@ -7,10 +7,10 @@ export function Home() {
 
   return (
     <Box
+      width="100vw"
       backgroundColor="#1f1f1f"
-      width={"100vw"}
       padding={{ base: "12px", md: "24px" }}
-      minHeight={{ base: "calc(100vh - 100px)", md: "100vh" }}
+      minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
       overflowX="hidden"
     >
       <Text
@@ -21,66 +21,37 @@ export function Home() {
         Para você:
       </Text>
       <Divider orientation="horizontal" />
-      <Grid marginY={4} pb={8} gap={4} templateColumns="repeat(auto-fill, minmax(232px, 1fr))">
-        {episodes?.map((episode, idx) => (
-          <Episode
-            key={idx}
-            id={episode.id}
-            title={episode.title}
-            image={episode.image}
+      <Box
+        display={{ base: "flex", md: "grid" }}
+        flexDirection="column"
+        alignItems={{ base: "center", md: "none" }}
+      >
+        <Grid
+          marginY={4}
+          pb={{ base: 0, md: 8 }}
+          gap={4}
+          templateColumns="repeat(auto-fill, minmax(232px, 1fr))"
+        >
+          {episodes?.map((episode, idx) => (
+            <Episode
+              key={idx}
+              id={episode.id}
+              title={episode.title}
+              image={episode.image}
+              favorite={false}
+              showFavorite={false}
+            />
+          ))}
+          {/* <Episode
+            key={1}
+            id={"1"}
+            title={"lorem ipsum lorem ipsum lorem ipsum"}
+            image={""}
             favorite={false}
             showFavorite={false}
-          />
-        ))}
-        <Episode
-          key={1}
-          id={"1"}
-          title={"lorem ipsum lorem ipsum lorem ipsum"}
-          image={""}
-          favorite={false}
-          showFavorite={false}
-        />
-        <Episode
-          key={1}
-          id={"1"}
-          title={"lorem ipsum"}
-          image={""}
-          favorite={false}
-          showFavorite={false}
-        />
-        <Episode
-          key={1}
-          id={"1"}
-          title={"lorem ipsum lorem ipsum lorem ipsum"}
-          image={""}
-          favorite={false}
-          showFavorite={false}
-        />
-        <Episode
-          key={1}
-          id={"1"}
-          title={"lorem ipsum"}
-          image={""}
-          favorite={false}
-          showFavorite={false}
-        />
-        <Episode
-          key={1}
-          id={"1"}
-          title={"lorem ipsum lorem ipsum lorem ipsum"}
-          image={""}
-          favorite={false}
-          showFavorite={false}
-        />
-        <Episode
-          key={1}
-          id={"1"}
-          title={"lorem ipsum"}
-          image={""}
-          favorite={false}
-          showFavorite={false}
-        />
-      </Grid>
+          /> */}
+        </Grid>
+      </Box>
     </Box>
   );
 }

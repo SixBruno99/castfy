@@ -18,7 +18,8 @@ import { TbRewindBackward10, TbRewindForward10 } from "react-icons/tb";
 
 export function Listener() {
   const { id } = useParams();
-  const { episode, favEpisodes, findOne, addFovorite, removeFovorite } = useEpisode();
+  const { episode, favEpisodes, findOne, addFovorite, removeFovorite } =
+    useEpisode();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -142,13 +143,27 @@ export function Listener() {
   return (
     <Flex
       width="full"
-      minHeight={{ base: "calc(100vh - 100px)", md: "100vh" }}
+      minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
       alignItems="center"
       justifyContent="center"
       backgroundColor="#1F1F1F"
     >
-      <Flex flexDirection="column" width="324px" gap={4}>
-        <Image src={episode?.imageUrl} alt={id} height="276px" width="full" />
+      <Flex
+        flexDirection="column"
+        width={{base: "324px", md: "364px"}}
+        backgroundColor="#121212"
+        boxShadow="dark-lg"
+        borderRadius={8}
+        padding={4}
+        gap={4}
+      >
+        <Image
+          src={episode?.imageUrl}
+          alt={id}
+          borderRadius={8}
+          height="232px"
+          width="full"
+        />
         <Text color="white" fontWeight="bold" textAlign="center">
           {episode?.title}
         </Text>
@@ -203,7 +218,6 @@ export function Listener() {
               color={isFavorite ? "#015BC4" : "white"}
               _hover={{ backgroundColor: "#181818" }}
             />
-
           </Flex>
           <Flex
             justifyContent="space-between"

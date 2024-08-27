@@ -1,16 +1,16 @@
-import { Text, Box, VStack, Divider, Flex } from "@chakra-ui/react";
+import { Text, Box, VStack, Divider, Grid } from "@chakra-ui/react";
 import { Episode } from "../../core/components/episode";
 import { useEpisode } from "../../contexts/episode";
 
 export function Library() {
   const { favEpisodes } = useEpisode();
-  
+
   return (
     <Box
       backgroundColor="#1f1f1f"
       width={"100vw"}
       padding={{ base: "12px", md: "24px" }}
-      height={{ base: "calc(100vh - 100px)", md: "100vh" }}
+      minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
     >
       <VStack display={"initial"}>
         <Box minHeight={150}>
@@ -20,20 +20,31 @@ export function Library() {
               fontWeight="bold"
               color={"white"}
             >
-              Episódios favoritos:
+              Favoritos:
             </Text>
             <Divider orientation="horizontal" />
-            <Flex flexDirection="column" marginY={4} gap={4}>
-              {favEpisodes?.map((episode, idx) => (
-                <Episode
-                  key={idx}
-                  id={episode.id}
-                  title={episode.title}
-                  image={episode.image}
-                  favorite={true}
-                />
-              ))}
-            </Flex>
+            <Box
+              display={{ base: "flex", md: "grid" }}
+              flexDirection="column"
+              alignItems={{ base: "center", md: "none" }}
+            >
+              <Grid
+                marginY={4}
+                pb={{ base: 0, md: 8 }}
+                gap={4}
+                templateColumns="repeat(auto-fill, minmax(232px, 1fr))"
+              >
+                {favEpisodes?.map((episode, idx) => (
+                  <Episode
+                    key={idx}
+                    id={episode.id}
+                    title={episode.title}
+                    image={episode.image}
+                    favorite={true}
+                  />
+                ))}
+              </Grid>
+            </Box>
           </VStack>
         </Box>
       </VStack>

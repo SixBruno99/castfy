@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Image, Text, useToast } from "@chakra-ui/react";
+import { Box, Flex, Image, Text, useToast } from "@chakra-ui/react";
 import { IEpisodes } from "../../types/episode";
 import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
@@ -32,52 +32,57 @@ export function Episode({
   };
 
   return (
-    <Flex alignItems="center">
-      {showFavorite && (
-        <IconButton
-          icon={<FaStar />}
-          onClick={handleRemoveFav}
-          aria-label="Favorite"
-          variant="ghost"
-          color={favorite ? "#015BC4" : "white"}
-          mx={4}
-        />
-      )}
-      <Flex
-        flexDirection="column"
-        alignItems="center"
-        backgroundColor="#121212"
-        boxShadow="dark-lg"
+    <Flex
+      height="224px"
+      width="232px"
+      alignItems="center"
+      flexDirection="column"
+      backgroundColor="#121212"
+      boxShadow="dark-lg"
+      borderRadius={8}
+      padding={4}
+      gap={4}
+    >
+      <Image
+        src={image.url}
         borderRadius={8}
-        padding={4}
-        gap={4}
         height="224px"
         width="232px"
+        object-fit="cover"
+      />
+      <Flex
+        width="100%"
+        gap={2}
+        justifyContent="space-between"
+        alignItems="center"
       >
-        <Image
-          src={image.url}
-          height="224px"
-          width="232px"
-          object-fit="cover"
-        />
-        <Flex
-          width="100%"
-          gap={4}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Text color="white" fontWeight="bold" noOfLines={1}>
-            {title}
-          </Text>
-          <Box minWidth="24px" minHeight="24px">
-            <FaPlayCircle
-              color="white"
-              size="24px"
+        {showFavorite && (
+          <Flex
+            alignItems="center"
+            justifyContent="center"
+            minWidth="24px"
+            minHeight="24px"
+          >
+            <FaStar
+              size="16px"
               cursor="pointer"
-              onClick={handleListenClick}
+              color={favorite ? "#015BC4" : "white"}
+              onClick={handleRemoveFav}
             />
-          </Box>
-        </Flex>
+          </Flex>
+        )}
+
+        <Text color="white" fontWeight="bold" noOfLines={1}>
+          {title}
+        </Text>
+        <Box minWidth="24px" minHeight="24px">
+          <FaPlayCircle
+            color="white"
+            size="24px"
+            cursor="pointer"
+            onClick={handleListenClick}
+          />
+        </Box>
       </Flex>
     </Flex>
   );

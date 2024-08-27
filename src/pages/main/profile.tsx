@@ -29,20 +29,20 @@ export function Profile() {
 
   return (
     <Box
-      backgroundColor="#1f1f1f"
       width="100vw"
+      minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
       padding={{ base: "12px", md: "24px" }}
-      minHeight={{ base: "calc(100vh - 100px)", md: "100vh" }}
+      backgroundColor="#1f1f1f"
       color="white"
     >
       <Flex
+        height={{ base: "calc(100vh - 88px)", md: "100%" }}
         flexDirection="column"
-        height={{ base: "calc(100vh - 124px)", md: "100%" }}
-        align="center"
+        alignItems="center"
         justifyContent="center"
       >
         <Button
-         display={{ base: "grid", md: "none" }}
+          display={{ base: "grid", md: "none" }}
           alignSelf="end"
           borderRadius={"24px"}
           colorScheme="gray"
@@ -52,9 +52,13 @@ export function Profile() {
           color={"white"}
           onClick={handleSignOut}
         >
-          <Icon as={PiSignOutBold} h={6} w={6} />
+          <Icon as={PiSignOutBold} width="24px" height="24px" />
         </Button>
-        <Avatar size="2xl" name={userName} marginTop={8} />
+        <Avatar
+          size={{ base: "xl", md: "2xl" }}
+          name={userName}
+          marginTop={8}
+        />
         <Text
           fontSize={{ base: "18px", md: "24px" }}
           fontWeight="bold"
@@ -63,9 +67,9 @@ export function Profile() {
           {userName}
         </Text>
         <Flex
-          width={{ base: "350px", md: "400px" }}
+          width={{ base: "300px", md: "400px" }}
           flexDirection="column"
-          marginTop={12}
+          marginTop={{ base: "8px", md: "12px" }}
           gap={4}
         >
           <Text
@@ -73,10 +77,10 @@ export function Profile() {
             fontWeight="bold"
             textAlign="center"
           >
-            Podcasts mais escutados
+            Podcast mais escutado:
           </Text>
-          <Flex width="80%" marginX="auto" flexDirection="column" gap={4}>
-            {episodes?.slice(0, 2).map((episode, idx) => (
+          <Flex flexDirection="column" alignItems="center" gap={4}>
+            {/* {episodes.map((episode, idx) => (
               <Episode
                 key={idx}
                 id={episode.id}
@@ -84,7 +88,15 @@ export function Profile() {
                 image={episode.image}
                 showFavorite={false}
               />
-            ))}
+            ))} */}
+            {episodes && (
+              <Episode
+                id={episodes[0].id!}
+                title={episodes[0]?.title}
+                image={episodes[0]?.image}
+                showFavorite={false}
+              />
+            )}
           </Flex>
         </Flex>
       </Flex>
