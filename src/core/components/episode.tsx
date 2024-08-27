@@ -1,8 +1,9 @@
-import { Flex, IconButton, Image, Text, useToast } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Image, Text, useToast } from "@chakra-ui/react";
 import { IEpisodes } from "../../types/episode";
 import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { useEpisode } from "../../contexts/episode";
+import { FaPlayCircle } from "react-icons/fa";
 
 export function Episode({
   id,
@@ -14,7 +15,6 @@ export function Episode({
   const { removeFovorite } = useEpisode();
   const navigate = useNavigate();
   const toast = useToast();
-  
 
   const handleListenClick = () => {
     navigate(`/episode/${id}`);
@@ -40,24 +40,44 @@ export function Episode({
           aria-label="Favorite"
           variant="ghost"
           color={favorite ? "#015BC4" : "white"}
-          _hover={{ backgroundColor: "#181818" }}
           mx={4}
         />
       )}
       <Flex
+        flexDirection="column"
         alignItems="center"
-        gap={4}
+        backgroundColor="#121212"
         cursor="pointer"
-        onClick={handleListenClick}
+        boxShadow="dark-lg"
+        borderRadius={8}
+        padding={4}
+        gap={4}
+        height="224px"
+        width="232px"
       >
         <Image
           src={image.url}
-          height={{ base: "48px", md: "64px" }}
-          width={{ base: "48px", md: "64px" }}
+          height="224px"
+          width="232px"
+          object-fit="cover"
         />
-        <Text color="white" fontWeight="bold">
-          {title}
-        </Text>
+        <Flex
+          width="100%"
+          gap={4}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Text color="white" fontWeight="bold" noOfLines={1}>
+            {title}
+          </Text>
+          <Box minWidth="24px" minHeight="24px">
+            <FaPlayCircle
+              color="white"
+              size="24px"
+              onClick={handleListenClick}
+            />
+          </Box>
+        </Flex>
       </Flex>
     </Flex>
   );
