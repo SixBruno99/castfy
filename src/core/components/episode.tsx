@@ -47,7 +47,6 @@ export function Episode({
         flexDirection="column"
         alignItems="center"
         backgroundColor="#121212"
-        cursor="pointer"
         boxShadow="dark-lg"
         borderRadius={8}
         padding={4}
@@ -74,6 +73,7 @@ export function Episode({
             <FaPlayCircle
               color="white"
               size="24px"
+              cursor="pointer"
               onClick={handleListenClick}
             />
           </Box>

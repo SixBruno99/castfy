@@ -1,4 +1,4 @@
-import { Box, VStack, Image, Button, Icon, Text } from "@chakra-ui/react";
+import { Flex, Image, Button, Text } from "@chakra-ui/react";
 import {
   MdHomeFilled,
   MdAccountCircle,
@@ -45,104 +45,100 @@ export function NavBar(props: NavBarProps) {
   };
 
   return (
-    <Box
-      width="150px"
-      display="flex"
+    <Flex
       flexDirection="column"
       alignItems="center"
       justifyContent="space-between"
       backgroundColor="black"
       borderRight="1px solid #383838"
     >
-      <VStack>
-        <Image src="/Castfy.svg" width={150} />
+      <Flex flexDirection="column" alignItems="center" gap={4}>
+        <Image src="/Castfy.svg" width="96px" />
 
-        <VStack marginTop={4}>
+        <Flex flexDirection="column" alignItems="center" gap={2}>
           <Button
-            borderRadius={"24px"}
+            borderRadius="24px"
             colorScheme="gray"
-            width={"100px"}
-            height={"45px"}
             bg={selectedPage === "Home" ? "#ffffff" : "transparent"}
             color={selectedPage === "Home" ? "black" : "white"}
             onClick={handleListenClick}
           >
-            <Icon
-              as={MdHomeFilled}
-              h={6}
-              w={6}
+            <MdHomeFilled
+              size="24px"
               color={selectedPage === "Home" ? "black" : "white"}
             />
           </Button>
-          <Text color={"white"}>Início</Text>
+          <Text color="white" fontWeight="semibold" fontSize="12px">
+            Início
+          </Text>
+        </Flex>
 
+        <Flex flexDirection="column" alignItems="center" gap={2}>
           <Button
-            borderRadius={"24px"}
+            borderRadius="24px"
             colorScheme="gray"
-            width={"100px"}
-            height={"45px"}
             bg={selectedPage === "Search" ? "#ffffff" : "transparent"}
             color={selectedPage === "Search" ? "black" : "white"}
             onClick={handleSearchClick}
           >
-            <Icon
-              as={MdSearch}
-              h={6}
-              w={6}
+            <MdSearch
+              size="24px"
               color={selectedPage === "Search" ? "black" : "white"}
             />
           </Button>
-          <Text color={"white"}>Pesquisar</Text>
+          <Text color="white" fontWeight="semibold" fontSize="12px">
+            Pesquisar
+          </Text>
+        </Flex>
+
+        <Flex flexDirection="column" alignItems="center" gap={2}>
           <Button
-            borderRadius={"24px"}
+            borderRadius="24px"
             colorScheme="gray"
-            width={"100px"}
-            height={"45px"}
             bg={selectedPage === "Library" ? "#ffffff" : "transparent"}
             color={selectedPage === "Library" ? "black" : "white"}
             onClick={handleLibraryClick}
           >
-            <Icon
-              as={MdOutlineFolder}
-              h={6}
-              w={6}
+            <MdOutlineFolder
+              size="24px"
               color={selectedPage === "Library" ? "black" : "white"}
             />
           </Button>
-          <Text color={"white"}>Biblioteca</Text>
-        </VStack>
-      </VStack>
+          <Text color="white" fontWeight="semibold" fontSize="12px">
+            Biblioteca
+          </Text>
+        </Flex>
+      </Flex>
 
-      <VStack marginBottom={4}>
-        <Button
-          borderRadius={"24px"}
-          colorScheme="gray"
-          width={"100px"}
-          height={"45px"}
-          bg={"transparent"}
-          color={"white"}
-          onClick={handleSignOut}
-        >
-          <Icon as={PiSignOutBold} h={6} w={6} />
-        </Button>
-        <Button
-          borderRadius={"24px"}
-          colorScheme="gray"
-          width={"100px"}
-          height={"45px"}
-          bg={selectedPage === "Profile" ? "#ffffff" : "transparent"}
-          color={selectedPage === "Profile" ? "black" : "white"}
-          onClick={handleProfileClick}
-        >
-          <Icon
-            as={MdAccountCircle}
-            h={6}
-            w={6}
+      <Flex flexDirection="column" marginBottom={4} gap={4}>
+        <Flex justifyContent="center" gap={2}>
+          <Button
+            borderRadius="24px"
+            colorScheme="gray"
+            bg={"transparent"}
+            onClick={handleSignOut}
+          >
+            <PiSignOutBold size="24px" color="white" />
+          </Button>
+        </Flex>
+        <Flex flexDirection="column" alignItems="center" gap={2}>
+          <Button
+            borderRadius="24px"
+            colorScheme="gray"
+            bg={selectedPage === "Profile" ? "#ffffff" : "transparent"}
             color={selectedPage === "Profile" ? "black" : "white"}
-          />
-        </Button>
-        <Text color={"white"}>Perfil</Text>
-      </VStack>
-    </Box>
+            onClick={handleProfileClick}
+          >
+            <MdAccountCircle
+              size="24px"
+              color={selectedPage === "Profile" ? "black" : "white"}
+            />
+          </Button>
+          <Text color="white" fontWeight="semibold" fontSize="12px">
+            Biblioteca
+          </Text>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 }

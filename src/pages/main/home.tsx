@@ -1,4 +1,4 @@
-import { Text, Box, Divider, Flex } from "@chakra-ui/react";
+import { Text, Box, Divider, Grid } from "@chakra-ui/react";
 import { Episode } from "../../core/components/episode";
 import { useEpisode } from "../../contexts/episode";
 
@@ -11,7 +11,7 @@ export function Home() {
       width={"100vw"}
       padding={{ base: "12px", md: "24px" }}
       minHeight={{ base: "calc(100vh - 100px)", md: "100vh" }}
-       overflowX="hidden"
+      overflowX="hidden"
     >
       <Text
         fontSize={{ base: "20px", md: "36px" }}
@@ -21,7 +21,7 @@ export function Home() {
         Para você:
       </Text>
       <Divider orientation="horizontal" />
-      <Flex marginY={4} pb={8} gap={4}  overflowX="auto">
+      <Grid marginY={4} pb={8} gap={4} templateColumns="repeat(auto-fill, minmax(232px, 1fr))">
         {episodes?.map((episode, idx) => (
           <Episode
             key={idx}
@@ -51,7 +51,7 @@ export function Home() {
         <Episode
           key={1}
           id={"1"}
-          title={"oi"}
+          title={"lorem ipsum lorem ipsum lorem ipsum"}
           image={""}
           favorite={false}
           showFavorite={false}
@@ -59,7 +59,7 @@ export function Home() {
         <Episode
           key={1}
           id={"1"}
-          title={"oi"}
+          title={"lorem ipsum"}
           image={""}
           favorite={false}
           showFavorite={false}
@@ -67,7 +67,7 @@ export function Home() {
         <Episode
           key={1}
           id={"1"}
-          title={"oi"}
+          title={"lorem ipsum lorem ipsum lorem ipsum"}
           image={""}
           favorite={false}
           showFavorite={false}
@@ -75,28 +75,12 @@ export function Home() {
         <Episode
           key={1}
           id={"1"}
-          title={"oi"}
+          title={"lorem ipsum"}
           image={""}
           favorite={false}
           showFavorite={false}
         />
-        <Episode
-          key={1}
-          id={"1"}
-          title={"oi"}
-          image={""}
-          favorite={false}
-          showFavorite={false}
-        />
-        <Episode
-          key={1}
-          id={"1"}
-          title={"oi"}
-          image={""}
-          favorite={false}
-          showFavorite={false}
-        />
-      </Flex>
+      </Grid>
     </Box>
   );
 }
