@@ -9,6 +9,7 @@ import { Search } from "../../pages/main/search";
 import { Library } from "../../pages/main/library";
 import { Profile } from "../../pages/main/profile";
 import { Listener } from "../../core/components/listener";
+import { Upload } from "../../pages/main/upload";
 
 export function AuthenticatedRouter() {
   return (
@@ -20,6 +21,7 @@ export function AuthenticatedRouter() {
           <Route path="/library" element={<Library />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/episode/:id" element={<Listener />} />
+          <Route path="/upload" element={<Upload />} />
         </Route>
       </Routes>
     </EpisodeProvider>

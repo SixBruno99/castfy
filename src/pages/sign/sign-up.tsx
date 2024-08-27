@@ -199,7 +199,7 @@ export function SignUp() {
   };
 
   return (
-    <Box flex="1" backgroundColor="black">
+    <Box flex="1" height={"100vh"} backgroundColor="black">
       <Container
         maxWidth="md"
         height="full"

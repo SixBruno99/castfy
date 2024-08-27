@@ -5,6 +5,7 @@ import {
   MdSearch,
   MdOutlineFolder,
 } from "react-icons/md";
+import { FiUploadCloud } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {
@@ -29,6 +30,11 @@ export function Footer(props: NavBarProps) {
   const handleLibraryClick = () => {
     onNavigate("Library");
     navigate(`/library`);
+  };
+
+  const handleUploadClick = () => {
+    onNavigate("Upload");
+    navigate(`/upload`);
   };
 
   const handleProfileClick = () => {
@@ -95,6 +101,24 @@ export function Footer(props: NavBarProps) {
             h={6}
             w={6}
             color={selectedPage === "Library" ? "black" : "white"}
+          />
+        </Button>
+      </VStack>
+
+      <VStack>
+        <Button
+          borderRadius={"24px"}
+          colorScheme="gray"
+          height={"40px"}
+          bg={selectedPage === "Upload" ? "#ffffff" : "transparent"}
+          color={selectedPage === "Upload" ? "black" : "white"}
+          onClick={handleUploadClick}
+        >
+          <Icon
+            as={FiUploadCloud}
+            h={6}
+            w={6}
+            color={selectedPage === "Upload" ? "black" : "white"}
           />
         </Button>
       </VStack>

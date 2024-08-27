@@ -3,8 +3,9 @@ import {
   MdHomeFilled,
   MdAccountCircle,
   MdSearch,
-  MdOutlineFolder,
+  MdOutlineFolder,  
 } from "react-icons/md";
+import { FiUploadCloud } from "react-icons/fi";
 import { PiSignOutBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/auth";
@@ -37,6 +38,11 @@ export function NavBar(props: NavBarProps) {
   const handleProfileClick = () => {
     onNavigate("Profile");
     navigate(`/profile`);
+  };
+
+  const handleUploadClick = () => {
+    onNavigate("Upload");
+    navigate(`/upload`);
   };
 
   const handleSignOut = () => {
@@ -108,6 +114,24 @@ export function NavBar(props: NavBarProps) {
             Biblioteca
           </Text>
         </Flex>
+
+        <Flex flexDirection="column" alignItems="center" gap={2}>
+          <Button
+            borderRadius="24px"
+            colorScheme="gray"
+            bg={selectedPage === "Upload" ? "#ffffff" : "transparent"}
+            color={selectedPage === "Upload" ? "black" : "white"}
+            onClick={handleUploadClick}
+          >
+            <FiUploadCloud
+              size="24px"
+              color={selectedPage === "Upload" ? "black" : "white"}
+            />
+          </Button>
+          <Text color="white" fontWeight="semibold" fontSize="12px">
+            Upload
+          </Text>
+        </Flex>
       </Flex>
 
       <Flex flexDirection="column" marginBottom={4} gap={4}>
@@ -135,7 +159,7 @@ export function NavBar(props: NavBarProps) {
             />
           </Button>
           <Text color="white" fontWeight="semibold" fontSize="12px">
-            Biblioteca
+            Perfil
           </Text>
         </Flex>
       </Flex>

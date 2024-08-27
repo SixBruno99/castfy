@@ -24,6 +24,9 @@ export function MainLayout() {
       case "/profile":
         setSelectedPage("Profile");
         break;
+      case "/upload":
+        setSelectedPage("Upload");
+        break;
       default:
         setSelectedPage("Home");
     }
