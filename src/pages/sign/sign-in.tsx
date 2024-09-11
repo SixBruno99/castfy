@@ -7,7 +7,8 @@ import {
   Text,
   HStack,
   Button,
-  CircularProgress
+  CircularProgress,
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
@@ -20,6 +21,7 @@ export function SignIn() {
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
 
   const handleSignIn = async () => {
     // Validate email and password
@@ -66,6 +68,14 @@ export function SignIn() {
       await signIn({ email, password }, true);
     } catch (error) {
       // Handle sign-in error here
+      // Exibe a mensagem de erro usando o Toast
+      toast({
+        title: "Erro de autenticação. Credenciais inválidas.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
       console.error(error);
     } finally {
       // Define o estado de carregamento como falso após a tentativa de login

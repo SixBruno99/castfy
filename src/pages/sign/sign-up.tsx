@@ -9,6 +9,7 @@ import {
   FormErrorMessage,
   Image,
   CircularProgress,
+  useToast,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/auth";
 import { useState } from "react";
@@ -18,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 export function SignUp() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
+  const toast = useToast();
 
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
@@ -127,7 +129,7 @@ export function SignUp() {
       setErrorPassword({
         error: true,
         textoError:
-          "Senha inválida. Deve conter pelo menos um caractere especial, uma letra maiúscula e um número.",
+          "Senha inválida. Deve conter pelo menos um caractere especial, uma letra maiúscula e um digito numérico.",
       });
       return false;
     }
@@ -191,6 +193,13 @@ export function SignUp() {
         });
         navigate("/");
       } catch (error) {
+        toast({
+          title: "Erro no cadastro. Espere um pouco e tente novamente.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
         console.error(error);
       } finally {
         setIsLoading(false);

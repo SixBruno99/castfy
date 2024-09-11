@@ -37,7 +37,8 @@ export function AuthProvider({ children }: IProps) {
       const data = await AuthRepository.signIn(payload);
 
       // retorna caso ocorra algum erro
-      if (!data) return false;
+    if (!data) throw new Error("Erro de autenticação.");
+
 
       // verifica se o remember me ta marcado
       // caso esteja ele coloca as informações no localStorage
@@ -60,6 +61,7 @@ export function AuthProvider({ children }: IProps) {
       return true;
     } catch (error) {
       console.error(`unable to login due to error: ${error}`);
+      throw error;
     }
 
     return false;
