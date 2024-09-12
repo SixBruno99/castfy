@@ -5,7 +5,7 @@ import {
   Textarea,
   VStack,
   Flex,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 
@@ -22,7 +22,9 @@ export function Upload() {
   const [description, setDescription] = useState("");
   const [titulo, setTitulo] = useState("");
 
-  const handleAudioFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAudioFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files && event.target.files[0];
     if (file) {
       setAudioFile(file); // Save the selected file
@@ -30,7 +32,9 @@ export function Upload() {
     }
   };
 
-  const handleImageFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files && event.target.files[0];
     if (file) {
       setImageFile(file); // Salva o arquivo de imagem selecionado
@@ -83,7 +87,11 @@ export function Upload() {
           Envie seu Podcast
         </Text>
 
-        <Text marginBottom={8} fontSize={{ base: "14px", md: "16px" }} color="white">
+        <Text
+          marginBottom={8}
+          fontSize={{ base: "14px", md: "16px" }}
+          color="white"
+        >
           Faça o upload do seu podcast para milhares de pessoas ouvirem.
         </Text>
 
@@ -105,11 +113,10 @@ export function Upload() {
           onChange={handleImageFileChange}
         />
 
-
         <Flex
           direction={{ base: "column", "2xl": "column" }}
           marginBottom={8}
-          alignItems={{base: "center"}}
+          alignItems={{ base: "center" }}
           justifyContent="start"
           width={{ base: "100%", md: "100%" }}
           gap={4}
@@ -143,70 +150,65 @@ export function Upload() {
             width="full"
           />
 
-        
-
-
-          
-
           <Flex
-          direction={{base: "column", sm: "row"}}
-          alignItems={{base: "center", sm: "end"}}
-          gap={4}
-          flex={2}
+            direction={{ base: "column", sm: "row" }}
+            alignItems={{ base: "center", sm: "end" }}
+            gap={4}
+            flex={2}
           >
-          <VStack
-          alignItems={"center"}
-            spacing={2}
-            >
-            {/* Exibe a pré-visualização da imagem se houver uma */}
-            {imagePreview && (
-              <Image
-                src={imagePreview}
-                alt="Preview da Imagem"
-                boxSize="100px"
-                objectFit="cover"
-                borderRadius="md"
-                display={{base: "block", lg: "block" }}
-              />
-            )}
-            <Button
-              id="botaoImagem"
-              color="white"
-              backgroundColor="#004aad"
-              colorScheme="blue"
-              width="full"
-              onClick={handleImageButtonClick} // Ação de clique no botão de imagem
-            >
-              {imageFile ? truncateFileName(imageFile.name, 20) : "Imagem de Capa"} {/* Nome da imagem ou texto padrão */}
-            </Button>
-          </VStack>
-
-
-          <VStack
-            spacing={2}
-           >
-            {/* Exibe a pré-visualização do áudio se houver um */}
-            {audioPreview && (
-              <audio
-                controls
-                src={audioPreview}
-                style={{ marginBottom: "10px", maxWidth: "220px" }}
+            <VStack alignItems={"center"} spacing={2}>
+              {/* Exibe a pré-visualização da imagem se houver uma */}
+              {imagePreview && (
+                <Image
+                  src={imagePreview}
+                  alt="Preview da Imagem"
+                  boxSize="100px"
+                  objectFit="cover"
+                  borderRadius="md"
+                  display={{ base: "block", lg: "block" }}
+                />
+              )}
+              <Button
+                id="botaoImagem"
+                color="white"
+                backgroundColor="#004aad"
+                colorScheme="blue"
+                width="full"
+                onClick={handleImageButtonClick} // Ação de clique no botão de imagem
               >
-                Seu navegador não suporta o elemento de áudio.
-              </audio>
-            )}
-            <Button
-              minH={35}
-              id="botaoAudio"
-              color="white"
-              backgroundColor="#004aad"
-              colorScheme="blue"
-              width="full"
-              onClick={handleAudioButtonClick}
-            >
-              {audioFile ? truncateFileName(audioFile.name, 20) : "Arquivo de Áudio"} {/* Nome do arquivo ou texto padrão */}
-            </Button>
-          </VStack>
+                {imageFile
+                  ? truncateFileName(imageFile.name, 20)
+                  : "Imagem de Capa"}{" "}
+                {/* Nome da imagem ou texto padrão */}
+              </Button>
+            </VStack>
+
+            <VStack spacing={2}>
+              {/* Exibe a pré-visualização do áudio se houver um */}
+              {audioPreview && (
+                <audio
+                  controls
+                  src={audioPreview}
+                  style={{ marginBottom: "10px", maxWidth: "220px" }}
+                >
+                  Seu navegador não suporta o elemento de áudio.
+                </audio>
+              )}
+              <Button
+                minH={35}
+                id="botaoAudio"
+                color="white"
+                backgroundColor="#004aad"
+                colorScheme="blue"
+                width="full"
+                onClick={handleAudioButtonClick}
+              >
+                {audioFile
+                  ? truncateFileName(audioFile.name, 20)
+                  : "Arquivo de Áudio"}{" "}
+                {/* Nome do arquivo ou texto padrão */}
+              </Button>
+            </VStack>
           </Flex>
         </Flex>
 
@@ -215,7 +217,7 @@ export function Upload() {
           color="white"
           backgroundColor="#004aad"
           colorScheme="blue"
-          width={{ base: "400px"}}
+          width={{ base: "400px" }}
         >
           Fazer Upload
         </Button>
