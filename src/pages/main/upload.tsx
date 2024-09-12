@@ -8,8 +8,12 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
+import { usePodcast } from "../../contexts/podcast-upload";
+import { IAudioUpload } from "../../types/podcast-upload";
 
 export function Upload() {
+  const { audioUpload } = usePodcast();
+
   // Referência para o input de arquivo de áudio
   const audioInputRefer = useRef<HTMLInputElement>(null);
   // Referência para o input de imagem
@@ -61,6 +65,14 @@ export function Upload() {
     return fileName;
   };
 
+  const sendPodcast = () => {
+    if (audioFile) {
+      console.log({ audioFile });
+      const audioData: IAudioUpload = { audio: audioFile };
+      audioUpload(audioData);
+    }
+  };
+
   return (
     <Box
       display="flex"
@@ -73,12 +85,7 @@ export function Upload() {
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
       overflowX="hidden"
     >
-      <VStack
-        spacing={0}
-        alignItems="center"
-        width={{ base: "100%", md: "65%" }}
-        margin="0 auto"
-      >
+      <VStack spacing={0} alignItems="center" margin="0 auto">
         <Text
           fontSize={{ base: "24px", md: "36px" }}
           fontWeight="bold"
@@ -178,7 +185,7 @@ export function Upload() {
               >
                 {imageFile
                   ? truncateFileName(imageFile.name, 20)
-                  : "Imagem de Capa"}{" "}
+                  : "Imagem de Capa"}
                 {/* Nome da imagem ou texto padrão */}
               </Button>
             </VStack>
@@ -204,8 +211,8 @@ export function Upload() {
                 onClick={handleAudioButtonClick}
               >
                 {audioFile
-                  ? truncateFileName(audioFile.name, 20)
-                  : "Arquivo de Áudio"}{" "}
+                  ? truncateFileName(audioFile?.name, 20)
+                  : "Arquivo de Áudio"}
                 {/* Nome do arquivo ou texto padrão */}
               </Button>
             </VStack>
@@ -218,6 +225,7 @@ export function Upload() {
           backgroundColor="#004aad"
           colorScheme="blue"
           width={{ base: "400px" }}
+          onClick={sendPodcast}
         >
           Fazer Upload
         </Button>

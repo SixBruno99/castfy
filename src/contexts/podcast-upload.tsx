@@ -18,8 +18,6 @@ export function PodcastProvider({ children }: IProps) {
     try {
       const data = await PodcastRepository.audioUpload({ audio });
 
-      console.log({ data });
-
       if (!data) return false;
 
       return true;
@@ -42,8 +40,6 @@ export function PodcastProvider({ children }: IProps) {
         description,
         image,
       });
-
-      console.log({ data });
 
       if (!data) return false;
 

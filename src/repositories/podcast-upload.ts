@@ -4,7 +4,20 @@ import { IAudioUpload, IPodcastUpload } from "../types/podcast-upload";
 export const PodcastRepository = {
   audioUpload: async ({ audio }: IAudioUpload) => {
     try {
-      const response = await http.post<IPodcastUpload>("/episode", { audio });
+      const formData = new FormData();
+      formData.append("audio", audio);
+
+      formData.append("fileId", "1");
+      formData.append("title", "Reflections");
+      formData.append("description", "Reflections - The neighbourhood");
+
+      const response = await http.post("/episode", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log({response});
 
       return response.data;
     } catch (error) {
@@ -14,7 +27,7 @@ export const PodcastRepository = {
 
   podcastUpload: async ({ id, title, description, image }: IPodcastUpload) => {
     try {
-      const response = await http.post<IAudioUpload>(`/episode/audio`, {
+      const response = await http.post<IPodcastUpload>(`/episode/audio`, {
         id,
         title,
         description,

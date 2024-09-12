@@ -77,8 +77,6 @@ export function AuthProvider({ children }: IProps) {
 
       // salva o token no sessionStorage
       sessionStorage.setItem("@auth:token", data.token);
-
-      console.log("sign-up data", data);
       
       // redireciona o usuário para as telas autenticadas
       setSigned(true);
@@ -94,10 +92,7 @@ export function AuthProvider({ children }: IProps) {
   async function sendEmail(payload: string) {
     try {
       const data = await AuthRepository.sendEmail(payload);
-
-      console.log("data.id",data.id);
-      
-      
+ 
       setId(data.id);
       
       return data;
@@ -111,8 +106,6 @@ export function AuthProvider({ children }: IProps) {
   async function sendCode(payload: string) {
     try {
       const data = await AuthRepository.sendCode(id, payload);
-
-      console.log("code token", data.token);
 
       setAuthToken(data.token);
       
