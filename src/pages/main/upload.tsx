@@ -1,11 +1,9 @@
 import {
   Text,
   Box,
-  Input,
   Button,
   Textarea,
   VStack,
-  HStack,
   Flex,
   Image
 } from "@chakra-ui/react";
