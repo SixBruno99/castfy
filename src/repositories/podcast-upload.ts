@@ -7,11 +7,7 @@ export const PodcastRepository = {
       const formData = new FormData();
       formData.append("audio", audio);
 
-      formData.append("fileId", "1");
-      formData.append("title", "Reflections");
-      formData.append("description", "Reflections - The neighbourhood");
-
-      const response = await http.post("/episode", formData, {
+      const response = await http.post("/episode/audio", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -27,7 +23,7 @@ export const PodcastRepository = {
 
   podcastUpload: async ({ id, title, description, image }: IPodcastUpload) => {
     try {
-      const response = await http.post<IPodcastUpload>(`/episode/audio`, {
+      const response = await http.post<IPodcastUpload>(`/episode`, {
         id,
         title,
         description,
