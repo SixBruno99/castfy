@@ -5,7 +5,7 @@ import { IPodcastUpload, IAudioUpload } from "../types/podcast-upload";
 interface IValues {
   fileId: string;
   audioUpload: (payload: IAudioUpload) => Promise<boolean>;
-  podcastUpload: (payload: IPodcastUpload) => Promise<boolean>;
+  podcastUpload: (payload: Omit<IPodcastUpload, 'fileId'>) => Promise<boolean>;
 }
 
 export const PodcastContext = createContext<IValues>({} as IValues);
@@ -33,11 +33,10 @@ export function PodcastProvider({ children }: IProps) {
   };
 
   const podcastUpload = async ({
-    fileId,
     title,
     description,
     image,
-  }: IPodcastUpload) => {
+  }: Omit<IPodcastUpload, 'fileId'>) => {
     try {
       const data = await PodcastRepository.podcastUpload({
         fileId,

@@ -11,8 +11,9 @@ import {
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import { usePodcast } from "../../contexts/podcast-upload";
+
 export function Upload() {
-  const { fileId, audioUpload, podcastUpload } = usePodcast();
+  const { audioUpload, podcastUpload } = usePodcast();
   const toast = useToast();
 
   const audioInputRefer = useRef<HTMLInputElement>(null);
@@ -23,8 +24,11 @@ export function Upload() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [audioPreview, setAudioPreview] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [description, setDescription] = useState("");
-  const [titulo, setTitulo] = useState("");
+  
+  const [title, setTitle] = useState<string | null>(null);
+  const [titleError, setTitleError] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(null);
+  const [descriptionError, setDescriptionError] = useState<string | null>(null);
 
   const handleAudioFileChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -66,6 +70,26 @@ export function Upload() {
   };
 
   const sendPodcast = async () => {
+    if (!title && !description) {
+      setTitleError("Insira um título");
+      setDescriptionError("Insira uma descrição");
+      return;
+    }
+
+    if (!title) {
+      setTitleError("Insira um título");
+      setDescriptionError("");
+      return;
+    }
+
+    if (!description) {
+      setTitleError("");
+      setDescriptionError("Insira uma descrição");
+      return;
+    }
+
+    setTitleError("");
+    setDescriptionError("");
     setIsLoading(true);
     if (!audioFile) {
       setIsLoading(false);
@@ -92,9 +116,8 @@ export function Upload() {
     }
 
     await podcastUpload({
-      fileId: fileId,
-      title: "",
-      description: "",
+      title,
+      description,
       image: imageFile,
     });
     setIsLoading(false);
@@ -118,7 +141,6 @@ export function Upload() {
       backgroundColor="#1f1f1f"
       padding={{ base: "12px", md: "24px" }}
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
-      overflowX="hidden"
     >
       <VStack spacing={0} alignItems="center" margin="0 auto">
         <Text
@@ -137,7 +159,6 @@ export function Upload() {
           Faça o upload do seu podcast para milhares de pessoas ouvirem.
         </Text>
 
-        {/* Input de arquivo de áudio oculto */}
         <input
           type="file"
           accept="audio/*"
@@ -146,7 +167,6 @@ export function Upload() {
           onChange={handleAudioFileChange}
         />
 
-        {/* Input de imagem oculto */}
         <input
           type="file"
           accept="image/*"
@@ -160,7 +180,7 @@ export function Upload() {
           marginBottom={8}
           alignItems={{ base: "center" }}
           justifyContent="start"
-          width={{ base: "100%", md: "100%" }}
+          width="100%"
           gap={4}
         >
           <Textarea
@@ -169,8 +189,8 @@ export function Upload() {
             minH={45}
             maxH={45}
             placeholder="Digite um título para o seu podcast..."
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
+            value={title || ""}
+            onChange={(e) => setTitle(e.target.value)}
             backgroundColor="white"
             color="black"
             resize="none"
@@ -178,12 +198,18 @@ export function Upload() {
             width="full"
           />
 
+          {titleError && (
+            <Text fontSize="12px" color="red">
+              {titleError}
+            </Text>
+          )}
+
           <Textarea
-            id="campoTexto"
+            id="Description"
             flex={3}
             minH={200}
             placeholder="Digite uma descrição para o seu podcast..."
-            value={description}
+            value={description || ""}
             onChange={(e) => setDescription(e.target.value)}
             backgroundColor="white"
             color="black"
@@ -192,6 +218,12 @@ export function Upload() {
             width="full"
           />
 
+          {descriptionError && (
+            <Text fontSize="12px" color="red">
+              {descriptionError}
+            </Text>
+          )}
+
           <Flex
             direction={{ base: "column", sm: "row" }}
             alignItems={{ base: "center", sm: "end" }}
@@ -199,7 +231,6 @@ export function Upload() {
             flex={2}
           >
             <VStack alignItems={"center"} spacing={2}>
-              {/* Exibe a pré-visualização da imagem se houver uma */}
               {imagePreview && (
                 <Image
                   src={imagePreview}
@@ -216,17 +247,15 @@ export function Upload() {
                 backgroundColor="#004aad"
                 colorScheme="blue"
                 width="full"
-                onClick={handleImageButtonClick} // Ação de clique no botão de imagem
+                onClick={handleImageButtonClick}
               >
                 {imageFile
                   ? truncateFileName(imageFile.name, 20)
                   : "Imagem de Capa"}
-                {/* Nome da imagem ou texto padrão */}
               </Button>
             </VStack>
 
             <VStack spacing={2}>
-              {/* Exibe a pré-visualização do áudio se houver um */}
               {audioPreview && (
                 <audio
                   controls
@@ -248,7 +277,6 @@ export function Upload() {
                 {audioFile
                   ? truncateFileName(audioFile?.name, 20)
                   : "Arquivo de Áudio"}
-                {/* Nome do arquivo ou texto padrão */}
               </Button>
             </VStack>
           </Flex>
@@ -259,7 +287,7 @@ export function Upload() {
           color="white"
           backgroundColor="#004aad"
           colorScheme="blue"
-          width={{ base: "400px" }}
+          width={{ base: "full" }}
           onClick={sendPodcast}
         >
           {isLoading ? (

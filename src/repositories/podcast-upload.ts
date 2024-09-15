@@ -31,6 +31,19 @@ export const PodcastRepository = {
       formData.append("description", description);
       formData.append("image", image);
 
+      console.log("params", fileId);
+      console.log("params", title);
+      console.log("params", description);
+      console.log("params", image);
+
+      console.log(
+        "podcast form data",
+        formData.append("fileId", fileId),
+        formData.append("title", title),
+        formData.append("description", description),
+        formData.append("image", image)
+      );
+
       const response = await http.post<IPodcastUpload>(`/episode`, formData);
 
       console.log("episode", { response });
