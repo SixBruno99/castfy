@@ -4,10 +4,10 @@ import { IAudioUpload, IPodcastUpload } from "../types/podcast-upload";
 export const PodcastRepository = {
   audioUpload: async ({ audio }: IAudioUpload) => {
     try {
-      const formData = new FormData();
-      formData.append("audio", audio);
+      const audioData = new FormData();
+      audioData.append("audio", audio);
 
-      const response = await http.post("/episode/audio", formData);
+      const response = await http.post("/episode/audio", audioData);
 
       console.log("audio", { response });
 
@@ -24,27 +24,17 @@ export const PodcastRepository = {
     image,
   }: IPodcastUpload) => {
     try {
-      const formData = new FormData();
+      console.log("fileId", fileId);
+      console.log("title", title);
+      console.log("description", description);
+      console.log("image", image);
+      const episodeData = new FormData();
+      episodeData.append("fileId", fileId);
+      episodeData.append("title", title);
+      episodeData.append("description", description);
+      episodeData.append("image", image);
 
-      formData.append("fileId", fileId);
-      formData.append("title", title);
-      formData.append("description", description);
-      formData.append("image", image);
-
-      console.log("params", fileId);
-      console.log("params", title);
-      console.log("params", description);
-      console.log("params", image);
-
-      console.log(
-        "podcast form data",
-        formData.append("fileId", fileId),
-        formData.append("title", title),
-        formData.append("description", description),
-        formData.append("image", image)
-      );
-
-      const response = await http.post<IPodcastUpload>(`/episode`, formData);
+      const response = await http.post<IPodcastUpload>(`/episode`, episodeData);
 
       console.log("episode", { response });
 

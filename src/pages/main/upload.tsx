@@ -13,7 +13,7 @@ import { useState, useRef } from "react";
 import { usePodcast } from "../../contexts/podcast-upload";
 
 export function Upload() {
-  const { audioUpload, podcastUpload } = usePodcast();
+  const { audioUpload } = usePodcast();
   const toast = useToast();
 
   const audioInputRefer = useRef<HTMLInputElement>(null);
@@ -24,7 +24,7 @@ export function Upload() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [audioPreview, setAudioPreview] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  
+
   const [title, setTitle] = useState<string | null>(null);
   const [titleError, setTitleError] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
@@ -102,8 +102,6 @@ export function Upload() {
       });
     }
 
-    await audioUpload({ audio: audioFile });
-
     if (!imageFile) {
       setIsLoading(false);
       return toast({
@@ -115,15 +113,25 @@ export function Upload() {
       });
     }
 
-    await podcastUpload({
+    await audioUpload({
+      audio: audioFile,
       title,
       description,
       image: imageFile,
     });
+
     setIsLoading(false);
 
+    // toast({
+    //   title: "Ocorreu um erro ao enviar episódio",
+    //   status: "error",
+    //   duration: 5000,
+    //   isClosable: true,
+    //   position: "top-right",
+    // });
+
     toast({
-      title: "Parabéns! Você adicionou um podcast!",
+      title: "Parabéns, você adicionou um episódio!",
       status: "success",
       duration: 5000,
       isClosable: true,
