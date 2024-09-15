@@ -7,13 +7,9 @@ export const PodcastRepository = {
       const formData = new FormData();
       formData.append("audio", audio);
 
-      const response = await http.post("/episode/audio", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await http.post("/episode/audio", formData);
 
-      console.log({response});
+      console.log("audio", { response });
 
       return response.data;
     } catch (error) {
@@ -21,14 +17,23 @@ export const PodcastRepository = {
     }
   },
 
-  podcastUpload: async ({ id, title, description, image }: IPodcastUpload) => {
+  podcastUpload: async ({
+    fileId,
+    title,
+    description,
+    image,
+  }: IPodcastUpload) => {
     try {
-      const response = await http.post<IPodcastUpload>(`/episode`, {
-        id,
-        title,
-        description,
-        image,
-      });
+      const formData = new FormData();
+
+      formData.append("fileId", fileId);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("image", image);
+
+      const response = await http.post<IPodcastUpload>(`/episode`, formData);
+
+      console.log("episode", { response });
 
       return response.data;
     } catch (error) {

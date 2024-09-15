@@ -1,5 +1,5 @@
 export interface IPodcastUpload {
-  id: string;
+  fileId: string;
   title: string;
   description: string;
   image: File;

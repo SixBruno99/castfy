@@ -1,8 +1,9 @@
-import { ReactNode, createContext, useContext } from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { PodcastRepository } from "../repositories/podcast-upload";
 import { IPodcastUpload, IAudioUpload } from "../types/podcast-upload";
 
 interface IValues {
+  fileId: string;
   audioUpload: (payload: IAudioUpload) => Promise<boolean>;
   podcastUpload: (payload: IPodcastUpload) => Promise<boolean>;
 }
@@ -14,11 +15,15 @@ interface IProps {
 }
 
 export function PodcastProvider({ children }: IProps) {
+  const [fileId, setFileId] = useState<string>('');
+
   const audioUpload = async ({ audio }: IAudioUpload) => {
     try {
       const data = await PodcastRepository.audioUpload({ audio });
 
       if (!data) return false;
+
+      setFileId(data.id);
 
       return true;
     } catch (error) {
@@ -28,14 +33,14 @@ export function PodcastProvider({ children }: IProps) {
   };
 
   const podcastUpload = async ({
-    id,
+    fileId,
     title,
     description,
     image,
   }: IPodcastUpload) => {
     try {
       const data = await PodcastRepository.podcastUpload({
-        id,
+        fileId,
         title,
         description,
         image,
@@ -53,6 +58,7 @@ export function PodcastProvider({ children }: IProps) {
   return (
     <PodcastContext.Provider
       value={{
+        fileId,
         audioUpload,
         podcastUpload,
       }}

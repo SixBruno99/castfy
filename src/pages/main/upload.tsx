@@ -6,23 +6,23 @@ import {
   VStack,
   Flex,
   Image,
+  useToast,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import { usePodcast } from "../../contexts/podcast-upload";
-import { IAudioUpload } from "../../types/podcast-upload";
-
 export function Upload() {
-  const { audioUpload } = usePodcast();
+  const { fileId, audioUpload, podcastUpload } = usePodcast();
+  const toast = useToast();
 
-  // Referência para o input de arquivo de áudio
   const audioInputRefer = useRef<HTMLInputElement>(null);
-  // Referência para o input de imagem
   const imageInputRef = useRef<HTMLInputElement>(null);
 
-  const [audioFile, setAudioFile] = useState<File | null>(null); // Estado para armazenar a URL do áudio
-  const [imageFile, setImageFile] = useState<File | null>(null); // Estado para armazenar a URL da imagem
-  const [audioPreview, setAudioPreview] = useState<string | null>(null); // Estado para armazenar a URL da pré-visualização do áudio
-  const [imagePreview, setImagePreview] = useState<string | null>(null); // Estado para armazenar a URL da pré-visualização
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [audioFile, setAudioFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [audioPreview, setAudioPreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [description, setDescription] = useState("");
   const [titulo, setTitulo] = useState("");
 
@@ -31,7 +31,7 @@ export function Upload() {
   ) => {
     const file = event.target.files && event.target.files[0];
     if (file) {
-      setAudioFile(file); // Save the selected file
+      setAudioFile(file); // Salva o arquivo de audio selecionado
       setAudioPreview(URL.createObjectURL(file)); // Cria uma URL temporária para o áudio selecionado
     }
   };
@@ -48,13 +48,13 @@ export function Upload() {
 
   const handleAudioButtonClick = () => {
     if (audioInputRefer.current) {
-      audioInputRefer.current.click(); // Trigger the click event on the hidden input
+      audioInputRefer.current.click();
     }
   };
 
   const handleImageButtonClick = () => {
     if (imageInputRef.current) {
-      imageInputRef.current.click(); // Dispara o clique no input de imagem oculto
+      imageInputRef.current.click();
     }
   };
 
@@ -65,12 +65,47 @@ export function Upload() {
     return fileName;
   };
 
-  const sendPodcast = () => {
-    if (audioFile) {
-      console.log({ audioFile });
-      const audioData: IAudioUpload = { audio: audioFile };
-      audioUpload(audioData);
+  const sendPodcast = async () => {
+    setIsLoading(true);
+    if (!audioFile) {
+      setIsLoading(false);
+      return toast({
+        title: "Erro ao carregar arquivo de áudio",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
     }
+
+    await audioUpload({ audio: audioFile });
+
+    if (!imageFile) {
+      setIsLoading(false);
+      return toast({
+        title: "Erro ao enviar imagem",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+
+    await podcastUpload({
+      fileId: fileId,
+      title: "",
+      description: "",
+      image: imageFile,
+    });
+    setIsLoading(false);
+
+    toast({
+      title: "Parabéns! Você adicionou um podcast!",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+    });
   };
 
   return (
@@ -227,7 +262,11 @@ export function Upload() {
           width={{ base: "400px" }}
           onClick={sendPodcast}
         >
-          Fazer Upload
+          {isLoading ? (
+            <CircularProgress isIndeterminate color="white" size="24px" />
+          ) : (
+            "Fazer Upload"
+          )}
         </Button>
       </VStack>
     </Box>
