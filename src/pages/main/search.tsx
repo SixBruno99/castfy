@@ -17,12 +17,11 @@ export function Search() {
       width="100%"
       overflow="hidden"
       backgroundColor="#1f1f1f"
-      paddingY={{ base: "12px", md: "24px" }}
+      padding={{ base: "12px", md: "24px" }}
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
     >
       <Input
         width={{ base: "232px", md: "400px" }}
-        marginLeft={{ base: "12px", md: "24px" }}
         color="white"
         value={search}
         position="fixed"
@@ -43,33 +42,6 @@ export function Search() {
             pb={{ base: 0, md: 8 }}
             templateColumns="repeat(auto-fill, minmax(232px, 1fr))"
           >
-            {filteredEpisodes?.map((episode, idx) => (
-              <Episode
-                key={idx}
-                id={episode.id}
-                title={episode.title}
-                image={episode.image}
-                showFavorite={false}
-              />
-            ))}
-            {filteredEpisodes?.map((episode, idx) => (
-              <Episode
-                key={idx}
-                id={episode.id}
-                title={episode.title}
-                image={episode.image}
-                showFavorite={false}
-              />
-            ))}
-            {filteredEpisodes?.map((episode, idx) => (
-              <Episode
-                key={idx}
-                id={episode.id}
-                title={episode.title}
-                image={episode.image}
-                showFavorite={false}
-              />
-            ))}
             {filteredEpisodes?.map((episode, idx) => (
               <Episode
                 key={idx}

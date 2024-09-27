@@ -41,56 +41,6 @@ export function Home() {
               showFavorite={false}
             />
           ))}
-          {episodes?.map((episode, idx) => (
-            <Episode
-              key={idx}
-              id={episode.id}
-              title={episode.title}
-              image={episode.image}
-              favorite={false}
-              showFavorite={false}
-            />
-          ))}
-          {episodes?.map((episode, idx) => (
-            <Episode
-              key={idx}
-              id={episode.id}
-              title={episode.title}
-              image={episode.image}
-              favorite={false}
-              showFavorite={false}
-            />
-          ))}
-          {episodes?.map((episode, idx) => (
-            <Episode
-              key={idx}
-              id={episode.id}
-              title={episode.title}
-              image={episode.image}
-              favorite={false}
-              showFavorite={false}
-            />
-          ))}
-          {episodes?.map((episode, idx) => (
-            <Episode
-              key={idx}
-              id={episode.id}
-              title={episode.title}
-              image={episode.image}
-              favorite={false}
-              showFavorite={false}
-            />
-          ))}
-          {episodes?.map((episode, idx) => (
-            <Episode
-              key={idx}
-              id={episode.id}
-              title={episode.title}
-              image={episode.image}
-              favorite={false}
-              showFavorite={false}
-            />
-          ))}
           {/* {episodes?.map((episode, idx) => (
             <Episode
               key={idx}
