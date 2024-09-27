@@ -37,7 +37,7 @@ export function MainLayout() {
   };
 
   return (
-    <Flex minHeight="100vh" direction={{ base: "column", md: "row" }}>
+    <Flex height="100vh" direction={{ base: "column", md: "row" }}>
       <Box display={{ base: "none", md: "flex" }}>
         <NavBar selectedPage={selectedPage} onNavigate={handleNavigate} />
       </Box>

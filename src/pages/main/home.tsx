@@ -42,14 +42,16 @@ export function Home() {
               showFavorite={false}
             />
           ))}
-          {/* <Episode
-            key={1}
-            id={"1"}
-            title={"lorem ipsum lorem ipsum lorem ipsum"}
-            image={""}
-            favorite={false}
-            showFavorite={false}
-          /> */}
+          {/* {episodes?.map((episode, idx) => (
+            <Episode
+              key={idx}
+              id={episode.id}
+              title={episode.title}
+              image={episode.image}
+              favorite={false}
+              showFavorite={false}
+            />
+          ))} */}
         </Grid>
       </Box>
     </Box>
