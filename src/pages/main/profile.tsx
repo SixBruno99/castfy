@@ -29,7 +29,7 @@ export function Profile() {
 
   return (
     <Box
-      width="100vw"
+      width="100%"
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
       padding={{ base: "12px", md: "24px" }}
       backgroundColor="#1f1f1f"

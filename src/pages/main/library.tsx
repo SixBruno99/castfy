@@ -7,8 +7,8 @@ export function Library() {
 
   return (
     <Box
+      width="100%"
       backgroundColor="#1f1f1f"
-      width={"100vw"}
       padding={{ base: "12px", md: "24px" }}
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
     >

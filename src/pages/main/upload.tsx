@@ -141,11 +141,11 @@ export function Upload() {
 
   return (
     <Box
+      width="100%"
       display="flex"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      width="100vw"
       backgroundColor="#1f1f1f"
       padding={{ base: "12px", md: "24px" }}
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}

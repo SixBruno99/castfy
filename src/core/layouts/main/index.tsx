@@ -5,7 +5,6 @@ import { Footer } from "./components/footer";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
 export function MainLayout() {
   const location = useLocation();
   const [selectedPage, setSelectedPage] = useState("Home");
@@ -37,11 +36,13 @@ export function MainLayout() {
   };
 
   return (
-    <Flex height="100vh" direction={{ base: "column", md: "row" }}>
+    <Flex minHeight="100vh" direction={{ base: "column", md: "row" }}>
       <Box display={{ base: "none", md: "flex" }}>
         <NavBar selectedPage={selectedPage} onNavigate={handleNavigate} />
       </Box>
-      <Outlet />
+      <Box height={{base: "calc(100vh - 64px)", md: "100vh"}} width={{base: "100vw", md: "calc(100vw - 96px)"}} overflow="auto">
+        <Outlet />
+      </Box>
       <Box display={{ base: "flex", md: "none" }}>
         <Footer selectedPage={selectedPage} onNavigate={handleNavigate} />
       </Box>

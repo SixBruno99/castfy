@@ -3,7 +3,7 @@ import {
   MdHomeFilled,
   MdAccountCircle,
   MdSearch,
-  MdOutlineFolder,  
+  MdOutlineFolder,
 } from "react-icons/md";
 import { FiUploadCloud } from "react-icons/fi";
 import { PiSignOutBold } from "react-icons/pi";
@@ -52,6 +52,7 @@ export function NavBar(props: NavBarProps) {
 
   return (
     <Flex
+      maxHeight="100vh"
       flexDirection="column"
       alignItems="center"
       justifyContent="space-between"

@@ -7,11 +7,10 @@ export function Home() {
 
   return (
     <Box
-      width="100vw"
+      width="100%"
       backgroundColor="#1f1f1f"
       padding={{ base: "12px", md: "24px" }}
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
-      overflowX="hidden"
     >
       <Text
         fontSize={{ base: "20px", md: "36px" }}
@@ -27,11 +26,61 @@ export function Home() {
         alignItems={{ base: "center", md: "none" }}
       >
         <Grid
+          gap={4}
           marginY={4}
           pb={{ base: 0, md: 8 }}
-          gap={4}
           templateColumns="repeat(auto-fill, minmax(232px, 1fr))"
         >
+          {episodes?.map((episode, idx) => (
+            <Episode
+              key={idx}
+              id={episode.id}
+              title={episode.title}
+              image={episode.image}
+              favorite={false}
+              showFavorite={false}
+            />
+          ))}
+          {episodes?.map((episode, idx) => (
+            <Episode
+              key={idx}
+              id={episode.id}
+              title={episode.title}
+              image={episode.image}
+              favorite={false}
+              showFavorite={false}
+            />
+          ))}
+          {episodes?.map((episode, idx) => (
+            <Episode
+              key={idx}
+              id={episode.id}
+              title={episode.title}
+              image={episode.image}
+              favorite={false}
+              showFavorite={false}
+            />
+          ))}
+          {episodes?.map((episode, idx) => (
+            <Episode
+              key={idx}
+              id={episode.id}
+              title={episode.title}
+              image={episode.image}
+              favorite={false}
+              showFavorite={false}
+            />
+          ))}
+          {episodes?.map((episode, idx) => (
+            <Episode
+              key={idx}
+              id={episode.id}
+              title={episode.title}
+              image={episode.image}
+              favorite={false}
+              showFavorite={false}
+            />
+          ))}
           {episodes?.map((episode, idx) => (
             <Episode
               key={idx}
