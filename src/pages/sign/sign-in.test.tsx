@@ -5,10 +5,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
 
-// Mocking useAuth
+// Mock useAuth to return a spy for signIn
+const mockSignIn = vi.fn();
+
 vi.mock("../../contexts/auth", () => ({
   useAuth: () => ({
-    signIn: vi.fn(),
+    signIn: mockSignIn,
   }),
 }));
 
@@ -22,14 +24,14 @@ describe("SignIn Page", () => {
       </BrowserRouter>
     );
 
-  it("should render the SignIn component", () => {
+  it("Deve renderizar o componente SignIn", () => {
     renderComponent();
     expect(screen.getByPlaceholderText("E-mail")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Senha")).toBeInTheDocument();
     expect(screen.getByText("Login")).toBeInTheDocument();
   });
 
-  it("should show error for empty email", async () => {
+  it("Deve mostrar o error para emails não informados", async () => {
     renderComponent();
     fireEvent.click(screen.getByText("Login"));
     await waitFor(() =>
@@ -37,10 +39,10 @@ describe("SignIn Page", () => {
     );
   });
 
-  it("should show error for invalid email format", async () => {
+  it("Deve mostrar o error para emails no formato inválido", async () => {
     renderComponent();
     fireEvent.change(screen.getByPlaceholderText("E-mail"), {
-      target: { value: "invalid-email" },
+      target: { value: "email-invalido" },
     });
     fireEvent.click(screen.getByText("Login"));
     await waitFor(() =>
@@ -48,10 +50,10 @@ describe("SignIn Page", () => {
     );
   });
 
-  it("should show error for invalid password", async () => {
+  it("Deve mostrar o error para senhas inválidas", async () => {
     renderComponent();
     fireEvent.change(screen.getByPlaceholderText("E-mail"), {
-      target: { value: "test@example.com" },
+      target: { value: "teste@exemplo.com" },
     });
     fireEvent.change(screen.getByPlaceholderText("Senha"), {
       target: { value: "123" },
@@ -62,23 +64,31 @@ describe("SignIn Page", () => {
     );
   });
 
-  it("should call signIn with valid email and password", async () => {
-    const { signIn } = useAuth();
+  it("Deve chamar o SignIn com email e senha válidos", async () => {
+    // Renderiza o componente
     renderComponent();
 
+    //Dispara os eventos para simular o usuário
     fireEvent.change(screen.getByPlaceholderText("E-mail"), {
-      target: { value: "test@example.com" },
+      target: { value: "teste@exemplo.com" },
     });
     fireEvent.change(screen.getByPlaceholderText("Senha"), {
-      target: { value: "Valid@123" },
+      target: { value: "Senha@123" },
     });
     fireEvent.click(screen.getByText("Login"));
 
+    // Aguarda o mock signIn ser chamado com os argumentos corretos
     await waitFor(() => {
-      expect(signIn).toHaveBeenCalledWith(
-        { email: "test@example.com", password: "Valid@123" },
-        true
-      );
+      // Captura o que foi passado para a função mockada
+      expect(mockSignIn).toHaveBeenCalled();
+      const [callArgs] = mockSignIn.mock.calls;
+
+      // Verifica se os argumentos estão corretos
+      expect(callArgs[0]).toEqual({
+        email: "teste@exemplo.com",
+        password: "Senha@123",
+      });
+      expect(callArgs[1]).toBe(true); // Verifica se o segundo argumento é true
     });
   });
 });

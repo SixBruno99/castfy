@@ -24,46 +24,36 @@ export function SignIn() {
   const toast = useToast();
 
   const handleSignIn = async () => {
-    // Validate email and password
-    if (!email || !password) {
-      if (!email) {
-        setErrorEmail("E-mail inválido.");
-        return;
-      } else {
-        setErrorEmail("");
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      // Verifica se o email corresponde ao formato esperado
-      if (!emailRegex.test(email)) {
-        setErrorEmail("Formato de email inválido.");
-        return;
-      }
-
-      const passwordRegex =
-        /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-
-      console.log("!password: " + !password);
-      console.log("password.length" + password.length);
-      console.log("passwordRegex" + !passwordRegex.test(password));
-
-      if (!password || password.length < 8 || !passwordRegex.test(password)) {
-        setErrorPassword("Senha inválida.");
-        return;
-      } else {
-        setErrorPassword("");
-      }
-
-      // Retorna a variável de erro do email para o estado default
-      setErrorEmail("");
-      return;
-    }
-
-    // Retira o erro da tela quando os campos estiverem preenchidos
+    // Setta o error de email e password para estado default
     setErrorEmail("");
     setErrorPassword("");
 
+    // Verifica se o email está vazio
+    if (!email) {
+      setErrorEmail("E-mail inválido.");
+      return;
+    }
+
+    // Regex para email válido
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Verifica se o email corresponde ao formato esperado
+    if (!emailRegex.test(email)) {
+      setErrorEmail("Formato de email inválido.");
+      return;
+    }
+
+    // Regex para senha válida
+    const passwordRegex =
+      /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    // Verifica se a senha corresponde ao formato esperado
+    if (!password || password.length < 8 || !passwordRegex.test(password)) {
+      setErrorPassword("Senha inválida.");
+      return;
+    }
+    
+    
     // Define o estado de carregamento como verdadeiro
     setIsLoading(true);
 
@@ -71,7 +61,7 @@ export function SignIn() {
       // Cria o payload com o email e o password e chama a função signIn
       await signIn({ email, password }, true);
     } catch (error) {
-      // Handle sign-in error here
+      // Lida com o error do sign-in 
       // Exibe a mensagem de erro usando o Toast
       toast({
         title: "Erro de autenticação. Credenciais inválidas.",

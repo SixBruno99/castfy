@@ -38,7 +38,7 @@ describe("Home Component", () => {
         vi.mocked(useEpisode).mockReturnValue(mockUseEpisode());
     });
 
-    it("deve renderizar o título corretamente", () => {
+    it("Deve renderizar o título corretamente", () => {
         
         render(
             <ChakraProvider>
@@ -53,7 +53,7 @@ describe("Home Component", () => {
             expect(title).toBeInTheDocument();
     });
 
-    it("deve renderizar a lista de episódios corretamente", () => {
+    it("Deve renderizar a lista de episódios corretamente", () => {
         // Mock para simular episódios
         const mockEpisodes: IEpisodes[] = [
             { id: "1", title: "Primeiro Episódio", image: { url: "image1.jpg" } },
@@ -80,7 +80,7 @@ describe("Home Component", () => {
         });
       });
 
-      it("deve renderizar corretamente quando não há episódios", () => {
+      it("Deve renderizar corretamente quando não houver episódios", () => {
     
         render(
           <ChakraProvider>
