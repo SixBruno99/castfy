@@ -44,6 +44,10 @@ export function SignIn() {
       const passwordRegex =
         /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
+      console.log("!password: " + !password);
+      console.log("password.length" + password.length);
+      console.log("passwordRegex" + !passwordRegex.test(password));
+
       if (!password || password.length < 8 || !passwordRegex.test(password)) {
         setErrorPassword("Senha inválida.");
         return;

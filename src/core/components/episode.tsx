@@ -42,6 +42,7 @@ export function Episode({
       borderRadius={8}
       padding={4}
       gap={4}
+      data-testid="episode"
     >
       <Image
         src={image.url}
