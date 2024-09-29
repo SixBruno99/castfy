@@ -26,6 +26,9 @@ export function MainLayout() {
       case "/upload":
         setSelectedPage("Upload");
         break;
+      case "/create-podcast":
+        setSelectedPage("Create");
+        break;
       default:
         setSelectedPage("Home");
     }

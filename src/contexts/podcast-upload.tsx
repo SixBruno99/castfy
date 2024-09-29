@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext } from "react";
-import { PodcastRepository } from "../repositories/podcast-upload";
+import { PodcastUploadRepository } from "../repositories/podcast-upload";
 import { IPodcastUpload, IAudioUpload } from "../types/podcast-upload";
 
 interface IValues {
@@ -21,7 +21,7 @@ export function PodcastProvider({ children }: IProps) {
     image,
   }: IAudioUpload & Omit<IPodcastUpload, "fileId">) => {
     try {
-      const data = await PodcastRepository.audioUpload({ audio });
+      const data = await PodcastUploadRepository.audioUpload({ audio });
 
       if (!data) return false;
 
@@ -43,7 +43,7 @@ export function PodcastProvider({ children }: IProps) {
     image,
   }: IPodcastUpload) => {
     try {
-      const data = await PodcastRepository.podcastUpload({
+      const data = await PodcastUploadRepository.podcastUpload({
         fileId,
         title,
         description,
