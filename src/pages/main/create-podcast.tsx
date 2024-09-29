@@ -10,10 +10,12 @@ import {
   CircularProgress,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCreatePodcast } from "../../contexts/create-podcast";
 
 export function CreatePodcast() {
   const { createPodcast } = useCreatePodcast();
+  const navigate = useNavigate();
   const toast = useToast();
 
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -84,7 +86,7 @@ export function CreatePodcast() {
       });
     }
 
-    await createPodcast({
+    const created = await createPodcast({
       name: title,
       description: description,
       image: imageFile,
@@ -92,17 +94,23 @@ export function CreatePodcast() {
 
     setIsLoading(false);
 
-    // toast({
-    //   title: "Ocorreu um erro ao criar podcast",
-    //   status: "error",
-    //   duration: 5000,
-    //   isClosable: true,
-    //   position: "top-right",
-    // });
+    console.log({ created });
+
+    if (created) {
+      toast({
+        title: "Parabéns, você criou seu podcast!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+
+      navigate(`/upload`);
+    }
 
     toast({
-      title: "Parabéns, você criou seu podcast!",
-      status: "success",
+      title: "Ocorreu um erro ao criar podcast",
+      status: "error",
       duration: 5000,
       isClosable: true,
       position: "top-right",

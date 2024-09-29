@@ -191,6 +191,13 @@ export function SignUp() {
           gender: EGender.MALE,
           birthDate: new Date(dataNascimento),
         });
+        toast({
+          title: "Parabéns! Cadastro realizado com sucesso. Faça seu login!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
         navigate("/");
       } catch (error) {
         toast({

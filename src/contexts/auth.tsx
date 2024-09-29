@@ -12,6 +12,7 @@ interface IValues {
   signed: boolean;
   userHasPodcast: boolean;
   user: IUser | undefined;
+  updateUserHasPodcast: (userHasPodcast: boolean) => void;
   signIn: (payload: ISignInPayload, rememberMe: boolean) => Promise<boolean>;
   signUp: (payload: ISignUpPayload) => Promise<boolean>;
   sendEmail: (payload: string) => Promise<boolean>;
@@ -32,6 +33,10 @@ export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [signed, setSigned] = useState<boolean>(false);
   const [userHasPodcast, setUserHasPodcast] = useState<boolean>(false);
+
+  const updateUserHasPodcast = (userHasPodcast: boolean) => {
+    setUserHasPodcast(userHasPodcast);
+  };
 
   async function signIn(payload: ISignInPayload, rememberMe: boolean) {
     try {
@@ -56,14 +61,15 @@ export function AuthProvider({ children }: IProps) {
 
       storage.setItem("@user:name", data.name);
 
+      storage.setItem("@user:userHasPodcast", String(data.userHasPodcast));
+
       // redireciona o usuário para as telas autenticadas
       setSigned(true);
-      setUserHasPodcast(data.userHasPodcast)
+      setUserHasPodcast(data.userHasPodcast);
 
       return true;
     } catch (error) {
       console.error(`unable to login due to error: ${error}`);
-      throw error;
     }
 
     return false;
@@ -78,10 +84,12 @@ export function AuthProvider({ children }: IProps) {
       if (!data) return false;
 
       // salva o token no sessionStorage
-      sessionStorage.setItem("@auth:token", data.token);
+      // sessionStorage.setItem("@auth:token", data.token);
 
       // redireciona o usuário para as telas autenticadas
-      setSigned(true);
+      // setSigned(true);
+
+      // nova lógica redireciona o usuário para o login
 
       return true;
     } catch (error) {
@@ -150,6 +158,12 @@ export function AuthProvider({ children }: IProps) {
     // carrega os dados armazenados no localStorage ou no sessionStorage
     const storagedToken = storage.getItem("@auth:token");
 
+    const storagedUserHasPodcast = storage.getItem("@auth:userHasPodcast");
+
+    if (Boolean(storagedUserHasPodcast))
+      setUserHasPodcast(Boolean(storagedUserHasPodcast));
+    console.log("userHasPodcast", Boolean(storagedUserHasPodcast));
+
     if (!storagedToken) return false;
 
     setSigned(true);
@@ -181,6 +195,7 @@ export function AuthProvider({ children }: IProps) {
         user,
         signed,
         userHasPodcast,
+        updateUserHasPodcast,
         signIn,
         signOut,
         signUp,

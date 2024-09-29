@@ -10,6 +10,7 @@ import {
   MdOutlineFolder,
   MdOutlineCreateNewFolder,
 } from "react-icons/md";
+import { useEffect } from "react";
 
 interface NavBarProps {
   selectedPage: string;
@@ -18,7 +19,7 @@ interface NavBarProps {
 
 export function NavBar(props: NavBarProps) {
   const { selectedPage, onNavigate } = props;
-  const { signOut } = useAuth();
+  const { userHasPodcast, signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleListenClick = () => {
@@ -48,13 +49,15 @@ export function NavBar(props: NavBarProps) {
 
   const handleCreateClick = () => {
     onNavigate("Create");
-    navigate(`/create-podcast`);
+    navigate(`/create`);
   };
 
   const handleSignOut = () => {
     signOut();
     navigate(`/`);
   };
+
+  useEffect(() => {}, [userHasPodcast]);
 
   return (
     <Flex
@@ -122,41 +125,43 @@ export function NavBar(props: NavBarProps) {
           </Text>
         </Flex>
 
-        <Flex flexDirection="column" alignItems="center" gap={2}>
-          <Button
-            borderRadius="24px"
-            colorScheme="gray"
-            bg={selectedPage === "Upload" ? "#ffffff" : "transparent"}
-            color={selectedPage === "Upload" ? "black" : "white"}
-            onClick={handleUploadClick}
-          >
-            <FiUploadCloud
-              size="24px"
+        {userHasPodcast ? (
+          <Flex flexDirection="column" alignItems="center" gap={2}>
+            <Button
+              borderRadius="24px"
+              colorScheme="gray"
+              bg={selectedPage === "Upload" ? "#ffffff" : "transparent"}
               color={selectedPage === "Upload" ? "black" : "white"}
-            />
-          </Button>
-          <Text color="white" fontWeight="semibold" fontSize="12px">
-            Upload
-          </Text>
-        </Flex>
-
-        <Flex flexDirection="column" alignItems="center" gap={2}>
-          <Button
-            borderRadius="24px"
-            colorScheme="gray"
-            bg={selectedPage === "Create" ? "#ffffff" : "transparent"}
-            color={selectedPage === "Create" ? "black" : "white"}
-            onClick={handleCreateClick}
-          >
-            <MdOutlineCreateNewFolder
-              size="24px"
+              onClick={handleUploadClick}
+            >
+              <FiUploadCloud
+                size="24px"
+                color={selectedPage === "Upload" ? "black" : "white"}
+              />
+            </Button>
+            <Text color="white" fontWeight="semibold" fontSize="12px">
+              Upload
+            </Text>
+          </Flex>
+        ) : (
+          <Flex flexDirection="column" alignItems="center" gap={2}>
+            <Button
+              borderRadius="24px"
+              colorScheme="gray"
+              bg={selectedPage === "Create" ? "#ffffff" : "transparent"}
               color={selectedPage === "Create" ? "black" : "white"}
-            />
-          </Button>
-          <Text color="white" fontWeight="semibold" fontSize="12px">
-            Criar
-          </Text>
-        </Flex>
+              onClick={handleCreateClick}
+            >
+              <MdOutlineCreateNewFolder
+                size="24px"
+                color={selectedPage === "Create" ? "black" : "white"}
+              />
+            </Button>
+            <Text color="white" fontWeight="semibold" fontSize="12px">
+              Criar
+            </Text>
+          </Flex>
+        )}
       </Flex>
 
       <Flex flexDirection="column" marginBottom={4} gap={4}>

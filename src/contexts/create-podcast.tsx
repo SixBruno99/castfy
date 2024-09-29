@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext } from "react";
 import { CreatePodcastRepository } from "../repositories/create-podcast";
 import { ICreatePodcast } from "../types/create-podcast";
+import { useAuth } from "./auth";
 
 interface IValues {
   createPodcast: (payload: ICreatePodcast) => Promise<boolean>;
@@ -13,6 +14,8 @@ interface IProps {
 }
 
 export function CreatePodcastProvider({ children }: IProps) {
+  const { updateUserHasPodcast } = useAuth();
+
   const createPodcast = async ({
     name,
     description,
@@ -26,6 +29,8 @@ export function CreatePodcastProvider({ children }: IProps) {
       });
 
       if (!data) return false;
+
+      updateUserHasPodcast(true);
 
       return true;
     } catch (error) {
