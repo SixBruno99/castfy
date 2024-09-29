@@ -15,8 +15,6 @@ export const CreatePodcastRepository = {
 
       const response = await http.post<ICreatePodcast>(`/podcast`, episodeData);
 
-      console.log("create podcast", { response });
-
       return response.data;
     } catch (error) {
       console.log(`unable to podcast upload due to error: ${error}`);

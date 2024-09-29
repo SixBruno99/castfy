@@ -94,8 +94,6 @@ export function CreatePodcast() {
 
     setIsLoading(false);
 
-    console.log({ created });
-
     if (created) {
       toast({
         title: "Parabéns, você criou seu podcast!",
@@ -106,6 +104,8 @@ export function CreatePodcast() {
       });
 
       navigate(`/upload`);
+
+      return;
     }
 
     toast({
@@ -239,7 +239,7 @@ export function CreatePodcast() {
           {isLoading ? (
             <CircularProgress isIndeterminate color="white" size="24px" />
           ) : (
-            "Fazer Upload"
+            "Criar Podcast"
           )}
         </Button>
       </VStack>

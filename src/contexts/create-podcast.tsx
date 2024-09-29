@@ -32,6 +32,14 @@ export function CreatePodcastProvider({ children }: IProps) {
 
       updateUserHasPodcast(true);
 
+      // verifica se os dados estão armazenados no localStorage
+      const local = localStorage.getItem("@auth:token");
+      if (local) localStorage.setItem("userHasPodcast", String(true));
+      
+      // verifica se os dados estão armazenados no sessionStorage
+      const session = sessionStorage.getItem("@auth:token");
+      if (session) localStorage.setItem("userHasPodcast", String(true));
+
       return true;
     } catch (error) {
       console.error(`unable to upload audio due to error: ${error}`);

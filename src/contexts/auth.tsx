@@ -19,6 +19,7 @@ interface IValues {
   sendCode: (payload: string) => Promise<boolean>;
   sendPassword: (payload: string) => Promise<boolean>;
   signOut: () => Promise<void>;
+  loadCredentials: () => Promise<void>;
 }
 
 export const AuthContext = createContext<IValues>({} as IValues);
@@ -61,7 +62,7 @@ export function AuthProvider({ children }: IProps) {
 
       storage.setItem("@user:name", data.name);
 
-      storage.setItem("@user:userHasPodcast", String(data.userHasPodcast));
+      storage.setItem("userHasPodcast", String(data.userHasPodcast));
 
       // redireciona o usuário para as telas autenticadas
       setSigned(true);
@@ -158,11 +159,10 @@ export function AuthProvider({ children }: IProps) {
     // carrega os dados armazenados no localStorage ou no sessionStorage
     const storagedToken = storage.getItem("@auth:token");
 
-    const storagedUserHasPodcast = storage.getItem("@auth:userHasPodcast");
+    const storagedUserHasPodcast = storage.getItem("userHasPodcast");
 
-    if (Boolean(storagedUserHasPodcast))
-      setUserHasPodcast(Boolean(storagedUserHasPodcast));
-    console.log("userHasPodcast", Boolean(storagedUserHasPodcast));
+    if (storagedUserHasPodcast === "true") setUserHasPodcast(true);
+    if (storagedUserHasPodcast === "false") setUserHasPodcast(false);
 
     if (!storagedToken) return false;
 
@@ -202,6 +202,7 @@ export function AuthProvider({ children }: IProps) {
         sendEmail,
         sendCode,
         sendPassword,
+        loadCredentials,
       }}
     >
       {children}

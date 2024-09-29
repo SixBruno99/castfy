@@ -10,7 +10,6 @@ import {
   MdOutlineFolder,
   MdOutlineCreateNewFolder,
 } from "react-icons/md";
-import { useEffect } from "react";
 
 interface NavBarProps {
   selectedPage: string;
@@ -56,8 +55,6 @@ export function NavBar(props: NavBarProps) {
     signOut();
     navigate(`/`);
   };
-
-  useEffect(() => {}, [userHasPodcast]);
 
   return (
     <Flex

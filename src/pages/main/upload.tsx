@@ -113,7 +113,7 @@ export function Upload() {
       });
     }
 
-    await audioUpload({
+    const uploaded = await audioUpload({
       audio: audioFile,
       title,
       description,
@@ -122,17 +122,20 @@ export function Upload() {
 
     setIsLoading(false);
 
-    // toast({
-    //   title: "Ocorreu um erro ao enviar episódio",
-    //   status: "error",
-    //   duration: 5000,
-    //   isClosable: true,
-    //   position: "top-right",
-    // });
+    if (uploaded) {
+      toast({
+        title: "Parabéns, você adicionou um episódio!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+      return;
+    }
 
     toast({
-      title: "Parabéns, você adicionou um episódio!",
-      status: "success",
+      title: "Ocorreu um erro ao enviar episódio, tente novamente",
+      status: "error",
       duration: 5000,
       isClosable: true,
       position: "top-right",

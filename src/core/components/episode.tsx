@@ -43,18 +43,14 @@ export function Episode({
       padding={4}
       gap={4}
     >
-      <Image
-        src={image.url}
-        borderRadius={8}
-        height="224px"
-        width="232px"
-        object-fit="cover"
-      />
+      <Flex height="156px">
+        <Image src={image.url} borderRadius={8} objectFit="fill" />
+      </Flex>
       <Flex
-        width="100%"
         gap={2}
-        justifyContent="space-between"
+        width="100%"
         alignItems="center"
+        justifyContent="space-between"
       >
         {showFavorite && (
           <Flex
