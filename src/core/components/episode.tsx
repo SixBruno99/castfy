@@ -68,9 +68,10 @@ export function Episode({
           </Flex>
         )}
 
-        <Text color="white" fontWeight="bold" noOfLines={1}>
+        <Text color="white" fontWeight="bold" isTruncated>
           {title}
         </Text>
+
         <Box minWidth="24px" minHeight="24px">
           <FaPlayCircle
             color="white"
