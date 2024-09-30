@@ -94,9 +94,8 @@ export function AuthProvider({ children }: IProps) {
       return true;
     } catch (error) {
       console.error(`unable to register due to error: ${error}`);
+      throw error;
     }
-
-    return false;
   }
 
   async function sendEmail(payload: string) {
