@@ -71,9 +71,8 @@ export function AuthProvider({ children }: IProps) {
       return true;
     } catch (error) {
       console.error(`unable to login due to error: ${error}`);
+      throw error;
     }
-
-    return false;
   }
 
   async function signUp(payload: ISignUpPayload) {
