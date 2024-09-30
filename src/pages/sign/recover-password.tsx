@@ -76,7 +76,7 @@ export function RecoverPassword() {
 
       if (response) {
         toast({
-          title: "Sucesso ao alterrar senha!",
+          title: "Sucesso ao alterar senha!",
           description: `Senha alterada com sucesso`,
           status: "success",
           duration: 5000,
