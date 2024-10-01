@@ -42,6 +42,7 @@ export function Episode({
       borderRadius={8}
       padding={4}
       gap={4}
+      data-testid="episode"
     >
       <Flex height="156px">
         <Image src={image.url} borderRadius={8} objectFit="fill" />
