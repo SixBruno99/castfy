@@ -14,23 +14,26 @@ import { Library } from "../../pages/main/library";
 import { Profile } from "../../pages/main/profile";
 import { Listener } from "../../core/components/listener";
 import { CreatePodcast } from "../../pages/main/create-podcast";
+import { UserEpisodesProvider } from "../../contexts/user-episodes";
 
 export function AuthenticatedRouter() {
   return (
     <CreatePodcastProvider>
       <EpisodeProvider>
         <PodcastProvider>
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/library" element={<Library />} />
-              <Route path="/upload" element={<Upload />} />
-              <Route path="/create" element={<CreatePodcast />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/episode/:id" element={<Listener />} />
-            </Route>
-          </Routes>
+          <UserEpisodesProvider>
+            <Routes>
+              <Route path="/" element={<MainLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/library" element={<Library />} />
+                <Route path="/upload" element={<Upload />} />
+                <Route path="/create" element={<CreatePodcast />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/episode/:id" element={<Listener />} />
+              </Route>
+            </Routes>
+          </UserEpisodesProvider>
         </PodcastProvider>
       </EpisodeProvider>
     </CreatePodcastProvider>

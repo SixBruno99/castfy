@@ -1,105 +1,111 @@
-import { Avatar, Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/auth";
-import { useEpisode } from "../../contexts/episode";
-import { useNavigate } from "react-router-dom";
-import { Episode } from "../../core/components/episode";
-import { PiSignOutBold } from "react-icons/pi";
+import {
+  Avatar,
+  Box,
+  Flex,
+  Grid,
+  Image,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
+// import { useAuth } from "../../contexts/auth";
+import { useUserEpisodes } from "../../contexts/user-episodes";
+// import { useNavigate } from "react-router-dom";
+// import { PiSignOutBold } from "react-icons/pi";
+import mockImg from "../../assets/images/flow.jpg";
+import mockImg2 from "../../assets/images/mano-a-mano.jpg";
 
 export function Profile() {
-  const { signOut } = useAuth();
-  const { episodes } = useEpisode();
-  const [userName, setUserName] = useState("");
-  const navigate = useNavigate();
+  // const { signOut } = useAuth();
+  const { userData, userEpisodes } = useUserEpisodes();
+  // const navigate = useNavigate();
 
-  const handleSignOut = () => {
-    signOut();
-    setUserName("");
-    navigate(`/`);
-  };
-
-  useEffect(() => {
-    const name =
-      localStorage.getItem("@user:name") ||
-      sessionStorage.getItem("@user:name");
-    if (name) {
-      setUserName(name);
-    }
-  }, []);
+  // const handleSignOut = () => {
+  //   signOut();
+  //   navigate(`/`);
+  // };
 
   return (
-    <Box
-      width="100%"
-      minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
-      padding={{ base: "12px", md: "24px" }}
-      backgroundColor="#1f1f1f"
+    <Flex
+      gap={{ base: 0, md: 8 }}
       color="white"
+      backgroundColor="#1f1f1f"
+      flexDirection="column"
+      paddingX={{ base: "32px", md: "128px" }}
+      paddingY={{ base: "32px", md: "64px" }}
+      alignItems={{ base: "center", md: "start" }}
+      justifyContent={{ base: "space-around", md: "start" }}
+      minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
     >
-      <Flex
-        height={{ base: "calc(100vh - 88px)", md: "100%" }}
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
+      {/* <Button
+        display={{ base: "grid", md: "none" }}
+        alignSelf="end"
+        width="48px"
+        height="48px"
+        color="white"
+        bg="transparent"
+        borderRadius="24px"
+        onClick={handleSignOut}
       >
-        <Button
-          display={{ base: "grid", md: "none" }}
-          alignSelf="end"
-          borderRadius={"24px"}
-          colorScheme="gray"
-          width={"48px"}
-          height={"48px"}
-          bg={"transparent"}
-          color={"white"}
-          onClick={handleSignOut}
-        >
-          <Icon as={PiSignOutBold} width="24px" height="24px" />
-        </Button>
-        <Avatar
-          size={{ base: "xl", md: "2xl" }}
-          name={userName}
-          marginTop={8}
-        />
-        <Text
-          fontSize={{ base: "18px", md: "24px" }}
-          fontWeight="bold"
-          marginTop={8}
-        >
-          {userName}
-        </Text>
-        <Flex
-          width={{ base: "300px", md: "400px" }}
-          flexDirection="column"
-          marginTop={{ base: "8px", md: "12px" }}
-          gap={4}
-        >
-          <Text
-            fontSize={{ base: "18px", md: "24px" }}
-            fontWeight="bold"
-            textAlign="center"
-          >
-            Podcast mais escutado:
+        <Icon as={PiSignOutBold} width="24px" height="24px" />
+      </Button> */}
+
+      <Flex gap={8} alignItems="center" width={{ base: "300px", md: "80%" }}>
+        <Avatar size={{ base: "xl", md: "2xl" }} name={userData?.name} />
+        <Grid gap={4}>
+          <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="bold">
+            {userData?.name}
           </Text>
-          <Flex flexDirection="column" alignItems="center" gap={4}>
-            {/* {episodes.map((episode, idx) => (
-              <Episode
-                key={idx}
-                id={episode.id}
-                title={episode.title}
-                image={episode.image}
-                showFavorite={false}
-              />
-            ))} */}
-            {episodes && (
-              <Episode
-                id={episodes[0].id!}
-                title={episodes[0]?.title}
-                image={episodes[0]?.image}
-                showFavorite={false}
-              />
-            )}
-          </Flex>
-        </Flex>
+          <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="bold">
+            {userData?.createdAt}
+          </Text>
+        </Grid>
       </Flex>
-    </Box>
+
+      <Box width={{ base: "300px", md: "80%" }}>
+        <Tabs variant="soft-rounded">
+          <TabList gap={2}>
+            <Tab color="white" _selected={{ bg: "blue.500" }}>
+              Vídeos
+            </Tab>
+            <Tab color="white" _selected={{ bg: "blue.500" }}>
+              Sobre
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel paddingX={0}>
+              <Flex gap={4} flexDirection="column">
+                {userEpisodes?.map((episode, idx) => (
+                  <Flex key={idx} gap={4}>
+                    {/* <Image src={episode.podcastId}/> */}
+                    <Image
+                      width={{ base: "64px", md: "128px" }}
+                      src={mockImg}
+                    />
+                    <Grid>
+                      <Text>{episode.title}</Text>
+                      <Text>{episode.createdAt}</Text>
+                      <Text>{episode.description}</Text>
+                    </Grid>
+                  </Flex>
+                ))}
+              </Flex>
+            </TabPanel>
+            <TabPanel paddingX={0}>
+              <Flex gap={4}>
+                <Image width={{ base: "64px", md: "128px" }} src={mockImg2} />
+                <Flex flexDirection="column" justifyContent="center">
+                  <Text>{userData?.description}</Text>
+                  <Text>No Castfy desde: {userData?.createdAt}</Text>
+                </Flex>
+              </Flex>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
+    </Flex>
   );
 }
