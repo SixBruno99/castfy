@@ -12,7 +12,7 @@ import { IUserData, IUserEpisodes } from "../types/user-episodes";
 interface IValues {
   userData: IUserData | undefined;
   userEpisodes: IUserEpisodes[] | undefined;
-  getAllUserEpisodes: () => Promise<boolean>;
+  getAllUserDataandEpisodes: () => Promise<boolean>;
 }
 
 export const UserEpisodesContext = createContext<IValues>({} as IValues);
@@ -27,7 +27,7 @@ export function UserEpisodesProvider({ children }: IProps) {
     IUserEpisodes[] | undefined
   >();
 
-  const getAllUserEpisodes = useCallback(async () => {
+  const getAllUserDataandEpisodes = useCallback(async () => {
     try {
       const data = await UserEpisodesRepository.findAll();
 
@@ -44,7 +44,7 @@ export function UserEpisodesProvider({ children }: IProps) {
   }, []);
 
   useEffect(() => {
-    getAllUserEpisodes();
+    getAllUserDataandEpisodes();
   }, []);
 
   return (
@@ -52,7 +52,7 @@ export function UserEpisodesProvider({ children }: IProps) {
       value={{
         userData,
         userEpisodes,
-        getAllUserEpisodes,
+        getAllUserDataandEpisodes,
       }}
     >
       {children}

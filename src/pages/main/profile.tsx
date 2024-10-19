@@ -11,12 +11,16 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-// import { useAuth } from "../../contexts/auth";
 import { useUserEpisodes } from "../../contexts/user-episodes";
+// import { useAuth } from "../../contexts/auth";
 // import { useNavigate } from "react-router-dom";
 // import { PiSignOutBold } from "react-icons/pi";
 import mockImg from "../../assets/images/flow.jpg";
 import mockImg2 from "../../assets/images/mano-a-mano.jpg";
+import {
+  getCreatePodcastDate,
+  getCreateEpisodeData,
+} from "../../utils/formattedDate";
 
 export function Profile() {
   // const { signOut } = useAuth();
@@ -30,10 +34,10 @@ export function Profile() {
 
   return (
     <Flex
-      gap={{ base: 0, md: 8 }}
       color="white"
-      backgroundColor="#1f1f1f"
       flexDirection="column"
+      backgroundColor="#1f1f1f"
+      gap={{ base: 0, md: 8 }}
       paddingX={{ base: "32px", md: "128px" }}
       paddingY={{ base: "32px", md: "64px" }}
       alignItems={{ base: "center", md: "start" }}
@@ -57,10 +61,11 @@ export function Profile() {
         <Avatar size={{ base: "xl", md: "2xl" }} name={userData?.name} />
         <Grid gap={4}>
           <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="bold">
-            {userData?.name}
+            {userData && userData.name}
           </Text>
-          <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="bold">
-            {userData?.createdAt}
+          <Text fontSize={{ base: "12px", md: "16px" }} fontStyle="italic">
+            Castfyer desde{" "}
+            {userData && getCreatePodcastDate(userData.createdAt)}
           </Text>
         </Grid>
       </Flex>
@@ -87,7 +92,9 @@ export function Profile() {
                     />
                     <Grid>
                       <Text>{episode.title}</Text>
-                      <Text>{episode.createdAt}</Text>
+                      <Text>
+                        Criado em: {getCreateEpisodeData(episode.createdAt)}
+                      </Text>
                       <Text>{episode.description}</Text>
                     </Grid>
                   </Flex>
@@ -98,8 +105,11 @@ export function Profile() {
               <Flex gap={4}>
                 <Image width={{ base: "64px", md: "128px" }} src={mockImg2} />
                 <Flex flexDirection="column" justifyContent="center">
-                  <Text>{userData?.description}</Text>
-                  <Text>No Castfy desde: {userData?.createdAt}</Text>
+                  <Text>{userData && userData.description}</Text>
+                  <Text>
+                    No Castfy desde{" "}
+                    {userData && getCreatePodcastDate(userData.createdAt)}
+                  </Text>
                 </Flex>
               </Flex>
             </TabPanel>
