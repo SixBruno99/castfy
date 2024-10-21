@@ -1,14 +1,14 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { SignUp } from "./sign-up";
+import { SignUp } from "../pages/sign/sign-up";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
-import { useAuth } from "../../contexts/auth";
+
 
 // Mock da função signUp
 const mockSignUp = vi.fn();
 
-vi.mock("../../contexts/auth", () => ({
+vi.mock("../contexts/auth", () => ({
   useAuth: () => ({
     signUp: mockSignUp,
   }),

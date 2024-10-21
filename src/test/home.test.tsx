@@ -1,12 +1,12 @@
 import {render, screen} from '@testing-library/react';
-import { Home } from './home';
-import { useEpisode } from '../../contexts/episode';
+import { Home } from '../pages/main/home';
+import { useEpisode } from '../contexts/episode';
 import { describe, it, expect, vi } from 'vitest';
 import { ChakraProvider } from "@chakra-ui/react";
 import { MemoryRouter } from "react-router-dom";
-import { IEpisodes } from '../../types/episode';
+import { IEpisodes } from '../types/episode';
 
-vi.mock("../../contexts/episode", () => ({
+vi.mock("../contexts/episode", () => ({
     useEpisode: vi.fn(),
 }));
 
@@ -21,13 +21,13 @@ describe("Home Component", () => {
             findAll: function (): Promise<boolean> {
                 throw new Error('Function not implemented.');
             },
-            findOne: function (id: string): Promise<boolean> {
+            findOne: function (_id: string): Promise<boolean> {
                 throw new Error('Function not implemented.');
             },
-            addFovorite: function (id: string): Promise<boolean> {
+            addFovorite: function (_id: string): Promise<boolean> {
                 throw new Error('Function not implemented.');
             },
-            removeFovorite: function (id: string): Promise<boolean> {
+            removeFovorite: function (_id: string): Promise<boolean> {
                 throw new Error('Function not implemented.');
             }
         };
