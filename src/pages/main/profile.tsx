@@ -15,12 +15,9 @@ import { useUserEpisodes } from "../../contexts/user-episodes";
 // import { useAuth } from "../../contexts/auth";
 // import { useNavigate } from "react-router-dom";
 // import { PiSignOutBold } from "react-icons/pi";
-import mockImg from "../../assets/images/flow.jpg";
 import mockImg2 from "../../assets/images/mano-a-mano.jpg";
-import {
-  getCreatePodcastDate,
-  getCreateEpisodeData,
-} from "../../utils/formattedDate";
+import { getCreatePodcastDate } from "../../utils/formattedDate";
+import { UserEpisode } from "../../core/components/user-episodes";
 
 export function Profile() {
   // const { signOut } = useAuth();
@@ -57,7 +54,7 @@ export function Profile() {
         <Icon as={PiSignOutBold} width="24px" height="24px" />
       </Button> */}
 
-      <Flex gap={8} alignItems="center" width={{ base: "300px", md: "80%" }}>
+      <Flex gap={8} alignItems="center" width={{ base: "300px", md: "100%", lg: "90%", xl: "80%" }}>
         <Avatar size={{ base: "xl", md: "2xl" }} name={userData?.name} />
         <Grid gap={4}>
           <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="bold">
@@ -70,7 +67,7 @@ export function Profile() {
         </Grid>
       </Flex>
 
-      <Box width={{ base: "300px", md: "80%" }}>
+      <Box width={{ base: "300px", md: "100%", lg: "90%", xl: "80%" }}>
         <Tabs variant="soft-rounded">
           <TabList gap={2}>
             <Tab color="white" _selected={{ bg: "blue.500" }}>
@@ -82,31 +79,41 @@ export function Profile() {
           </TabList>
           <TabPanels>
             <TabPanel paddingX={0}>
-              <Flex gap={4} flexDirection="column">
+              <Flex flexDirection="column" overflow="auto" gap={4}>
                 {userEpisodes?.map((episode, idx) => (
-                  <Flex key={idx} gap={4}>
-                    {/* <Image src={episode.podcastId}/> */}
-                    <Image
-                      width={{ base: "64px", md: "128px" }}
-                      src={mockImg}
+                  <Flex key={idx}>
+                    <UserEpisode
+                      id={episode.id}
+                      title={episode.title}
+                      description={episode.description}
+                      createdAt={episode.createdAt}
                     />
-                    <Grid>
-                      <Text>{episode.title}</Text>
-                      <Text>
-                        Criado em: {getCreateEpisodeData(episode.createdAt)}
-                      </Text>
-                      <Text>{episode.description}</Text>
-                    </Grid>
                   </Flex>
                 ))}
               </Flex>
             </TabPanel>
             <TabPanel paddingX={0}>
-              <Flex gap={4}>
-                <Image width={{ base: "64px", md: "128px" }} src={mockImg2} />
-                <Flex flexDirection="column" justifyContent="center">
-                  <Text>{userData && userData.description}</Text>
-                  <Text>
+              <Flex cursor="pointer" gap={4}>
+                {/* <Image src={episode.podcastId}/> */}
+                <Box width={{ base: "64px", lg: "96px", xl: "164px" }}>
+                  <Image borderRadius={16} src={mockImg2} />
+                </Box>
+                <Flex
+                  maxWidth="400px"
+                  flexDirection="column"
+                  justifyContent="space-between"
+                  gap={4}
+                  paddingY={4}
+                >
+                  <Text
+                    color="lightgray"
+                    fontSize="14px"
+                    fontStyle="italic"
+                    noOfLines={4}
+                  >
+                    {userData && userData.description}
+                  </Text>
+                  <Text color="lightgray" fontSize="14px" fontStyle="italic">
                     No Castfy desde{" "}
                     {userData && getCreatePodcastDate(userData.createdAt)}
                   </Text>
