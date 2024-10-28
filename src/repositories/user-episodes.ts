@@ -6,8 +6,6 @@ export const UserEpisodesRepository = {
     try {
       const response = await http.get<IUserData>("/podcast");
 
-      console.log({ response });
-
       return response.data;
     } catch (error) {
       console.log(`unable to findAll due to error: ${error}`);
