@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Flex, Grid, Image, Text } from "@chakra-ui/react";
 import { getCreateEpisodeData } from "../../utils/formattedDate";
-import mockImg from "../../assets/images/flow.jpg";
+import defaultImage from "../../assets/images/default-image.jpg";
 
 interface IProps {
   id: string;
   title: string;
   description: string;
-  podcastId?: string;
+  imageUrl: string;
   createdAt: Date | string;
 }
 
@@ -17,21 +17,51 @@ export function UserEpisode(episode: IProps) {
   const handleListenClick = () => navigate(`/episode/${episode.id}`);
 
   return (
-    <Flex cursor="pointer" gap={4} onClick={handleListenClick}>
-      {/* <Image src={episode.podcastId}/> */}
-      <Box width={{ sm: "96px", md: "112px",lg: "124px", xl: "164px" }}>
-        <Image borderRadius={16} src={mockImg} />
+    <Flex
+      width="100%"
+      cursor="pointer"
+      backgroundColor="#181818"
+      gap={4}
+      padding={{ base: 2, md: 4 }}
+      borderRadius={{ base: 12, md: 16 }}
+      onClick={handleListenClick}
+    >
+      <Box
+        height={{ base: "76px", md: "124px" }}
+        maxWidth={{ base: "124px", md: "196px" }}
+        width="100%"
+      >
+        <Image
+          height={{ base: "76px", md: "124px" }}
+          maxWidth={{ base: "124px", md: "196px" }}
+          borderRadius={{ base: 8, md: 12 }}
+          src={episode.imageUrl || defaultImage}
+        />
       </Box>
       <Flex flexDirection="column" justifyContent="space-around">
         <Box maxWidth="432px">
-          <Text fontSize="20px" fontWeight="bold" noOfLines={2}>
+          <Text
+            fontSize={{ base: "12px", md: "18px" }}
+            fontWeight="bold"
+            noOfLines={{ base: 1, md: 2 }}
+          >
             {episode.title}
           </Text>
         </Box>
         <Grid gap={2}>
-          <Text color="lightgray" fontSize="14px" fontStyle="italic">
-            Criado em: {getCreateEpisodeData(episode.createdAt)}
-          </Text>
+          <Flex gap={1}>
+            <Text
+              color="lightgray"
+              fontSize="14px"
+              fontStyle="italic"
+              display={{ base: "none", md: "inline" }}
+            >
+              Criado em:
+            </Text>
+            <Text color="lightgray" fontSize="14px" fontStyle="italic">
+              {getCreateEpisodeData(episode.createdAt)}
+            </Text>
+          </Flex>
           <Text
             color="lightgray"
             fontSize="14px"

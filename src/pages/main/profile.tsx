@@ -1,8 +1,10 @@
 import {
   Avatar,
   Box,
+  Button,
   Flex,
   Grid,
+  Icon,
   Image,
   Tab,
   TabList,
@@ -12,36 +14,36 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useUserEpisodes } from "../../contexts/user-episodes";
-// import { useAuth } from "../../contexts/auth";
-// import { useNavigate } from "react-router-dom";
-// import { PiSignOutBold } from "react-icons/pi";
-import mockImg2 from "../../assets/images/mano-a-mano.jpg";
+import { useAuth } from "../../contexts/auth";
+import { useNavigate } from "react-router-dom";
+import { PiSignOutBold } from "react-icons/pi";
 import { getCreatePodcastDate } from "../../utils/formattedDate";
 import { UserEpisode } from "../../core/components/user-episodes";
+import defaultImage from "../../assets/images/default-image.jpg";
 
 export function Profile() {
-  // const { signOut } = useAuth();
+  const { signOut } = useAuth();
   const { userData, userEpisodes } = useUserEpisodes();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const handleSignOut = () => {
-  //   signOut();
-  //   navigate(`/`);
-  // };
+  const handleSignOut = () => {
+    signOut();
+    navigate(`/`);
+  };
 
   return (
     <Flex
+      gap={8}
       color="white"
       flexDirection="column"
       backgroundColor="#1f1f1f"
-      gap={{ base: 0, md: 8 }}
       paddingX={{ base: "32px", md: "128px" }}
       paddingY={{ base: "32px", md: "64px" }}
       alignItems={{ base: "center", md: "start" }}
-      justifyContent={{ base: "space-around", md: "start" }}
+      justifyContent={{ base: "center", md: "start" }}
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
     >
-      {/* <Button
+      <Button
         display={{ base: "grid", md: "none" }}
         alignSelf="end"
         width="48px"
@@ -52,12 +54,23 @@ export function Profile() {
         onClick={handleSignOut}
       >
         <Icon as={PiSignOutBold} width="24px" height="24px" />
-      </Button> */}
+      </Button>
 
-      <Flex gap={8} alignItems="center" width={{ base: "300px", md: "100%", lg: "90%", xl: "80%" }}>
-        <Avatar size={{ base: "xl", md: "2xl" }} name={userData?.name} />
+      <Flex
+        gap={8}
+        alignItems="center"
+        width={{ base: "350px", md: "100%", lg: "90%", xl: "80%" }}
+      >
+        <Avatar
+          src={userData && userData.imageUrl.url}
+          size={{ base: "xl", md: "2xl" }}
+        />
         <Grid gap={4}>
-          <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="bold">
+          <Text
+            fontSize={{ base: "18px", md: "24px" }}
+            fontWeight="bold"
+            isTruncated
+          >
             {userData && userData.name}
           </Text>
           <Text fontSize={{ base: "12px", md: "16px" }} fontStyle="italic">
@@ -67,7 +80,7 @@ export function Profile() {
         </Grid>
       </Flex>
 
-      <Box width={{ base: "300px", md: "100%", lg: "90%", xl: "80%" }}>
+      <Box width={{ base: "350px", md: "100%", lg: "90%", xl: "80%" }}>
         <Tabs variant="soft-rounded">
           <TabList gap={2}>
             <Tab color="white" _selected={{ bg: "blue.500" }}>
@@ -86,6 +99,7 @@ export function Profile() {
                       id={episode.id}
                       title={episode.title}
                       description={episode.description}
+                      imageUrl={episode.imageUrl}
                       createdAt={episode.createdAt}
                     />
                   </Flex>
@@ -94,9 +108,16 @@ export function Profile() {
             </TabPanel>
             <TabPanel paddingX={0}>
               <Flex cursor="pointer" gap={4}>
-                {/* <Image src={episode.podcastId}/> */}
-                <Box width={{ base: "64px", lg: "96px", xl: "164px" }}>
-                  <Image borderRadius={16} src={mockImg2} />
+                <Box
+                  height={{ base: "76px", md: "124px" }}
+                  maxWidth={{ base: "124px", md: "196px" }}
+                >
+                  <Image
+                    height={{ base: "76px", md: "124px" }}
+                    maxWidth={{ base: "124px", md: "196px" }}
+                    borderRadius={{ base: 8, md: 12 }}
+                    src={userData ? userData.imageUrl.url : defaultImage}
+                  />
                 </Box>
                 <Flex
                   maxWidth="400px"
