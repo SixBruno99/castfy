@@ -19,6 +19,7 @@ export function UserEpisode(episode: IProps) {
   return (
     <Flex
       width="100%"
+      maxWidth="640px"
       cursor="pointer"
       backgroundColor="#181818"
       gap={4}

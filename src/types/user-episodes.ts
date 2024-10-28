@@ -5,13 +5,7 @@ export interface IUserData {
   createdAt: Date | string;
   userId: string;
   imageId: string;
-  imageUrl: {
-    id: string;
-    key: string;
-    name: string;
-    url: string;
-    createdAt: string;
-  };
+  imageUrl: string;
   episodes: IUserEpisodes[];
 }
 

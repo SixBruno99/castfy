@@ -62,7 +62,7 @@ export function Profile() {
         width={{ base: "350px", md: "100%", lg: "90%", xl: "80%" }}
       >
         <Avatar
-          src={userData && userData.imageUrl.url}
+          src={userData && userData.imageUrl}
           size={{ base: "xl", md: "2xl" }}
         />
         <Grid gap={4}>
@@ -116,7 +116,7 @@ export function Profile() {
                     height={{ base: "76px", md: "124px" }}
                     maxWidth={{ base: "124px", md: "196px" }}
                     borderRadius={{ base: 8, md: 12 }}
-                    src={userData ? userData.imageUrl.url : defaultImage}
+                    src={userData ? userData.imageUrl : defaultImage}
                   />
                 </Box>
                 <Flex
