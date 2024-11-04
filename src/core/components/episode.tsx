@@ -33,16 +33,20 @@ export function Episode({
 
   return (
     <Flex
-      height="224px"
-      width="232px"
-      alignItems="center"
-      flexDirection="column"
-      backgroundColor="#121212"
-      boxShadow="dark-lg"
-      borderRadius={8}
+    height="224px"
+    width="232px"
+    alignItems="center"
+    flexDirection="column"
+    backgroundColor="#121212"
+    boxShadow="dark-lg"
+    borderRadius={8}
       padding={4}
       gap={4}
       data-testid="episode"
+      cursor="pointer"
+      transition="all"
+      transitionDuration="500"
+      _hover={{ opacity: 0.8 }}
     >
       <Flex height="156px">
         <Image src={image.url} borderRadius={8} objectFit="fill" />

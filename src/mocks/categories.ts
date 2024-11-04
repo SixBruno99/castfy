@@ -1,0 +1,17 @@
+export const CATEGORIES = [
+  "Comédia",
+  "Ciência",
+  "Desenvolvimento Pessoal",
+  "Educação",
+  "Economia",
+  "Entretenimento",
+  "Esportes",
+  "Filosofia",
+  "História",
+  "Música",
+  "Negócios",
+  "Notícias",
+  "Saúde e Bem-Estar",
+  "Tecnologia",
+  "True Crime",
+];
