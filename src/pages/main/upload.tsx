@@ -8,7 +8,12 @@ import {
   Image,
   useToast,
   CircularProgress,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
+import { FaChevronDown } from "react-icons/fa";
 import { useState, useRef } from "react";
 import { usePodcast } from "../../contexts/podcast-upload";
 
@@ -29,6 +34,12 @@ export function Upload() {
   const [titleError, setTitleError] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("Selecione uma categoria");
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   const handleAudioFileChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -169,6 +180,35 @@ export function Upload() {
         >
           Faça o upload do seu podcast para milhares de pessoas ouvirem.
         </Text>
+
+
+        {/* Botão Dropdown de Categorias */}
+        <Menu>
+          <MenuButton as={Button} rightIcon={<FaChevronDown />} backgroundColor="#004aad" color="white" colorScheme="blue" height={35} width={250} marginBottom={8}>
+            {selectedCategory}
+          </MenuButton>
+          <MenuList maxHeight="200px" overflowY="auto">
+            <MenuItem onClick={() => handleCategorySelect("Arte e Cultura")}>Arte e Cultura</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Comédia")}>Comédia</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Ciência")}>Ciência</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Desenvolvimento Pessoal")}>Desenvolvimento Pessoal</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Educação")}>Educação</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Economia")}>Economia</MenuItem>  
+            <MenuItem onClick={() => handleCategorySelect("Entretenimento")}>Entretenimento</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Esportes")}>Esportes</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Filosofia")}>Filosofia</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("História")}>História</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Música")}>Música</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Negócios")}>Negócios</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Notícias")}>Notícias</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Saúde e Bem-Estar")}>Saúde e Bem-Estar</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("Tecnologia")}>Tecnologia</MenuItem>
+            <MenuItem onClick={() => handleCategorySelect("True Crime")}>True Crime</MenuItem>
+          </MenuList>
+        </Menu>
+
+
+
 
         <input
           type="file"
