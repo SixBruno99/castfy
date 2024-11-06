@@ -18,7 +18,7 @@ import { TbRewindBackward10, TbRewindForward10 } from "react-icons/tb";
 
 export function Listener() {
   const { id } = useParams();
-  const { episode, favEpisodes, findOne, addFovorite, removeFovorite } =
+  const { episode, favEpisodes, findOne, addFovorite, removeFavorite } =
     useEpisode();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -101,7 +101,7 @@ export function Listener() {
   const handleFavorite = async () => {
     if (id) {
       if (isFavorite) {
-        await removeFovorite(id);
+        await removeFavorite(id);
         toast({
           title: "Episódio removido dos favoritos",
           status: "warning",

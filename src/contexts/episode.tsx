@@ -16,7 +16,7 @@ interface IValues {
   findAll: () => Promise<boolean>;
   findOne: (id: string) => Promise<boolean>;
   addFovorite: (id: string) => Promise<boolean>;
-  removeFovorite: (id: string) => Promise<boolean>;
+  removeFavorite: (id: string) => Promise<boolean>;
 }
 
 export const EpisodeContext = createContext<IValues>({} as IValues);
@@ -84,9 +84,9 @@ export function EpisodeProvider({ children }: IProps) {
     return false;
   };
 
-  const removeFovorite = async (id: string) => {
+  const removeFavorite = async (id: string) => {
     try {
-      await EpisodeRepository.removeFovorite(id);
+      await EpisodeRepository.removeFavorite(id);
 
       setFavEpisodes((prevFavEpisodes) =>
         prevFavEpisodes?.filter((episode) => episode.id !== id)
@@ -113,7 +113,7 @@ export function EpisodeProvider({ children }: IProps) {
         findAll,
         findOne,
         addFovorite,
-        removeFovorite,
+        removeFavorite,
       }}
     >
       {children}
