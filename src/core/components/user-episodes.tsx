@@ -39,7 +39,7 @@ export function UserEpisode(episode: IProps) {
         />
       </Box>
       <Flex flexDirection="column" justifyContent="space-between">
-        <Box >
+        <Box>
           <Text
             fontSize={{ base: "12px", md: "18px" }}
             fontWeight="bold"
