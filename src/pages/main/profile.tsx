@@ -56,11 +56,7 @@ export function Profile() {
         <Icon as={PiSignOutBold} width="24px" height="24px" />
       </Button>
 
-      <Flex
-        gap={8}
-        alignItems="center"
-        width={{ base: "350px", md: "100%", lg: "90%", xl: "80%" }}
-      >
+      <Flex gap={8} alignItems="center" width={{ base: "350px", md: "100%" }}>
         <Avatar
           src={userData && userData.imageUrl}
           size={{ base: "xl", md: "2xl" }}
@@ -80,7 +76,7 @@ export function Profile() {
         </Grid>
       </Flex>
 
-      <Box width={{ base: "350px", md: "100%", lg: "90%", xl: "80%" }}>
+      <Box width={{ base: "350px", md: "100%" }}>
         <Tabs variant="soft-rounded">
           <TabList gap={2}>
             <Tab color="white" _selected={{ bg: "blue.500" }}>
@@ -92,19 +88,21 @@ export function Profile() {
           </TabList>
           <TabPanels>
             <TabPanel paddingX={0}>
-              <Flex flexDirection="column" overflow="auto" gap={4}>
+              <Grid
+                gap={4}
+                gridTemplateColumns="repeat(auto-fill, minmax(340px, 1fr))"
+              >
                 {userEpisodes?.map((episode, idx) => (
-                  <Flex key={idx}>
-                    <UserEpisode
-                      id={episode.id}
-                      title={episode.title}
-                      description={episode.description}
-                      imageUrl={episode.imageUrl}
-                      createdAt={episode.createdAt}
-                    />
-                  </Flex>
+                  <UserEpisode
+                    key={idx}
+                    id={episode.id}
+                    title={episode.title}
+                    description={episode.description}
+                    imageUrl={episode.imageUrl}
+                    createdAt={episode.createdAt}
+                  />
                 ))}
-              </Flex>
+              </Grid>
             </TabPanel>
             <TabPanel paddingX={0}>
               <Flex cursor="pointer" gap={4}>

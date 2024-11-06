@@ -18,54 +18,53 @@ export function UserEpisode(episode: IProps) {
 
   return (
     <Flex
+      gap={4}
       width="100%"
-      maxWidth="640px"
       cursor="pointer"
       backgroundColor="#181818"
-      gap={4}
       padding={{ base: 2, md: 4 }}
       borderRadius={{ base: 12, md: 16 }}
       onClick={handleListenClick}
     >
       <Box
-        height={{ base: "76px", md: "124px" }}
-        maxWidth={{ base: "124px", md: "196px" }}
         width="100%"
+        height={{ base: "76px", md: "96px" }}
+        maxWidth={{ base: "96px", md: "124px" }}
       >
         <Image
-          height={{ base: "76px", md: "124px" }}
-          maxWidth={{ base: "124px", md: "196px" }}
+          height={{ base: "76px", md: "96px" }}
+          maxWidth={{ base: "96px", md: "124px" }}
           borderRadius={{ base: 8, md: 12 }}
           src={episode.imageUrl || defaultImage}
         />
       </Box>
-      <Flex flexDirection="column" justifyContent="space-around">
-        <Box maxWidth="432px">
+      <Flex flexDirection="column" justifyContent="space-between">
+        <Box >
           <Text
             fontSize={{ base: "12px", md: "18px" }}
             fontWeight="bold"
-            noOfLines={{ base: 1, md: 2 }}
+            noOfLines={1}
           >
             {episode.title}
           </Text>
         </Box>
-        <Grid gap={2}>
+        <Grid>
           <Flex gap={1}>
             <Text
               color="lightgray"
-              fontSize="14px"
+              fontSize="12px"
               fontStyle="italic"
               display={{ base: "none", md: "inline" }}
             >
               Criado em:
             </Text>
-            <Text color="lightgray" fontSize="14px" fontStyle="italic">
+            <Text color="lightgray" fontSize="12px" fontStyle="italic">
               {getCreateEpisodeData(episode.createdAt)}
             </Text>
           </Flex>
           <Text
             color="lightgray"
-            fontSize="14px"
+            fontSize="12px"
             fontStyle="italic"
             isTruncated
           >
