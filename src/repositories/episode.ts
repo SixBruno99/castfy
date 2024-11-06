@@ -42,13 +42,13 @@ export const EpisodeRepository = {
     }
   },
 
-  removeFovorite: async (id: string) => {
+  removeFavorite: async (id: string) => {
     try {
       const response = await http.delete<IEpisode>(`/episode/favorite/${id}`);
 
       return response.data;
     } catch (error) {
-      console.log(`unable to remove fovorite due to error: ${error}`);
+      console.log(`unable to remove favorite due to error: ${error}`);
     }
   },
 };

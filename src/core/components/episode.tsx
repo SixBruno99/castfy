@@ -12,7 +12,7 @@ export function Episode({
   favorite,
   showFavorite = true,
 }: IEpisodes) {
-  const { removeFovorite } = useEpisode();
+  const { removeFavorite } = useEpisode();
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -21,7 +21,7 @@ export function Episode({
   };
 
   const handleRemoveFav = async () => {
-    await removeFovorite(id);
+    await removeFavorite(id);
     toast({
       title: "Episódio removido dos favoritos",
       status: "warning",

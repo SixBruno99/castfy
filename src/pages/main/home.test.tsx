@@ -25,7 +25,7 @@ describe("Home Component", () => {
       addFovorite: function (): Promise<boolean> {
         throw new Error("Function not implemented.");
       },
-      removeFovorite: function (): Promise<boolean> {
+      removeFavorite: function (): Promise<boolean> {
         throw new Error("Function not implemented.");
       },
     };
