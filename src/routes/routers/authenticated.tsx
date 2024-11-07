@@ -4,30 +4,38 @@ import { MainLayout } from "../../core/layouts/main";
 // Providers
 import { EpisodeProvider } from "../../contexts/episode";
 import { PodcastProvider } from "../../contexts/podcast-upload";
+import { CreatePodcastProvider } from "../../contexts/create-podcast";
 
 // Pages
 import { Home } from "../../pages/main/home";
 import { Search } from "../../pages/main/search";
+import { Upload } from "../../pages/main/upload";
 import { Library } from "../../pages/main/library";
 import { Profile } from "../../pages/main/profile";
 import { Listener } from "../../core/components/listener";
-import { Upload } from "../../pages/main/upload";
+import { CreatePodcast } from "../../pages/main/create-podcast";
+import { UserEpisodesProvider } from "../../contexts/user-episodes";
 
 export function AuthenticatedRouter() {
   return (
-    <EpisodeProvider>
-      <PodcastProvider>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/Search" element={<Search />} />
-            <Route path="/library" element={<Library />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/episode/:id" element={<Listener />} />
-            <Route path="/upload" element={<Upload />} />
-          </Route>
-        </Routes>
-      </PodcastProvider>
-    </EpisodeProvider>
+    <CreatePodcastProvider>
+      <EpisodeProvider>
+        <PodcastProvider>
+          <UserEpisodesProvider>
+            <Routes>
+              <Route path="/" element={<MainLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/library" element={<Library />} />
+                <Route path="/upload" element={<Upload />} />
+                <Route path="/create" element={<CreatePodcast />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/episode/:id" element={<Listener />} />
+              </Route>
+            </Routes>
+          </UserEpisodesProvider>
+        </PodcastProvider>
+      </EpisodeProvider>
+    </CreatePodcastProvider>
   );
 }

@@ -29,6 +29,7 @@ export const AuthRepository = {
       return response.data;
     } catch (error) {
       console.log(`unable to register due to error: ${error}`);
+      throw error;
     }
   },
 
@@ -54,7 +55,6 @@ export const AuthRepository = {
   },
 
   sendPassword: async (authToken: string, password: string) => {
-    
     try {
       const response = await http.post(
         "/auth/reset-password",

@@ -10,13 +10,16 @@ import { IUser, ISignInPayload, ISignUpPayload } from "../types/auth";
 
 interface IValues {
   signed: boolean;
+  userHasPodcast: boolean;
   user: IUser | undefined;
+  updateUserHasPodcast: (userHasPodcast: boolean) => void;
   signIn: (payload: ISignInPayload, rememberMe: boolean) => Promise<boolean>;
   signUp: (payload: ISignUpPayload) => Promise<boolean>;
   sendEmail: (payload: string) => Promise<boolean>;
   sendCode: (payload: string) => Promise<boolean>;
   sendPassword: (payload: string) => Promise<boolean>;
   signOut: () => Promise<void>;
+  loadCredentials: () => Promise<void>;
 }
 
 export const AuthContext = createContext<IValues>({} as IValues);
@@ -30,6 +33,11 @@ export function AuthProvider({ children }: IProps) {
   const [authToken, setAuthToken] = useState<string>("");
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [signed, setSigned] = useState<boolean>(false);
+  const [userHasPodcast, setUserHasPodcast] = useState<boolean>(false);
+
+  const updateUserHasPodcast = (userHasPodcast: boolean) => {
+    setUserHasPodcast(userHasPodcast);
+  };
 
   async function signIn(payload: ISignInPayload, rememberMe: boolean) {
     try {
@@ -37,8 +45,7 @@ export function AuthProvider({ children }: IProps) {
       const data = await AuthRepository.signIn(payload);
 
       // retorna caso ocorra algum erro
-    if (!data) throw new Error("Erro de autenticação.");
-
+      if (!data) throw new Error("Erro de autenticação.");
 
       // verifica se o remember me ta marcado
       // caso esteja ele coloca as informações no localStorage
@@ -55,16 +62,17 @@ export function AuthProvider({ children }: IProps) {
 
       storage.setItem("@user:name", data.name);
 
+      storage.setItem("userHasPodcast", String(data.userHasPodcast));
+
       // redireciona o usuário para as telas autenticadas
       setSigned(true);
+      setUserHasPodcast(data.userHasPodcast);
 
       return true;
     } catch (error) {
       console.error(`unable to login due to error: ${error}`);
       throw error;
     }
-
-    return false;
   }
 
   async function signUp(payload: ISignUpPayload) {
@@ -76,25 +84,26 @@ export function AuthProvider({ children }: IProps) {
       if (!data) return false;
 
       // salva o token no sessionStorage
-      sessionStorage.setItem("@auth:token", data.token);
-      
+      // sessionStorage.setItem("@auth:token", data.token);
+
       // redireciona o usuário para as telas autenticadas
-      setSigned(true);
+      // setSigned(true);
+
+      // nova lógica redireciona o usuário para o login
 
       return true;
     } catch (error) {
       console.error(`unable to register due to error: ${error}`);
+      throw error;
     }
-
-    return false;
   }
 
   async function sendEmail(payload: string) {
     try {
       const data = await AuthRepository.sendEmail(payload);
- 
+
       setId(data.id);
-      
+
       return data;
     } catch (error) {
       console.error(`unable to send email due to error: ${error}`);
@@ -108,7 +117,7 @@ export function AuthProvider({ children }: IProps) {
       const data = await AuthRepository.sendCode(id, payload);
 
       setAuthToken(data.token);
-      
+
       return data;
     } catch (error) {
       console.error(`unable to send code due to error: ${error}`);
@@ -123,8 +132,8 @@ export function AuthProvider({ children }: IProps) {
 
       sessionStorage.setItem("@auth:token", data.token);
 
-      loadCredentials()
-      
+      loadCredentials();
+
       return data;
     } catch (error) {
       console.error(`unable to send code due to error: ${error}`);
@@ -147,6 +156,11 @@ export function AuthProvider({ children }: IProps) {
   function loadData(storage: Storage): boolean {
     // carrega os dados armazenados no localStorage ou no sessionStorage
     const storagedToken = storage.getItem("@auth:token");
+
+    const storagedUserHasPodcast = storage.getItem("userHasPodcast");
+
+    if (storagedUserHasPodcast === "true") setUserHasPodcast(true);
+    if (storagedUserHasPodcast === "false") setUserHasPodcast(false);
 
     if (!storagedToken) return false;
 
@@ -178,12 +192,15 @@ export function AuthProvider({ children }: IProps) {
       value={{
         user,
         signed,
+        userHasPodcast,
+        updateUserHasPodcast,
         signIn,
         signOut,
         signUp,
         sendEmail,
         sendCode,
         sendPassword,
+        loadCredentials,
       }}
     >
       {children}

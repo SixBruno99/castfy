@@ -8,9 +8,15 @@ import {
   Image,
   useToast,
   CircularProgress,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
+import { FaChevronDown } from "react-icons/fa";
 import { useState, useRef } from "react";
 import { usePodcast } from "../../contexts/podcast-upload";
+import { CATEGORIES } from "../../mocks/categories";
 
 export function Upload() {
   const { audioUpload } = usePodcast();
@@ -29,6 +35,14 @@ export function Upload() {
   const [titleError, setTitleError] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
+
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    "Selecione uma categoria"
+  );
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   const handleAudioFileChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -113,7 +127,7 @@ export function Upload() {
       });
     }
 
-    await audioUpload({
+    const uploaded = await audioUpload({
       audio: audioFile,
       title,
       description,
@@ -122,17 +136,20 @@ export function Upload() {
 
     setIsLoading(false);
 
-    // toast({
-    //   title: "Ocorreu um erro ao enviar episódio",
-    //   status: "error",
-    //   duration: 5000,
-    //   isClosable: true,
-    //   position: "top-right",
-    // });
+    if (uploaded) {
+      toast({
+        title: "Parabéns, você adicionou um episódio!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+      return;
+    }
 
     toast({
-      title: "Parabéns, você adicionou um episódio!",
-      status: "success",
+      title: "Ocorreu um erro ao enviar episódio, tente novamente",
+      status: "error",
       duration: 5000,
       isClosable: true,
       position: "top-right",
@@ -166,6 +183,28 @@ export function Upload() {
         >
           Faça o upload do seu podcast para milhares de pessoas ouvirem.
         </Text>
+
+        <Menu>
+          <MenuButton
+            as={Button}
+            rightIcon={<FaChevronDown />}
+            backgroundColor="#004aad"
+            color="white"
+            colorScheme="blue"
+            height={35}
+            width={250}
+            marginBottom={8}
+          >
+            {selectedCategory}
+          </MenuButton>
+          <MenuList maxHeight="200px" overflowY="auto">
+            {CATEGORIES.map((item, idx) => (
+              <MenuItem key={idx} onClick={() => handleCategorySelect(item)}>
+                {item}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
 
         <input
           type="file"
@@ -297,6 +336,7 @@ export function Upload() {
           colorScheme="blue"
           width={{ base: "full" }}
           onClick={sendPodcast}
+          isLoading={isLoading}
         >
           {isLoading ? (
             <CircularProgress isIndeterminate color="white" size="24px" />

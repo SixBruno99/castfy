@@ -18,6 +18,7 @@ export interface ISignInResponse {
     email: string;
     name: string;
     token: string;
+    userHasPodcast: boolean;
   };
   // data: {
   //   token: string;

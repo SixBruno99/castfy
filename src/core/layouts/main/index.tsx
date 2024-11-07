@@ -26,6 +26,9 @@ export function MainLayout() {
       case "/upload":
         setSelectedPage("Upload");
         break;
+      case "/create":
+        setSelectedPage("Create");
+        break;
       default:
         setSelectedPage("Home");
     }
@@ -36,11 +39,18 @@ export function MainLayout() {
   };
 
   return (
-    <Flex minHeight="100vh" direction={{ base: "column", md: "row" }}>
+    <Flex
+      minHeight={{ base: "100dvh", md: "100vh" }}
+      direction={{ base: "column", md: "row" }}
+    >
       <Box display={{ base: "none", md: "flex" }}>
         <NavBar selectedPage={selectedPage} onNavigate={handleNavigate} />
       </Box>
-      <Box height={{base: "calc(100vh - 64px)", md: "100vh"}} width={{base: "100vw", md: "calc(100vw - 96px)"}} overflow="auto">
+      <Box
+        height={{ base: "calc(100vh - 64px)", md: "100vh" }}
+        width={{ base: "100vw", md: "calc(100vw - 96px)" }}
+        overflow="auto"
+      >
         <Outlet />
       </Box>
       <Box display={{ base: "flex", md: "none" }}>

@@ -12,7 +12,7 @@ export function Episode({
   favorite,
   showFavorite = true,
 }: IEpisodes) {
-  const { removeFovorite } = useEpisode();
+  const { removeFavorite } = useEpisode();
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -21,7 +21,7 @@ export function Episode({
   };
 
   const handleRemoveFav = async () => {
-    await removeFovorite(id);
+    await removeFavorite(id);
     toast({
       title: "Episódio removido dos favoritos",
       status: "warning",
@@ -33,29 +33,29 @@ export function Episode({
 
   return (
     <Flex
-      height="224px"
-      width="232px"
-      alignItems="center"
-      flexDirection="column"
-      backgroundColor="#121212"
-      boxShadow="dark-lg"
-      borderRadius={8}
+    height="224px"
+    width="232px"
+    alignItems="center"
+    flexDirection="column"
+    backgroundColor="#121212"
+    boxShadow="dark-lg"
+    borderRadius={8}
       padding={4}
       gap={4}
       data-testid="episode"
+      cursor="pointer"
+      transition="all"
+      transitionDuration="500"
+      _hover={{ opacity: 0.8 }}
     >
-      <Image
-        src={image.url}
-        borderRadius={8}
-        height="224px"
-        width="232px"
-        object-fit="cover"
-      />
+      <Flex height="156px">
+        <Image src={image.url} borderRadius={8} objectFit="fill" />
+      </Flex>
       <Flex
-        width="100%"
         gap={2}
-        justifyContent="space-between"
+        width="100%"
         alignItems="center"
+        justifyContent="space-between"
       >
         {showFavorite && (
           <Flex
@@ -73,9 +73,10 @@ export function Episode({
           </Flex>
         )}
 
-        <Text color="white" fontWeight="bold" noOfLines={1}>
+        <Text color="white" fontWeight="bold" isTruncated>
           {title}
         </Text>
+
         <Box minWidth="24px" minHeight="24px">
           <FaPlayCircle
             color="white"
