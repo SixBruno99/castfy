@@ -12,16 +12,19 @@ vi.mock("../contexts/auth", () => ({
 
 // Teste da página de Recuperar Senha
 describe("RecoverPassword", () => {
-    const mockUseAuth = {
-        signed: false,
-        user: undefined,
-        signIn: vi.fn(),
-        signUp: vi.fn(),
-        signOut: vi.fn(),
-        sendEmail: vi.fn(),
-        sendCode: vi.fn(),
-        sendPassword: vi.fn(),
-      };
+  const mockUseAuth = {
+    signed: false,
+    user: undefined,
+    signIn: vi.fn(),
+    signUp: vi.fn(),
+    signOut: vi.fn(),
+    sendEmail: vi.fn(),
+    sendCode: vi.fn(),
+    sendPassword: vi.fn(),
+    userHasPodcast: false,
+    updateUserHasPodcast: vi.fn(),
+    loadCredentials: vi.fn(),
+  };
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -71,20 +74,20 @@ describe("RecoverPassword", () => {
 
     // Preenche os campos de senha corretamente
     await act(async () => {
-        // Preenche os campos de senha corretamente
-        fireEvent.change(screen.getByPlaceholderText("Senha"), {
-          target: { value: "Valid@123" },
-        });
-        fireEvent.change(screen.getByPlaceholderText("Confirmar Senha"), {
-          target: { value: "Valid@123" },
-        });
-  
-        // Simula o clique no botão para redefinir senha
-        fireEvent.click(screen.getByText("Redefinir Senha"));
+      // Preenche os campos de senha corretamente
+      fireEvent.change(screen.getByPlaceholderText("Senha"), {
+        target: { value: "Valid@123" },
       });
-  
-      // Verifica se a função sendPassword foi chamada com a senha correta
-      expect(mockUseAuth.sendPassword).toHaveBeenCalledWith("Valid@123");
+      fireEvent.change(screen.getByPlaceholderText("Confirmar Senha"), {
+        target: { value: "Valid@123" },
+      });
+
+      // Simula o clique no botão para redefinir senha
+      fireEvent.click(screen.getByText("Redefinir Senha"));
+    });
+
+    // Verifica se a função sendPassword foi chamada com a senha correta
+    expect(mockUseAuth.sendPassword).toHaveBeenCalledWith("Valid@123");
   });
 
   it("deve exibir toast de sucesso ao redefinir senha corretamente", async () => {

@@ -29,6 +29,9 @@ describe("ForgotPassword Component", () => {
     sendEmail: vi.fn(),
     sendCode: vi.fn(),
     sendPassword: vi.fn(),
+    userHasPodcast: false,
+    updateUserHasPodcast: vi.fn(),
+    loadCredentials: vi.fn(),
   };
 
   const mockNavigate = vi.fn(); // Mock de useNavigate
