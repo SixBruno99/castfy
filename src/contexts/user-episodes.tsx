@@ -50,13 +50,23 @@ export function UserEpisodesProvider({ children }: IProps) {
     try {
       const data = await UserEpisodesRepository.removeEpisode(id);
 
-      if (!data) return false;
+      if (!data) {
+        toast({
+          title: "Erro ao tentar apagar epsódio",
+          status: "warning",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+
+        return false;
+      }
 
       setUserEpisodes((prevEpisodes) =>
         prevEpisodes?.filter((episode) => episode.id !== id)
       );
 
-      console.log("removeEpisode", data)
+      console.log("removeEpisode", data);
 
       toast({
         title: "Episódio deletado permanentemente",
@@ -71,7 +81,7 @@ export function UserEpisodesProvider({ children }: IProps) {
       console.error(`unable to removeEpisode due to error: ${error}`);
     }
     return false;
-  }
+  };
 
   useEffect(() => {
     getAllUserDataandEpisodes();
@@ -83,7 +93,7 @@ export function UserEpisodesProvider({ children }: IProps) {
         userData,
         userEpisodes,
         getAllUserDataandEpisodes,
-        removeEpisode
+        removeEpisode,
       }}
     >
       {children}
