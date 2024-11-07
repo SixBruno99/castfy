@@ -1,13 +1,13 @@
-import { render, screen } from "@testing-library/react";
-import { Home } from "./home";
-import { useEpisode } from "../../contexts/episode";
-import { describe, it, expect, vi } from "vitest";
+import {render, screen} from '@testing-library/react';
+import { Home } from '../pages/main/home';
+import { useEpisode } from '../contexts/episode';
+import { describe, it, expect, vi } from 'vitest';
 import { ChakraProvider } from "@chakra-ui/react";
 import { MemoryRouter } from "react-router-dom";
-import { IEpisodes } from "../../types/episode";
+import { IEpisodes } from '../types/episode';
 
-vi.mock("../../contexts/episode", () => ({
-  useEpisode: vi.fn(),
+vi.mock("../contexts/episode", () => ({
+    useEpisode: vi.fn(),
 }));
 
 describe("Home Component", () => {

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { SignIn } from "./sign-in";
+import { SignIn } from "../pages/sign/sign-in";
 import { vi } from "vitest";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 // Mock useAuth to return a spy for signIn
 const mockSignIn = vi.fn();
 
-vi.mock("../../contexts/auth", () => ({
+vi.mock("../contexts/auth", () => ({
   useAuth: () => ({
     signIn: mockSignIn,
   }),

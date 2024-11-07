@@ -89,7 +89,7 @@ export function RecoverPassword() {
       }
     } catch (error) {
       toast({
-        title: "Erro ao alterrar senha!",
+        title: "Erro ao alterar senha!",
         description: `Ocorreu um erro ao tentar alterar senha`,
         status: "error",
         duration: 5000,
