@@ -17,10 +17,13 @@ import { FaChevronDown } from "react-icons/fa";
 import { useState, useRef } from "react";
 import { usePodcast } from "../../contexts/podcast-upload";
 import { CATEGORIES } from "../../mocks/categories";
+import { useNavigate } from "react-router-dom";
 
 export function Upload() {
-  const { audioUpload } = usePodcast();
   const toast = useToast();
+  const navigate = useNavigate();
+
+  const { audioUpload } = usePodcast();
 
   const audioInputRefer = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -134,8 +137,6 @@ export function Upload() {
       image: imageFile,
     });
 
-    setIsLoading(false);
-
     if (uploaded) {
       toast({
         title: "Parabéns, você adicionou um episódio!",
@@ -144,8 +145,11 @@ export function Upload() {
         isClosable: true,
         position: "top-right",
       });
-      return;
+      setIsLoading(false);
+      return navigate(`/profile`);
     }
+
+    setIsLoading(false);
 
     toast({
       title: "Ocorreu um erro ao enviar episódio, tente novamente",

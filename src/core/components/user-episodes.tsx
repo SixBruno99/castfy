@@ -44,7 +44,7 @@ export function UserEpisode(episode: IProps) {
       gap={4}
       width="100%"
       backgroundColor="#181818"
-      padding={{ base: 2, md: 4 }}
+      padding={{ base: "8px", md: "10px" }}
       borderRadius={{ base: 12, md: 16 }}
     >
       <Box

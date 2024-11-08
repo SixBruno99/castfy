@@ -33,13 +33,13 @@ export function Episode({
 
   return (
     <Flex
-    height="224px"
-    width="232px"
-    alignItems="center"
-    flexDirection="column"
-    backgroundColor="#121212"
-    boxShadow="dark-lg"
-    borderRadius={8}
+      height="224px"
+      width="232px"
+      alignItems="center"
+      flexDirection="column"
+      backgroundColor="#121212"
+      boxShadow="dark-lg"
+      borderRadius={8}
       padding={4}
       gap={4}
       data-testid="episode"
