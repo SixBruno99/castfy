@@ -203,8 +203,8 @@ export function Upload() {
           </MenuButton>
           <MenuList maxHeight="200px" overflowY="auto">
             {CATEGORIES.map((item, idx) => (
-              <MenuItem key={idx} onClick={() => handleCategorySelect(item)}>
-                {item}
+              <MenuItem key={idx} value={item.value} onClick={() => handleCategorySelect(item.label)}>
+                {item.label}
               </MenuItem>
             ))}
           </MenuList>
