@@ -18,6 +18,7 @@ export function PodcastProvider({ children }: IProps) {
     audio,
     title,
     description,
+    category,
     image,
   }: IAudioUpload & Omit<IPodcastUpload, "fileId">) => {
     try {
@@ -27,7 +28,7 @@ export function PodcastProvider({ children }: IProps) {
 
       const fileId = data.id
 
-      podcastUpload({ fileId, title, description, image });
+      podcastUpload({ fileId, title, description, category, image });
 
       return true;
     } catch (error) {
@@ -40,6 +41,7 @@ export function PodcastProvider({ children }: IProps) {
     fileId,
     title,
     description,
+    category,
     image,
   }: IPodcastUpload) => {
     try {
@@ -47,6 +49,7 @@ export function PodcastProvider({ children }: IProps) {
         fileId,
         title,
         description,
+        category,
         image,
       });
 

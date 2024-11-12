@@ -38,6 +38,8 @@ export function Upload() {
   const [titleError, setTitleError] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
+  const [category, setCategory] = useState<string | null>(null);
+  const [categoryError, setCategoryError] = useState<string | null>(null);
 
   const [selectedCategory, setSelectedCategory] = useState<string>(
     "Selecione uma categoria"
@@ -87,26 +89,37 @@ export function Upload() {
   };
 
   const sendPodcast = async () => {
-    if (!title && !description) {
+    if (!title && !description && !category) {
       setTitleError("Insira um título");
       setDescriptionError("Insira uma descrição");
+      setCategoryError("Selecione uma categoria");
       return;
     }
 
     if (!title) {
       setTitleError("Insira um título");
       setDescriptionError("");
+      setCategoryError("");
       return;
     }
 
     if (!description) {
       setTitleError("");
       setDescriptionError("Insira uma descrição");
+      setCategoryError("");
+      return;
+    }
+
+    if (!category) {
+      setTitleError("");
+      setDescriptionError("");
+      setCategoryError("Selecione uma categoria");
       return;
     }
 
     setTitleError("");
     setDescriptionError("");
+    setCategoryError("");
     setIsLoading(true);
     if (!audioFile) {
       setIsLoading(false);
@@ -134,6 +147,7 @@ export function Upload() {
       audio: audioFile,
       title,
       description,
+      category: [category],
       image: imageFile,
     });
 
@@ -188,28 +202,6 @@ export function Upload() {
           Faça o upload do seu podcast para milhares de pessoas ouvirem.
         </Text>
 
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<FaChevronDown />}
-            backgroundColor="#004aad"
-            color="white"
-            colorScheme="blue"
-            height={35}
-            width={250}
-            marginBottom={8}
-          >
-            {selectedCategory}
-          </MenuButton>
-          <MenuList maxHeight="200px" overflowY="auto">
-            {CATEGORIES.map((item, idx) => (
-              <MenuItem key={idx} value={item.value} onClick={() => handleCategorySelect(item.label)}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-
         <input
           type="file"
           accept="audio/*"
@@ -234,6 +226,40 @@ export function Upload() {
           width="100%"
           gap={4}
         >
+          <Menu>
+            <MenuButton
+              width={250}
+              as={Button}
+              rightIcon={<FaChevronDown />}
+              backgroundColor="#004aad"
+              color="white"
+              colorScheme="blue"
+            >
+              {selectedCategory}
+            </MenuButton>
+            <MenuList maxHeight="200px" overflowY="auto">
+              {CATEGORIES.map((item, idx) => (
+                <MenuItem
+                  key={idx}
+                  value={item.value}
+                  onClick={(e) => {
+                    const target = e.target as HTMLButtonElement;
+                    handleCategorySelect(item.label);
+                    setCategory(target.value);
+                  }}
+                >
+                  {item.label}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+
+          {categoryError && (
+            <Text fontSize="12px" color="red">
+              {categoryError}
+            </Text>
+          )}
+
           <Textarea
             id="titulo"
             flex={3}

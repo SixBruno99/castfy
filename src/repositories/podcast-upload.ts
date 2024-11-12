@@ -18,6 +18,7 @@ export const PodcastUploadRepository = {
     fileId,
     title,
     description,
+    category,
     image,
   }: IPodcastUpload) => {
     try {
@@ -26,9 +27,9 @@ export const PodcastUploadRepository = {
       episodeData.append("title", title);
       episodeData.append("description", description);
       episodeData.append("image", image);
+      episodeData.append("category", JSON.stringify(category));
 
       const response = await http.post<IPodcastUpload>(`/episode`, episodeData);
-
 
       return response.data;
     } catch (error) {
