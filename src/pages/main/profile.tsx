@@ -13,17 +13,20 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import { useUserEpisodes } from "../../contexts/user-episodes";
-import { useAuth } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
-import { PiSignOutBold } from "react-icons/pi";
-import { getCreatePodcastDate } from "../../utils/formattedDate";
+import { useAuth } from "../../contexts/auth";
+import { useUserEpisodes } from "../../contexts/user-episodes";
+import { useEpisode } from "../../contexts/episode";
 import { UserEpisode } from "../../core/components/user-episodes";
+import { getCreatePodcastDate } from "../../utils/formattedDate";
 import { FaEdit } from "react-icons/fa";
+import { PiSignOutBold } from "react-icons/pi";
 import defaultImage from "../../assets/images/default-image.jpg";
+import { Episode } from "../../core/components/episode";
 
 export function Profile() {
   const { signOut } = useAuth();
+  const { favEpisodes } = useEpisode();
   const { userData, userEpisodes } = useUserEpisodes();
   const navigate = useNavigate();
 
@@ -80,10 +83,13 @@ export function Profile() {
       <Box width={{ base: "350px", md: "100%" }}>
         <Tabs variant="soft-rounded">
           <TabList gap={2}>
-            <Tab color="white" _selected={{ bg: "blue.500" }}>
+            <Tab minWidth="120px" color="white" _selected={{ bg: "blue.500" }}>
               Vídeos
             </Tab>
-            <Tab color="white" _selected={{ bg: "blue.500" }}>
+            <Tab minWidth="120px" color="white" _selected={{ bg: "blue.500" }}>
+              Favoritos
+            </Tab>
+            <Tab minWidth="120px" color="white" _selected={{ bg: "blue.500" }}>
               Sobre
             </Tab>
           </TabList>
@@ -101,6 +107,22 @@ export function Profile() {
                     description={episode.description}
                     imageUrl={episode.imageUrl}
                     createdAt={episode.createdAt}
+                  />
+                ))}
+              </Grid>
+            </TabPanel>
+            <TabPanel paddingX={0}>
+              <Grid
+                gap={4}
+                gridTemplateColumns="repeat(auto-fit, minmax(240px, 1fr))"
+              >
+                {favEpisodes?.map((episode, idx) => (
+                  <Episode
+                    key={idx}
+                    id={episode.id}
+                    title={episode.title}
+                    image={episode.image}
+                    favorite={true}
                   />
                 ))}
               </Grid>
