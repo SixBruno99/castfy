@@ -36,4 +36,26 @@ export const PodcastUploadRepository = {
       console.log(`unable to podcast upload due to error: ${error}`);
     }
   },
+
+  podcastUpdate: async (
+    podcastId: string,
+    name?: string,
+    description?: string
+  ) => {
+    try {
+      const payload = {
+        ...(name && { name }), // Adiciona name somente se for fornecido
+        ...(description && { description }), // Adiciona description somente se for fornecido
+      };
+
+      const response = await http.patch<IPodcastUpload>(
+        `/${podcastId}`,
+        payload
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(`unable to update podcast due to error: ${error}`);
+    }
+  },
 };
