@@ -5,6 +5,11 @@ import { useAuth } from "./auth";
 
 interface IValues {
   createPodcast: (payload: ICreatePodcast) => Promise<boolean>;
+  podcastUpdate: (
+    podcastId: string,
+    name?: string,
+    description?: string
+  ) => Promise<boolean>;
 }
 
 export const CreatePodcastContext = createContext<IValues>({} as IValues);
@@ -47,10 +52,32 @@ export function CreatePodcastProvider({ children }: IProps) {
     return false;
   };
 
+  const podcastUpdate = async (
+    podcastId: string,
+    name?: string,
+    description?: string
+  ) => {
+    try {
+      const data = await CreatePodcastRepository.podcastUpdate(
+        podcastId,
+        name,
+        description
+      );
+
+      if (!data) return false;
+
+      return true;
+    } catch (error) {
+      console.error(`unable to upload audio due to error: ${error}`);
+    }
+    return false;
+  };
+
   return (
     <CreatePodcastContext.Provider
       value={{
         createPodcast,
+        podcastUpdate
       }}
     >
       {children}

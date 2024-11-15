@@ -20,4 +20,27 @@ export const CreatePodcastRepository = {
       console.log(`unable to podcast upload due to error: ${error}`);
     }
   },
+
+  podcastUpdate: async (
+    episodeId: string,
+    name?: string,
+    description?: string
+  ) => {
+    try {
+      const payload = {
+        episodeId,
+        ...(name && { name }), // Adiciona name somente se for fornecido
+        ...(description && { description }), // Adiciona description somente se for fornecido
+      };
+
+      const response = await http.patch<ICreatePodcast>(
+        `/${episodeId}`,
+        payload
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(`unable to update podcast due to error: ${error}`);
+    }
+  },
 };

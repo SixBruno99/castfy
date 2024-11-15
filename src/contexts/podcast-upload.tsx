@@ -7,8 +7,8 @@ interface IValues {
     payload: IAudioUpload & Omit<IPodcastUpload, "fileId">
   ) => Promise<boolean>;
   podcastUpload: (payload: IPodcastUpload) => Promise<boolean>;
-  podcastUpdate: (
-    podcastId: string,
+  episodeUpdate: (
+    episodeId: string,
     name?: string,
     description?: string
   ) => Promise<boolean>;
@@ -69,15 +69,15 @@ export function PodcastProvider({ children }: IProps) {
     return false;
   };
 
-  const podcastUpdate = async (
-    podcastId: string,
-    name?: string,
+  const episodeUpdate = async (
+    episodeId: string,
+    title?: string,
     description?: string
   ) => {
     try {
-      const data = await PodcastUploadRepository.podcastUpdate(
-        podcastId,
-        name,
+      const data = await PodcastUploadRepository.episodeUpdate(
+        episodeId,
+        title,
         description
       );
 
@@ -95,7 +95,7 @@ export function PodcastProvider({ children }: IProps) {
       value={{
         audioUpload,
         podcastUpload,
-        podcastUpdate,
+        episodeUpdate,
       }}
     >
       {children}
