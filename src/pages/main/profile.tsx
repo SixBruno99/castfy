@@ -15,14 +15,14 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
-import { useUserEpisodes } from "../../contexts/user-episodes";
 import { useEpisode } from "../../contexts/episode";
+import { useUserEpisodes } from "../../contexts/user-episodes";
 import { UserEpisode } from "../../core/components/user-episodes";
+import { FavEpisodes } from "../../core/components/favEpisodes";
 import { getCreatePodcastDate } from "../../utils/formattedDate";
 import { FaEdit } from "react-icons/fa";
 import { PiSignOutBold } from "react-icons/pi";
 import defaultImage from "../../assets/images/default-image.jpg";
-import { Episode } from "../../core/components/episode";
 
 export function Profile() {
   const { signOut } = useAuth();
@@ -112,20 +112,7 @@ export function Profile() {
               </Grid>
             </TabPanel>
             <TabPanel paddingX={0}>
-              <Grid
-                gap={4}
-                gridTemplateColumns="repeat(auto-fit, minmax(240px, 1fr))"
-              >
-                {favEpisodes?.map((episode, idx) => (
-                  <Episode
-                    key={idx}
-                    id={episode.id}
-                    title={episode.title}
-                    image={episode.image}
-                    favorite={true}
-                  />
-                ))}
-              </Grid>
+              <FavEpisodes favEpisodes={favEpisodes} />
             </TabPanel>
             <TabPanel paddingX={0}>
               <Flex
