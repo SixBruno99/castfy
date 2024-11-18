@@ -7,7 +7,6 @@ import {
   MdHomeFilled,
   MdAccountCircle,
   MdSearch,
-  MdOutlineFolder,
   MdOutlineCreateNewFolder,
 } from "react-icons/md";
 
@@ -29,11 +28,6 @@ export function NavBar(props: NavBarProps) {
   const handleSearchClick = () => {
     onNavigate("Search");
     navigate(`/search`);
-  };
-
-  const handleLibraryClick = () => {
-    onNavigate("Library");
-    navigate(`/library`);
   };
 
   const handleProfileClick = () => {
@@ -101,24 +95,6 @@ export function NavBar(props: NavBarProps) {
           </Button>
           <Text color="white" fontWeight="semibold" fontSize="12px">
             Pesquisar
-          </Text>
-        </Flex>
-
-        <Flex flexDirection="column" alignItems="center" gap={2}>
-          <Button
-            borderRadius="24px"
-            colorScheme="gray"
-            bg={selectedPage === "Library" ? "#ffffff" : "transparent"}
-            color={selectedPage === "Library" ? "black" : "white"}
-            onClick={handleLibraryClick}
-          >
-            <MdOutlineFolder
-              size="24px"
-              color={selectedPage === "Library" ? "black" : "white"}
-            />
-          </Button>
-          <Text color="white" fontWeight="semibold" fontSize="12px">
-            Biblioteca
           </Text>
         </Flex>
 

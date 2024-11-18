@@ -1,10 +1,5 @@
 import { VStack, Button, Icon, Flex } from "@chakra-ui/react";
-import {
-  MdHomeFilled,
-  MdAccountCircle,
-  MdSearch,
-  MdOutlineFolder,
-} from "react-icons/md";
+import { MdHomeFilled, MdAccountCircle, MdSearch } from "react-icons/md";
 import { FiUploadCloud } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
@@ -25,11 +20,6 @@ export function Footer(props: NavBarProps) {
   const handleSearchClick = () => {
     onNavigate("Search");
     navigate(`/search`);
-  };
-
-  const handleLibraryClick = () => {
-    onNavigate("Library");
-    navigate(`/library`);
   };
 
   const handleUploadClick = () => {
@@ -83,24 +73,6 @@ export function Footer(props: NavBarProps) {
             h={6}
             w={6}
             color={selectedPage === "Search" ? "black" : "white"}
-          />
-        </Button>
-      </VStack>
-
-      <VStack>
-        <Button
-          borderRadius={"24px"}
-          colorScheme="gray"
-          height={"40px"}
-          bg={selectedPage === "Library" ? "#ffffff" : "transparent"}
-          color={selectedPage === "Library" ? "black" : "white"}
-          onClick={handleLibraryClick}
-        >
-          <Icon
-            as={MdOutlineFolder}
-            h={6}
-            w={6}
-            color={selectedPage === "Library" ? "black" : "white"}
           />
         </Button>
       </VStack>
