@@ -38,15 +38,13 @@ export function Upload() {
   const [titleError, setTitleError] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
-  const [category, setCategory] = useState<string | null>(null);
+
+  const [categoryValue, setCategoryValue] = useState<string>("");
+  const [categoryLabel, setCategoryLabel] = useState<string>("Selecione uma categoria");
   const [categoryError, setCategoryError] = useState<string | null>(null);
 
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    "Selecione uma categoria"
-  );
-
-  const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
+  const handleSelectCategory = (category: string) => {
+    setCategoryLabel(category);
   };
 
   const handleAudioFileChange = (
@@ -89,7 +87,7 @@ export function Upload() {
   };
 
   const sendPodcast = async () => {
-    if (!title && !description && !category) {
+    if (!title && !description && !categoryLabel) {
       setTitleError("Insira um título");
       setDescriptionError("Insira uma descrição");
       setCategoryError("Selecione uma categoria");
@@ -110,7 +108,7 @@ export function Upload() {
       return;
     }
 
-    if (!category) {
+    if (!categoryLabel) {
       setTitleError("");
       setDescriptionError("");
       setCategoryError("Selecione uma categoria");
@@ -147,7 +145,7 @@ export function Upload() {
       audio: audioFile,
       title,
       description,
-      category: [category],
+      category: [categoryValue],
       image: imageFile,
     });
 
@@ -235,7 +233,7 @@ export function Upload() {
               color="white"
               colorScheme="blue"
             >
-              {selectedCategory}
+              {categoryLabel}
             </MenuButton>
             <MenuList maxHeight="200px" overflowY="auto">
               {CATEGORIES.map((item, idx) => (
@@ -244,8 +242,8 @@ export function Upload() {
                   value={item.value}
                   onClick={(e) => {
                     const target = e.target as HTMLButtonElement;
-                    handleCategorySelect(item.label);
-                    setCategory(target.value);
+                    handleSelectCategory(item.label);
+                    setCategoryValue(target.value);
                   }}
                 >
                   {item.label}

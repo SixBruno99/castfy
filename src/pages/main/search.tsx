@@ -1,15 +1,38 @@
-import { Box, Input, Text, Grid } from "@chakra-ui/react";
+import {
+  Box,
+  Input,
+  Text,
+  Grid,
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
+  Flex,
+} from "@chakra-ui/react";
+import { useState } from "react";
 import { Episode } from "../../core/components/episode";
 import { useEpisode } from "../../contexts/episode";
-import { useState } from "react";
+import { CATEGORIES } from "../../mocks/categories";
+import { FaChevronDown } from "react-icons/fa";
 
 export function Search() {
   const { episodes } = useEpisode();
   const [search, setSearch] = useState("");
+  const [categoryValue, setCategoryValue] = useState<string>();
+  const [categoryLabel, setCategoryLabel] = useState<string>(
+    "Selecione uma categoria"
+  );
+
+  console.log("search category", categoryValue);
 
   const filteredEpisodes = episodes?.filter((episode) =>
     episode.title.toLowerCase().includes(search.toLowerCase())
   );
+
+  const handleSelectCategory = (category: string) => {
+    setCategoryLabel(category);
+  };
 
   return (
     <Box
@@ -20,14 +43,50 @@ export function Search() {
       padding={{ base: "12px", md: "24px" }}
       minHeight={{ base: "calc(100vh - 64px)", md: "100vh" }}
     >
-      <Input
-        width={{ base: "232px", md: "400px" }}
-        color="white"
-        value={search}
-        position="fixed"
-        placeholder="Pesquisar..."
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <Flex
+        gap={4}
+        width={{ base: "264px", md: "700px" }}
+        flexDirection={{ base: "column", md: "row" }}
+      >
+        <Input
+          width="100%"
+          maxWidth="c"
+          color="white"
+          value={search}
+          placeholder="Pesquisar..."
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <Menu>
+          <MenuButton
+            as={Button}
+            width="100%"
+            maxWidth="350px"
+            rightIcon={<FaChevronDown />}
+            backgroundColor="#004aad"
+            color="white"
+            colorScheme="blue"
+          >
+            {categoryLabel}
+          </MenuButton>
+          <MenuList maxHeight="200px" overflowY="auto">
+            {CATEGORIES.map((item, idx) => (
+              <MenuItem
+                key={idx}
+                value={item.value}
+                onClick={(e) => {
+                  const target = e.target as HTMLButtonElement;
+                  handleSelectCategory(item.label);
+                  setCategoryValue(target.value);
+                }}
+              >
+                {item.label}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+      </Flex>
+
       <Box
         height="calc(100vh - 64px)"
         overflow="auto"
