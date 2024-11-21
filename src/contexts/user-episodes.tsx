@@ -13,7 +13,7 @@ import { useToast } from "@chakra-ui/react";
 interface IValues {
   userData: IUserData | undefined;
   userEpisodes: IUserEpisodes[] | undefined;
-  getAllUserDataandEpisodes: () => Promise<boolean>;
+  getAllUserDataAndEpisodes: () => Promise<boolean>;
   removeEpisode: (id: string) => Promise<boolean>;
 }
 
@@ -30,7 +30,7 @@ export function UserEpisodesProvider({ children }: IProps) {
   >();
   const toast = useToast();
 
-  const getAllUserDataandEpisodes = useCallback(async () => {
+  const getAllUserDataAndEpisodes = useCallback(async () => {
     try {
       const data = await UserEpisodesRepository.findAll();
 
@@ -48,9 +48,9 @@ export function UserEpisodesProvider({ children }: IProps) {
 
   const removeEpisode = async (id: string) => {
     try {
-      const data = await UserEpisodesRepository.removeEpisode(id);
+      const success  = await UserEpisodesRepository.removeEpisode(id);
 
-      if (!data) {
+      if (!success) {
         toast({
           title: "Erro ao tentar apagar epsódio",
           status: "warning",
@@ -66,7 +66,7 @@ export function UserEpisodesProvider({ children }: IProps) {
         prevEpisodes?.filter((episode) => episode.id !== id)
       );
 
-      console.log("removeEpisode", data);
+      console.log("removeEpisode", success);
 
       toast({
         title: "Episódio deletado permanentemente",
@@ -84,7 +84,7 @@ export function UserEpisodesProvider({ children }: IProps) {
   };
 
   useEffect(() => {
-    getAllUserDataandEpisodes();
+    getAllUserDataAndEpisodes();
   }, []);
 
   return (
@@ -92,7 +92,7 @@ export function UserEpisodesProvider({ children }: IProps) {
       value={{
         userData,
         userEpisodes,
-        getAllUserDataandEpisodes,
+        getAllUserDataAndEpisodes,
         removeEpisode,
       }}
     >

@@ -17,9 +17,12 @@ export const UserEpisodesRepository = {
     try {
       const response = await http.delete<IEpisode>(`/episode/${id}`);
 
-      return response.data;
+      if (response.status === 204) return true;
+
+      return false;
     } catch (error) {
       console.log(`unable to remove episode due to error: ${error}`);
+      return false;
     }
   },
 };
