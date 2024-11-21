@@ -24,7 +24,6 @@ export function Upload() {
   const navigate = useNavigate();
 
   const { audioUpload } = usePodcast();
-
   const audioInputRefer = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,7 +39,9 @@ export function Upload() {
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
 
   const [categoryValue, setCategoryValue] = useState<string>("");
-  const [categoryLabel, setCategoryLabel] = useState<string>("Selecione uma categoria");
+  const [categoryLabel, setCategoryLabel] = useState<string>(
+    "Selecione uma categoria"
+  );
   const [categoryError, setCategoryError] = useState<string | null>(null);
 
   const handleSelectCategory = (category: string) => {
@@ -145,7 +146,7 @@ export function Upload() {
       audio: audioFile,
       title,
       description,
-      category: [categoryValue],
+      categories: [categoryValue],
       image: imageFile,
     });
 

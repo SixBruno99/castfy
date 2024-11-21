@@ -2,7 +2,7 @@ export interface IPodcastUpload {
   fileId: string;
   title: string;
   description: string;
-  category: string[];
+  categories: string[];
   image: File;
 }
 
