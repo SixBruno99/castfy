@@ -1,4 +1,5 @@
 import { http } from "../services/http";
+import type { IEpisodes } from "../types/episode";
 
 export const SearchEpisodesRepository = {
   findByName: async (search: string) => {
@@ -11,9 +12,18 @@ export const SearchEpisodesRepository = {
     }
   },
 
-  findByCategory: async (search: string, categories: string) => {
+  findByCategory: async (search: string, categories: string[]) => {
     try {
-      const response = await http.get(`/search/${search}?categories=${categories}`);
+      let request = `episode/search?search=${search}`;
+      
+
+       for (const element of categories) {
+        if(element !== null && element !== '')
+          request = request.concat(`&categories=${element}`
+        )
+      }
+
+      const response = await http.get<IEpisodes[]>(request);
 
       return response.data;
     } catch (error) {

@@ -12,10 +12,15 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure
+  useDisclosure,
+  Menu,
+  MenuButton,
+  IconButton,
+  MenuList,
+  MenuItem
 } from "@chakra-ui/react";
 import { getCreateEpisodeData } from "../../utils/formattedDate";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaEllipsisV, FaPencilAlt } from "react-icons/fa";
 import defaultImage from "../../assets/images/default-image.jpg";
 import { useUserEpisodes } from "../../contexts/user-episodes";
 
@@ -75,9 +80,22 @@ export function UserEpisode(episode: IProps) {
           >
             {episode.title}
           </Text>
-          <Box>
-            <FaTrashAlt size="14px" onClick={onOpen} />
-          </Box>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label='Options'
+              icon={<FaEllipsisV color="#fff"/>}
+              variant='outline'
+            />
+            <MenuList backgroundColor="#181818">
+              <MenuItem alignItems="center" _hover={{opacity: 0.7}}  backgroundColor="#181818" color="#fff" onClick={onOpen} icon={<FaTrashAlt size={16}/>} >
+                Excluir
+              </MenuItem>
+              <MenuItem backgroundColor="#181818" _hover={{opacity: 0.7}} icon={<FaPencilAlt />} onClick={() => navigate(`/episode/edit/${episode.id}`)}>
+                Editar
+              </MenuItem>
+            </MenuList>
+          </Menu>
 
           <Modal size="xs" isCentered onClose={onClose} isOpen={isOpen}>
             <ModalOverlay />

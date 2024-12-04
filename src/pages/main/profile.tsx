@@ -82,7 +82,7 @@ export function Profile() {
         <Tabs variant="soft-rounded">
           <TabList gap={2}>
             <Tab minWidth="120px" color="white" _selected={{ bg: "blue.500" }}>
-              Vídeos
+              Episódios
             </Tab>
             <Tab minWidth="120px" color="white" _selected={{ bg: "blue.500" }}>
               Favoritos

@@ -15,6 +15,7 @@ import { Profile } from "../../pages/main/profile";
 import { Listener } from "../../core/components/listener";
 import { CreatePodcast } from "../../pages/main/create-podcast";
 import { UserEpisodesProvider } from "../../contexts/user-episodes";
+import { EditEpisode } from "../../pages/main/edit-episode";
 
 export function AuthenticatedRouter() {
   return (
@@ -31,6 +32,7 @@ export function AuthenticatedRouter() {
                 <Route path="/create" element={<CreatePodcast />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/episode/:id" element={<Listener />} />
+                <Route path="/episode/edit/:id" element={<EditEpisode />} />
               </Route>
             </Routes>
           </UserEpisodesProvider>

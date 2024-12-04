@@ -40,17 +40,18 @@ export const PodcastUploadRepository = {
   episodeUpdate: async (
     episodeId: string,
     title?: string,
-    description?: string
+    description?: string,
+    categories?: string[]
   ) => {
     try {
       const payload = {
-        episodeId,
         ...(title && { title }), // Adiciona name somente se for fornecido
         ...(description && { description }), // Adiciona description somente se for fornecido
+        ...(categories && { categories }), // Adiciona description somente se for fornecido
       };
 
       const response = await http.patch<IPodcastUpload>(
-        `/${episodeId}`,
+        `/episode/${episodeId}`,
         payload
       );
 

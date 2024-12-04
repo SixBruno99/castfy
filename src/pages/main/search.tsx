@@ -9,30 +9,55 @@ import {
   MenuList,
   MenuItem,
   Flex,
+  CircularProgress,
+  Center,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Episode } from "../../core/components/episode";
-import { useEpisode } from "../../contexts/episode";
 import { CATEGORIES } from "../../mocks/categories";
 import { FaChevronDown } from "react-icons/fa";
+import { useDebounce } from "../../utils/debounce";
+import { SearchEpisodesRepository } from "../../repositories/search";
+import type { IEpisodes } from "../../types/episode";
 
 export function Search() {
-  const { episodes } = useEpisode();
   const [search, setSearch] = useState("");
-  const [categoryValue, setCategoryValue] = useState<string>();
+  const [loading, setLoading] = useState(false)
+
+  const [episodes, setEpisodes] = useState<IEpisodes[]>([]);
+  const [categoryValue, setCategoryValue] = useState<string>("");
   const [categoryLabel, setCategoryLabel] = useState<string>(
     "Selecione uma categoria"
-  );
-
-  console.log("search category", categoryValue);
-
-  const filteredEpisodes = episodes?.filter((episode) =>
-    episode.title.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleSelectCategory = (category: string) => {
     setCategoryLabel(category);
   };
+
+  const handleSearchChange = (e: string) => {
+    setSearch(e)
+  }
+
+  const searchEpisode = useDebounce(async (search: string, categories: string[]) => {
+    try {
+      setLoading(true);
+      const data = await SearchEpisodesRepository.findByCategory(search, categories)
+
+      if (data){
+        setEpisodes(data)
+      }
+    } catch (error){
+      console.error(`unable to remove fovorite due to error: ${error}`);
+    } finally {
+      setLoading(false)
+    }
+    }, 300)
+
+  useEffect(() => {
+    searchEpisode(search, [categoryValue]);
+  }, [search, categoryValue])
+
+  
 
   return (
     <Box
@@ -54,7 +79,7 @@ export function Search() {
           color="white"
           value={search}
           placeholder="Pesquisar..."
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleSearchChange(e.target.value)}
         />
 
         <Menu>
@@ -94,34 +119,37 @@ export function Search() {
         justifyContent="center"
         marginTop="64px"
       >
-        {filteredEpisodes?.length ? (
-          <Grid
-            gap={4}
-            marginY={4}
-            pb={{ base: 0, md: 8 }}
-            templateColumns="repeat(auto-fill, minmax(232px, 1fr))"
-          >
-            {filteredEpisodes?.map((episode, idx) => (
-              <Episode
-                key={idx}
-                id={episode.id}
-                title={episode.title}
-                image={episode.image}
-                showFavorite={false}
-              />
-            ))}
-          </Grid>
-        ) : (
-          <Text
-            marginTop={40}
-            color="white"
-            fontWeight="bold"
-            textAlign="center"
-            fontSize={40}
-          >
-            Opss... Podcast não encontrado
-          </Text>
+        {loading ? <Center height="100%" flex={1}><CircularProgress /></Center>: (
+          episodes?.length > 0 ? (
+            <Grid
+              gap={4}
+              marginY={4}
+              pb={{ base: 0, md: 8 }}
+              templateColumns="repeat(auto-fill, minmax(232px, 1fr))"
+            >
+              {episodes?.map((episode, idx) => (
+                <Episode
+                  key={idx}
+                  id={episode.id}
+                  title={episode.title}
+                  image={episode.image}
+                  showFavorite={false}
+                />
+              ))}
+            </Grid>
+          ) : (
+            <Text
+              marginTop={40}
+              color="white"
+              fontWeight="bold"
+              textAlign="center"
+              fontSize={40}
+            >
+              Opss... Podcast não encontrado
+            </Text>
+          )
         )}
+        
       </Box>
     </Box>
   );

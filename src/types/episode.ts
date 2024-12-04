@@ -26,4 +26,5 @@ export interface IEpisode {
     imageUrl: string;
     description: string;
   };
+  categories?: string[];
 }
