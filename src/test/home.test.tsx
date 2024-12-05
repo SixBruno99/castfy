@@ -28,6 +28,14 @@ describe("Home Component", () => {
       removeFavorite: function (): Promise<boolean> {
         throw new Error("Function not implemented.");
       },
+      search: function(): Promise<void> {
+        throw new Error("Function not implemented.");
+      },
+      loading: false,
+      episodeUpdate: function(): Promise<boolean> {
+        throw new Error("Function not implemented.");
+      }
+       
     };
   };
 
