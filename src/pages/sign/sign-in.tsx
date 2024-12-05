@@ -9,6 +9,7 @@ import {
   Button,
   CircularProgress,
   useToast,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
@@ -144,7 +145,13 @@ export function SignIn() {
             </Button>
           </HStack>
         </VStack>
+        <Box as="footer" width="full" backgroundColor="black" py={4} textAlign="center">
+          <Text color="white" fontSize="sm">
+            Contato: <ChakraLink href="mailto:contato@seusite.com" color="blue.300">castfy@gmail.com</ChakraLink>
+          </Text>
+        </Box>
       </Container>
+      
     </Box>
   );
 }
